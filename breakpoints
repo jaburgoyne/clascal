@@ -1,0 +1,690 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objects = {
+
+/* Begin PBXFileBreakpoint section */
+		8C09F9AA11E2BEC40072EAF1 /* CoordinateSolver.c:940 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8C09F9B511E2C3880072EAF1 /* XCBreakpointCommandAction */,
+				8CE034B011EFF0F00043C696 /* XCBreakpointCommandAction */,
+				8CE034B111EFF0F00043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			condition = 8C09F9AD11E2BEE60072EAF1 /* XCGDBBreakpointCondition */;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 77F95E721130C9180028DAEA /* CoordinateSolver.c */;
+			functionName = "NewSpatialSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 940;
+			location = CLASCAL;
+			modificationTime = 301719547.31043;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C09F9AF11E2BF0A0072EAF1 /* CoordinateSolver.c:957 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8C09F9B611E2C3880072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9B711E2C3880072EAF1 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 77F95E721130C9180028DAEA /* CoordinateSolver.c */;
+			functionName = "NewSpatialSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 957;
+			location = CLASCAL;
+			modificationTime = 301719547.311341;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C09F9BA11E2C4640072EAF1 /* WeightSolver.c:734 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8C09F9BF11E2C4B00072EAF1 /* XCBreakpointCommandAction */,
+				8CE034B211EFF0F00043C696 /* XCBreakpointCommandAction */,
+				8C09F9C011E2C4B00072EAF1 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			condition = 8C09F9C111E2C4B00072EAF1 /* XCGDBBreakpointCondition */;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 8C294E03116DA23500DD90ED /* WeightSolver.c */;
+			functionName = "NewWeightSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 734;
+			location = CLASCAL;
+			modificationTime = 301719547.312256;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C09F9BD11E2C4920072EAF1 /* WeightSolver.c:751 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8C09F9C211E2C4B00072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9C311E2C4B00072EAF1 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 8C294E03116DA23500DD90ED /* WeightSolver.c */;
+			functionName = "NewWeightSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 751;
+			location = CLASCAL;
+			modificationTime = 301719547.313344;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C09F9C711E2C5BB0072EAF1 /* CoordinateSolver.c:812 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE034A911EFF0320043C696 /* XCBreakpointCommandAction */,
+				8C09F9CD11E2C5D90072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9D011E2C6190072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9D111E2C6190072EAF1 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 77F95E721130C9180028DAEA /* CoordinateSolver.c */;
+			functionName = "NewLineSearchSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 812;
+			location = CLASCAL;
+			modificationTime = 301719547.314342;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C544F5711EAF09D00329BD4 /* Solution.c:1290 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 775A90E610DDBC9300F660FB /* Solution.c */;
+			functionName = "NewOptimalSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 1290;
+			location = CLASCAL;
+			modificationTime = 301719547.525334;
+			originalNumberOfMultipleMatches = 1;
+			state = 1;
+		};
+		8C544F6511EAF25E00329BD4 /* CoordinateSolver.c:974 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE034B311EFF0F00043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			condition = 8C544F6911EAF2A500329BD4 /* XCGDBBreakpointCondition */;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 77F95E721130C9180028DAEA /* CoordinateSolver.c */;
+			functionName = "NewSpatialSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 974;
+			location = CLASCAL;
+			modificationTime = 301719547.316359;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C544F6711EAF28700329BD4 /* WeightSolver.c:767 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE034B611EFF1370043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			condition = 8C544F7111EAF2C800329BD4 /* XCGDBBreakpointCondition */;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 8C294E03116DA23500DD90ED /* WeightSolver.c */;
+			functionName = "NewWeightSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 767;
+			location = CLASCAL;
+			modificationTime = 301719547.317122;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8C59710711FBA3A200D95679 /* Solution.c:1283 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8C59710B11FBA3DB00D95679 /* XCBreakpointCommandAction */,
+				8C59710C11FBA3DB00D95679 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 775A90E610DDBC9300F660FB /* Solution.c */;
+			functionName = "NewOptimalSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 1283;
+			location = CLASCAL;
+			modificationTime = 301719547.5733351;
+			originalNumberOfMultipleMatches = 1;
+			state = 1;
+		};
+		8CA8879311D7466200808F5B /* CoordinateSolver.c:866 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8C09F9C611E2C5670072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9C911E2C5D90072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9CA11E2C5D90072EAF1 /* XCBreakpointCommandAction */,
+				8C09F9CB11E2C5D90072EAF1 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 77F95E721130C9180028DAEA /* CoordinateSolver.c */;
+			functionName = "NewLineSearchSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 866;
+			location = CLASCAL;
+			modificationTime = 301719547.306168;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CA8879C11D7473300808F5B /* WeightSolver.c:658 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE034A611EFF0320043C696 /* XCBreakpointCommandAction */,
+				8CE034A711EFF0320043C696 /* XCBreakpointCommandAction */,
+				8CE034A811EFF0320043C696 /* XCBreakpointCommandAction */,
+				8CE034AF11EFF0860043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 8C294E03116DA23500DD90ED /* WeightSolver.c */;
+			functionName = "NewLineSearchSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 658;
+			location = CLASCAL;
+			modificationTime = 301719547.307995;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CA887B311D74C2700808F5B /* CoordinateSolver.c:784 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 77F95E721130C9180028DAEA /* CoordinateSolver.c */;
+			functionName = "NewLineSearchSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 784;
+			location = CLASCAL;
+			modificationTime = 301719547.308778;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CA887B611D74C3300808F5B /* WeightSolver.c:597 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 8C294E03116DA23500DD90ED /* WeightSolver.c */;
+			functionName = "NewLineSearchSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 597;
+			location = CLASCAL;
+			modificationTime = 301719547.309764;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CE034A111EFEF6A0043C696 /* WeightSolver.c:622 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE034AB11EFF0320043C696 /* XCBreakpointCommandAction */,
+				8CE034AC11EFF0320043C696 /* XCBreakpointCommandAction */,
+				8CE034AD11EFF0320043C696 /* XCBreakpointCommandAction */,
+				8CE034AE11EFF0320043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 8C294E03116DA23500DD90ED /* WeightSolver.c */;
+			functionName = "NewLineSearchSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 622;
+			location = CLASCAL;
+			modificationTime = 301719547.317861;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CE0352511F2A0D10043C696 /* Solution.c:1235 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE0352711F2A0EF0043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			condition = 8CE0353F11F2A5700043C696 /* XCGDBBreakpointCondition */;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 775A90E610DDBC9300F660FB /* Solution.c */;
+			functionName = "NewMaximisedSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 1235;
+			location = CLASCAL;
+			modificationTime = 301719547.31869;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CE0352811F2A1510043C696 /* Solution.c:1213 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE0352A11F2A16F0043C696 /* XCBreakpointCommandAction */,
+				8CE0353411F2A1B80043C696 /* XCBreakpointCommandAction */,
+				8CE0352B11F2A16F0043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			condition = 8CE0352C11F2A16F0043C696 /* XCGDBBreakpointCondition */;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 775A90E610DDBC9300F660FB /* Solution.c */;
+			functionName = "NewMaximisedSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 1213;
+			location = CLASCAL;
+			modificationTime = 301719547.319539;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+		8CE0352D11F2A1A70043C696 /* Solution.c:1227 */ = {
+			isa = PBXFileBreakpoint;
+			actions = (
+				8CE0353C11F2A3470043C696 /* XCBreakpointCommandAction */,
+				8C596ED611F8CB5E00D95679 /* XCBreakpointCommandAction */,
+				8CE0353611F2A1B80043C696 /* XCBreakpointCommandAction */,
+				8CE0353D11F2A3470043C696 /* XCBreakpointCommandAction */,
+			);
+			breakpointStyle = 0;
+			continueAfterActions = 0;
+			countType = 0;
+			delayBeforeContinue = 0;
+			fileReference = 775A90E610DDBC9300F660FB /* Solution.c */;
+			functionName = "NewMaximisedSolution()";
+			hitCount = 0;
+			ignoreCount = 0;
+			lineNumber = 1227;
+			location = CLASCAL;
+			modificationTime = 301719547.32056;
+			originalNumberOfMultipleMatches = 1;
+			state = 2;
+		};
+/* End PBXFileBreakpoint section */
+
+/* Begin PBXFileReference section */
+		775A90E610DDBC9300F660FB /* Solution.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Solution.c; sourceTree = "<group>"; };
+		77F95E721130C9180028DAEA /* CoordinateSolver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CoordinateSolver.c; sourceTree = "<group>"; };
+		8C294E03116DA23500DD90ED /* WeightSolver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = WeightSolver.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin XCBreakpointCommandAction section */
+		8C09F9B511E2C3880072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"X step\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8C09F9B611E2C3880072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i + 1";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8C09F9B711E2C3880072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p newSSR";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9BF11E2C4B00072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"W step\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8C09F9C011E2C4B00072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p SSR";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9C211E2C4B00072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i + 1";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8C09F9C311E2C4B00072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p newSSR";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9C611E2C5670072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i + 1";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8C09F9C911E2C5D90072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p stepSizes[4]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9CA11E2C5D90072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p slopes[4]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9CB11E2C5D90072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p errors[4]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9CD11E2C5D90072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p stepSizes[0]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9D011E2C6190072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p slopes[0]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C09F9D111E2C6190072EAF1 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p errors[0]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C596ED611F8CB5E00D95679 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"M step\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8C59710B11FBA3DB00D95679 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8C59710C11FBA3DB00D95679 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p logLikelihoods[i]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034A611EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i + 1";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE034A711EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p stepSizes[4]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034A811EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p slopes[4]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034A911EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p 0";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE034AB11EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p 0";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE034AC11EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p stepSizes[0]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034AD11EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p slopes[0]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034AE11EFF0320043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p errors[0]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034AF11EFF0860043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p errors[4]";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034B011EFF0F00043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034B111EFF0F00043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p SSR";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034B211EFF0F00043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE034B311EFF0F00043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"Hit boundary\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE034B611EFF1370043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"Hit boundary\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE0352711F2A0EF0043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"M-step pseudo-converged.\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE0352A11F2A16F0043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p \"M step\"";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE0352B11F2A16F0043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p SSR";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE0353411F2A1B80043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE0353611F2A1B80043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p i + 1";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+		8CE0353C11F2A3470043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p * Weights(solution->space) @ 8";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 1;
+		};
+		8CE0353D11F2A3470043C696 /* XCBreakpointCommandAction */ = {
+			isa = XCBreakpointCommandAction;
+			command = "p newSSR";
+			fallbackIsa = XCBreakpointAction;
+			logCommand = 0;
+			useDebuggerSideImplementation = 0;
+		};
+/* End XCBreakpointCommandAction section */
+
+/* Begin XCBreakpointsBucket section */
+		8CD1A92011FBF878006E46D4 /* XCBreakpointsBucket */ = {
+			isa = XCBreakpointsBucket;
+			name = breakpoints;
+			objects = (
+				8CA8879311D7466200808F5B /* CoordinateSolver.c:866 */,
+				8CA8879C11D7473300808F5B /* WeightSolver.c:658 */,
+				8CA887B311D74C2700808F5B /* CoordinateSolver.c:784 */,
+				8CA887B611D74C3300808F5B /* WeightSolver.c:597 */,
+				8C09F9AA11E2BEC40072EAF1 /* CoordinateSolver.c:940 */,
+				8C09F9AF11E2BF0A0072EAF1 /* CoordinateSolver.c:957 */,
+				8C09F9BA11E2C4640072EAF1 /* WeightSolver.c:734 */,
+				8C09F9BD11E2C4920072EAF1 /* WeightSolver.c:751 */,
+				8C09F9C711E2C5BB0072EAF1 /* CoordinateSolver.c:812 */,
+				8C544F5711EAF09D00329BD4 /* Solution.c:1290 */,
+				8C544F6511EAF25E00329BD4 /* CoordinateSolver.c:974 */,
+				8C544F6711EAF28700329BD4 /* WeightSolver.c:767 */,
+				8CE034A111EFEF6A0043C696 /* WeightSolver.c:622 */,
+				8CE0352511F2A0D10043C696 /* Solution.c:1235 */,
+				8CE0352811F2A1510043C696 /* Solution.c:1213 */,
+				8CE0352D11F2A1A70043C696 /* Solution.c:1227 */,
+				8C59710711FBA3A200D95679 /* Solution.c:1283 */,
+			);
+		};
+/* End XCBreakpointsBucket section */
+
+/* Begin XCGDBBreakpointCondition section */
+		8C09F9AD11E2BEE60072EAF1 /* XCGDBBreakpointCondition */ = {
+			isa = XCGDBBreakpointCondition;
+			conditionString = "iccount ==0";
+		};
+		8C09F9C111E2C4B00072EAF1 /* XCGDBBreakpointCondition */ = {
+			isa = XCGDBBreakpointCondition;
+			conditionString = "iccount == 0";
+		};
+		8C544F6911EAF2A500329BD4 /* XCGDBBreakpointCondition */ = {
+			isa = XCGDBBreakpointCondition;
+			conditionString = isAtBound;
+		};
+		8C544F7111EAF2C800329BD4 /* XCGDBBreakpointCondition */ = {
+			isa = XCGDBBreakpointCondition;
+			conditionString = isAtBound;
+		};
+		8CE0352C11F2A16F0043C696 /* XCGDBBreakpointCondition */ = {
+			isa = XCGDBBreakpointCondition;
+			conditionString = "i == 0";
+		};
+		8CE0353F11F2A5700043C696 /* XCGDBBreakpointCondition */ = {
+			isa = XCGDBBreakpointCondition;
+			conditionString = "relativeImprovement <= 0.0 && relativeImprovement > parameters->MImprovementFactor";
+		};
+/* End XCGDBBreakpointCondition section */
+	};
+	rootObject = 8CD1A92011FBF878006E46D4 /* XCBreakpointsBucket */;
+}
