@@ -1,237 +1,192 @@
 CLASCAL(1)
-===========
+==========
 :doctype: manpage
+
 
 NAME
 ----
 clascal - fits CLASCAL models for multidimensional scaling
 
+
 SYNOPSIS
 --------
-*clascal* 
-[*-cksS*] 
-[*-C* 'real'] 
-[*-e* 'real'] 
-[*-E* 'uint'] 
-[*-g* 'uint'] 
-[*-j* 'real']
-[*-l* 'real']
-[*-L* 'uint']
-[*-m* 'real']
-[*-M* 'uint']
-[*-n* 'real']
-[*-N* 'real']
-[*-o* 'dir']
-[*-p* 'real']
-[*-P* 'real']
-[*-r* 'uint']
-[*-R* 'uint']
-[*-t* 'uint']
-[*-T* 'uint']
-[*-w* 'real']
-[*-W* 'uint']
-[*-x* 'real']
-[*-X* 'uint']
-[*-z* 'real']
+*clascal*
+ [*-cksS*] 
+ [*-g* 'uint'] 
+ [*-o* 'dir']
+ [*-r* 'uint']
+ [*-R* 'uint']
+ [*-t* 'uint']
+ [*-T* 'uint']
 'file'...
 
-.Sh DESCRIPTION          \" Section Header - required - don't modify
-Given the results of a dissimilarity experiment in each
-.Ar file ,
-.Nm
-fits and saves CLASCAL models. 
-.Pp
-There are options to control output, model specification, initalisation, and
-the optimisation parameters. Most users should be able to leave all optimisation
-parameters at their default values.
-.Ss Output
-.Bl -tag
-.It Fl o Ar dir
-Save the output files to
-.Ar dir .
-Defaults to the current working directory.
-.El
-.Ss Model specification
-.Bl -tag
-.It Fl r Ar uint
-Fit a model with
-.Ar uint
-dimensions.
-.It Fl R Ar uint
-Fit all models with numbers of dimensions between that set with
-.Fl r
-and
-.Ar uint
-inclusive. Defaults to the value of 
-.Fl r
-if omitted.
-.It Fl s
-Include specificities in the model. Unless
-.Fl S
-is set, classes will share the specificity value for each stimulus and
-learn weights for the specificities as a whole. For details of the
-model, see J. Douglas Carroll and Suzanne Winsberg, `Fitting an
-Extended INDSCAL Model to Three-way Proximity Data',
-.Ar Journal of Classification
-12, no. 1 (1995), pp. 57-71.
-.It Fl S
-Fit specificities separately for each class. Implies
-.Fl s .
+There are futher options available for tuning the optimisation
+routine. Most users can ignore them, but see below for details.
+
+DESCRIPTION
+-----------
+Given the results of a dissimilarity experiment in each 'file',
+*clascal* fits and saves CLASCAL models.
+
+There are options to control output, model specification,
+initalisation, and the optimisation parameters. Most users should be
+able to leave all optimisation parameters at their default values.
+
+
+Output
+~~~~~~
+*-o* 'dir':: Save the output files to 'dir'.  Defaults to the current
+working directory.
+
+
+Model specification
+~~~~~~~~~~~~~~~~~~~
+*-r* 'uint':: Fit a model with 'uint' dimensions.
+
+*-R* 'uint':: Fit all models with numbers of dimensions between that
+set with *-r* and 'uint' inclusive. Defaults to the value of *-r* if
+omitted.
+
+*-s*:: Include specificities in the model. Unless *-S* is set, classes
+will share the specificity value for each stimulus and learn weights
+for the specificities as a whole. For details of the model, see
+J.{nbsp}Douglas Carroll and Suzanne Winsberg, `Fitting an Extended INDSCAL
+Model to Three-way Proximity Data', 'Journal of Classification' 12,
+no. 1 (1995), pp. 57-71.
+
+*-S*:: Fit specificities separately for each class. Implies *-s* .
 Details of the model are also in Carroll and Winsberg 1995.
-.It Fl t Ar uint
-Fit a model with
-.Ar uint
-classes. If this option is either set to 0 or left unspecified, each subject 
-will be assigned its own class.
-.It Fl T Ar uint 
-Fit all models with numbers of classes between that set with
-.Fl t 
-and
-.Ar uint
-inclusive. Defaults to the value of 
-.Fl t
-if omitted.
-.El
-.Ss Initialisation
-.Bl -tag
-.It Fl c
-Use classical multi-dimensional scaling to initialise the coordinates
-(Torgerson's algorithm). In the absence of this option, the coordinates
-are initialised at random.
-.It Fl g Ar uint
-Use
-.Ar uint
-as to seed the random number generator for
-initialisations. Meaningless if both the
-.Fl c
-and
-.Fl k
-options are set.
-.It Fl k
-Use k-means clustering to assign subjects to classes initially. In the
-absence of this option, subjects are initally assigned to classes at random.
-.El
-.Ss Optimisation parameters
-.Bl -tag
-.It Fl C Ar real
-Use
-.Ar real
-as the inverse of the worst allowable condition number when solving the
-least-squares problem (for computing the search direction).
-.It Fl e Ar real
-Use
-.Ar real
-as the amount of improvement in log-likelihood necessary for convergence in the
-EM algorithm overall.
-.It Fl E Ar uint
-Use no more than
-.Ar uint
-iterations of the EM algorithm to fit the model overall.
-.It Fl j Ar real
-Freeze constrained parameters during optimisation when they are within
-.Ar real
-of the boundary.
-.It Fl l Ar real
-Use
-.Ar real
-as the convergence criterion for line searches.
-.It Fl L Ar uint
-Use no more than
-.Ar uint
-iterations for each line search.
-.It Fl m Ar real
-Use
-.Ar real
-as the factor of improvement necessary for overall convergence during the
-M-step.
-.It Fl M Ar uint
-Use no more than
-.Ar uint
-iterations within each M-step.
-.It Fl n Ar real
-Prevent weights from falling below
-.Ar real .
-.It Fl N Ar real
-Prevent specificities from falling below
-.Ar real .
-.It Fl p Ar real
-Decrease the step size by a factor of
-.Ar real
-for each decrease during line searches.
-.It Fl P Ar real
-Increase the step size by a factor of
-.Ar real
-for each increase during line searches.
-.It Fl w Ar real
-Use
-.Ar real
-as the convergence criterion for fitting the weights.
-.It Fl W Ar uint
-Use no more than
-.Ar uint
-iterations for each attempt (within an M-step) to fit the
+
+*-t* 'uint':: Fit a model with 'uint' classes. If this option is
+either set to 0 or left unspecified, each subject will be assigned its
+own class.
+
+*-T* 'uint ':: Fit all models with numbers of classes between that set
+with *-t* and 'uint' inclusive. Defaults to the value of *-t* if
+omitted.
+
+Initialisation
+~~~~~~~~~~~~~~
+*-c*:: Use classical multi-dimensional scaling to initialise the
+coordinates (Torgerson's algorithm). In the absence of this option,
+the coordinates are initialised at random.
+
+*-g* 'uint':: Use 'uint' as to seed the random number generator for
+initialisations. Meaningless if both the *-c* and *-k* options are
+set.
+
+*-k*:: Use k-means clustering to assign subjects to classes
+initially. In the absence of this option, subjects are initally
+assigned to classes at random.
+
+Optimisation parameters
+~~~~~~~~~~~~~~~~~~~~~~~
+*-C* 'real':: Use 'real' as the inverse of the worst allowable
+condition number when solving the least-squares problem (for computing
+the search direction).
+
+*-e* 'real':: Use 'real' as the amount of improvement in
+log-likelihood necessary for convergence in the EM algorithm overall.
+
+*-E* 'uint':: Use no more than 'uint' iterations of the EM algorithm
+to fit the model overall.
+
+*-j* 'real':: Freeze constrained parameters during optimisation when
+they are within 'real' of the boundary.
+
+*-l* 'real':: Use 'real' as the convergence criterion for line
+searches.
+
+*-L* 'uint':: Use no more than 'uint' iterations for each line search.
+
+*-m* 'real':: Use 'real' as the factor of improvement necessary for
+overall convergence during the M-step.
+
+*-M* 'uint':: Use no more than 'uint' iterations within each M-step.
+
+*-n* 'real':: Prevent weights from falling below 'real'.
+
+*-N* 'real':: Prevent specificities from falling below 'real'.
+
+*-p* 'real':: Decrease the step size by a factor of 'real' for each
+decrease during line searches.
+
+*-P* 'real':: Increase the step size by a factor of 'real' for each
+increase during line searches.
+
+*-w* 'real':: Use 'real' as the convergence criterion for fitting the
 weights.
-.It Fl x Ar real
-Use
-.Ar real
-as the convergence criterion for fitting the coordinates.
-.It Fl X Ar uint
-Use no more than
-.Ar uint
-iterations for each attempt (within an M-step) to fit the
+
+*-W* 'uint':: Use no more than 'uint' iterations for each attempt
+(within an M-step) to fit the weights.
+
+*-x* 'real':: Use 'real' as the convergence criterion for fitting the
 coordinates.
-.It Fl z Ar real
-Use
-.Ar real
-as the initial step size for line searches.
-.El                      \" Ends the list
-.Sh FILES                \" File used or created by the topic of the man page
-Input files to 
-.Nm 
-are in Javascript Object Notation (JSON). Each file should contain a single
-top-level object with the following fields:
-.Bl -tag
-.It Description
-A string describing the data set and any information necessary for working with
-it.
-.It StimulusNames
-An array of strings, each of which is the name of one of the stimuli used for
-the experiment.
-.It SubjectData
-An object the keys of which are unique identifiers for each subject in the
-experiment and the values of which are arrays corresponding to the dissimilarity
-data for each subject. The arrays may either be complete (square) dissimilarity
-matrices or just the lower triangle. In either case, the rows must be ordered
-in the same way as the array of stimulus names.
-.El
-.Pp
+
+*-X* 'uint':: Use no more than 'uint' iterations for each attempt
+(within an M-step) to fit the coordinates.
+
+*-z* 'real':: Use 'real' as the initial step size for line searches.
+
+
+FILES
+-----
+Input files to *clascal* are in Javascript Object Notation
+(JSON). Each file should contain a single top-level object with the
+following fields:
+
+'Description':: A string describing the data set and any information
+necessary for working with it.
+
+'StimulusNames':: An array of strings, each of which is the name of
+one of the stimuli used for the experiment.
+
+'SubjectData':: An object the keys of which are unique identifiers for
+each subject in the experiment and the values of which are arrays
+corresponding to the dissimilarity data for each subject. The arrays
+may either be complete (square) dissimilarity matrices or just the
+lower triangle. In either case, the rows must be ordered in the same
+way as the array of stimulus names.
+
 Output filenames are prefixed with `T' followed by the number of
 classes and with `R' followed by the number of dimensions, each prefix
 separated by hyphens. For example, the model with 3 classes and 2
 dimensions for experimental data located in `foo.dat' will be saved as
-`T3-R2-foo.dat'. Where specificities are included in the model, the relevant 
-command-line flag is added as yet another prefix, e.g., `T3-R2-s-foo.dat' or
-`T3-R2-SS-foo.dat'.
-.Sh SEE ALSO 
-.Xr clascalmc 1
-.\" .Sh BUGS              \" Document known, unremedied bugs 
-.Sh STANDARDS
-.Nm
-will only work properly if floating-point zero is represented with all
-bits zero and where non-signalling NaNs are available.
-.St -ieee754
-(the default on most current hardware) meets both of these conditions.
-.Sh HISTORY
-Suzanne Winsberg wrote and maintained the original
-.Nm
-program in FORTRAN 77 at the the Institut de recherche et coordination
+`T3-R2-foo.dat'. Where specificities are included in the model, the
+relevant command-line flag is added as yet another prefix, e.g.,
+`T3-R2-s-foo.dat' or `T3-R2-SS-foo.dat'.
+
+
+SEE ALSO 
+--------
+clascalmc(1)
+
+
+// BUGS
+// ----
+
+
+STANDARDS 
+--------- 
+*clascal* will only work properly if floating-point zero is
+represented with all bits zero and where non-signalling NaNs are
+available. IEEE 754 (the default on most current hardware) meets both
+of these conditions.
+
+
+HISTORY
+-------
+
+Suzanne Winsberg wrote and maintained the original *clascal* program
+in FORTRAN 77 at the the Institut de recherche et coordination
 acoustique/musique (IRCAM) in Paris. The current tool is a ground-up
 reworking in C based on the behaviour of Winsberg's version 7.01 of
 May 1993. Details of the algorithm are available in Suzanne Winsberg
 and Geert De Soete, `A Latent Class Approach to Fitting the Weighted
-Euclidean Model, CLASCAL',
-.Ar Psychometrika 
-58, no. 2 (1993), pp. 315-30.
-.Sh AUTHORS
-.An John Ashley Burgoyne
-.Aq ashley@music.mcgill.ca
+Euclidean Model, CLASCAL', 'Psychometrika' 58, no. 2 (1993),
+pp. 315-30.
+
+
+AUTHORS
+-------
+John Ashley Burgoyne <john.ashley.burgoyne@mail.mcgill.ca>

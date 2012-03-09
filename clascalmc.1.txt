@@ -1,0 +1,66 @@
+CLASCALMC(1)
+============
+:doctype: manpage
+
+
+NAME
+----
+clascalmc - compares nested CLASCAL models using Monte-Carlo tests
+
+
+SYNOPSIS
+--------
+*clascalmc*
+ [*-g* 'uint']
+ [*-n* 'uint']
+'exp'
+'sol0'
+'sol1'
+
+
+DESCRIPTION
+-----------
+Given *clascal* solutions 'sol0' and 'sol1' for experiment 'exp' and
+assuming that the model of 'sol0' is correct, *clascalmc* uses a
+Monte-Carlo method to estimate the probability that fitting the models
+of 'sol0' and 'sol1' to new data would yield a likelihood ratio better
+than the likelihood ratio of the given solutions. It then prints its
+estimated lower bound and upper bound on this probability to standard
+output. If this p-value is less than a desired alpha (1 minus the
+confidence level), one can reject the model of 'sol0' in favour of the
+model of 'sol1'.
+
+For the test to be valid, the models must be nested, i.e., the model
+of 'sol1' must be a superset of the model of 'sol0 .'  Thus,   
+
+  * the number of dimensions in 'sol1' must be greater than or equal
+    to the number of dimensions in 'sol0';
+
+  * the number of classes in 'sol1' must be greater than or equal to
+    the number of classes in 'sol0'; * if 'sol0' has shared
+    specificities, then 'sol1' must have either shared specificities
+    or specificities for each class; and
+
+  * if 'sol0' has specificities for each class, then 'sol1' must also
+    have specificities for each class.
+
+The options are as follows:
+
+*-g* 'uint':: Use 'uint' as to seed the random number generator for
+the Monte-Carlo samples.
+
+*-n* 'uint':: Use 'uint' samples to generate the Monte-Carlo
+estimate. This value must be at least as large as the reciprocal of
+the desired alpha (e.g., 10 for alpha = 0.1, 20 for alpha = 0.05, 100
+for alpha = 0.01, and 1000 for alpha = 0.001); extra iterations
+increase the precision of the estimate.  The default value is 20.
+
+
+SEE ALSO
+--------
+clascal(1)
+
+
+AUTHORS
+-------
+John Ashley Burgoyne <john.ashley.burgoyne@mail.mcgill.ca>
