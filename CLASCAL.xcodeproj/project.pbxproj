@@ -67,9 +67,7 @@
 		8C93E548120225850066F0D0 /* libclascal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C93E4D0120221250066F0D0 /* libclascal.a */; };
 		8C93E595120281540066F0D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */; };
 		8C93E5961202815E0066F0D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */; };
-		8CC9B10A1232F3B8004836C6 /* clascalmc.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8C89FCE312104A9200C59348 /* clascalmc.1 */; };
 		8DD76FAC0486AB0100D96B5E /* clascal.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* clascal.c */; settings = {ATTRIBUTES = (); }; };
-		8DD76FB00486AB0100D96B5E /* clascal.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* clascal.1 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,7 +115,6 @@
 			dstPath = /usr/local/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				8CC9B10A1232F3B8004836C6 /* clascalmc.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -127,7 +124,6 @@
 			dstPath = /usr/local/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				8DD76FB00486AB0100D96B5E /* clascal.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -135,6 +131,8 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* clascal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clascal.c; sourceTree = "<group>"; };
+		0E97538B150ABB8900144282 /* clascal.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clascal.1.txt; sourceTree = "<group>"; };
+		0E97538C150ABB8900144282 /* clascalmc.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clascalmc.1.txt; sourceTree = "<group>"; };
 		0E9D3FF411DE7BA1009AA190 /* _SubjectSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SubjectSet.h; sourceTree = "<group>"; };
 		0EF2002B11A1F88B0032E86B /* ExperimentFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ExperimentFile.c; sourceTree = "<group>"; };
 		77324491112B585D00EE6901 /* _ModelSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ModelSpace.h; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 		8C4B4E52118A07FE005F2A2D /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
 		8C721E1B11B5F307000B6371 /* SolutionFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SolutionFile.c; sourceTree = "<group>"; };
 		8C89FCDD1210494F00C59348 /* clascalmc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clascalmc.c; sourceTree = "<group>"; };
-		8C89FCE312104A9200C59348 /* clascalmc.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = clascalmc.1; sourceTree = "<group>"; };
 		8C93E4D0120221250066F0D0 /* libclascal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libclascal.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C93E4E0120221C30066F0D0 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBF81E410AE53B500BDD3B5 /* Experiment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experiment.h; sourceTree = "<group>"; };
@@ -184,7 +181,6 @@
 		8CBF81EF10AE56DE00BDD3B5 /* StimulusSet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = StimulusSet.c; sourceTree = "<group>"; };
 		8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		8DD76FB20486AB0100D96B5E /* clascal */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = clascal; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6A0FF2C0290799A04C91782 /* clascal.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = clascal.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,8 +314,8 @@
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				C6A0FF2C0290799A04C91782 /* clascal.1 */,
-				8C89FCE312104A9200C59348 /* clascalmc.1 */,
+				0E97538B150ABB8900144282 /* clascal.1.txt */,
+				0E97538C150ABB8900144282 /* clascalmc.1.txt */,
 				775A8F5810DB47C800F660FB /* Doxyfile */,
 			);
 			name = Documentation;
@@ -471,7 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/opt/local/bin/doxygen ${SRCROOT}/Doxyfile\nexit 0";
+			shellScript = "/opt/local/bin/doxygen ${SRCROOT}/Doxyfile";
 		};
 		8CC9B1141232F5C5004836C6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -479,14 +475,14 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Doxyfile",
+				"$(SRCROOT)/clascal.1.txt",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/clascal.pdf",
+				"$(DERIVED_FILE_DIR)/clascal.html",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/groff -mdoc ${SRCROOT}/clascal.1 | ps2pdf - ${DERIVED_FILE_DIR}/clascal.pdf\nexit 0";
+			shellScript = "/opt/local/bin/asciidoc -o ${DERIVED_FILE_DIR}/clascal.html ${SRCROOT}/clascal.1.txt";
 		};
 		8CC9B1171232F629004836C6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -494,14 +490,14 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/clascalmc.1",
+				"$(SRCROOT)/clascalmc.1.txt",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/clascalmc.pdf",
+				"$(DERIVED_FILE_DIR)/clascalmc.html",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/groff -mdoc ${SRCROOT}/clascalmc.1 | ps2pdf - ${DERIVED_FILE_DIR}/clascalmc.pdf\nexit 0";
+			shellScript = "/opt/local/bin/asciidoc -o ${DERIVED_FILE_DIR}/clascalmc.html ${SRCROOT}/clascalmc.1.txt";
 		};
 /* End PBXShellScriptBuildPhase section */
 
