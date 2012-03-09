@@ -34,12 +34,15 @@ For the test to be valid, the models must be nested, i.e., the model
 of 'sol1' must be a superset of the model of 'sol0 .'  Thus,   
 
   * the number of dimensions in 'sol1' must be greater than or equal
-    to the number of dimensions in 'sol0';
+    to the number of dimensions in 'sol0', and furthermore,
+    non-spatial models may only be compared to other non-spatial
+    models;
 
   * the number of classes in 'sol1' must be greater than or equal to
-    the number of classes in 'sol0'; * if 'sol0' has shared
-    specificities, then 'sol1' must have either shared specificities
-    or specificities for each class; and
+    the number of classes in 'sol0'; 
+
+  * if 'sol0' has shared specificities, then 'sol1' must have either
+    shared specificities or specificities for each class; and
 
   * if 'sol0' has specificities for each class, then 'sol1' must also
     have specificities for each class.

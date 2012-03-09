@@ -41,7 +41,9 @@ working directory.
 
 Model specification
 ~~~~~~~~~~~~~~~~~~~
-*-r* 'uint':: Fit a model with 'uint' dimensions.
+*-r* 'uint':: Fit a model with 'uint' dimensions. If 'uint' is zero
+and no specificities are set, fit a non-spatial model (i.e., a model
+with a free parameter for each class and each stimulus pair).
 
 *-R* 'uint':: Fit all models with numbers of dimensions between that
 set with *-r* and 'uint' inclusive. Defaults to the value of *-r* if
