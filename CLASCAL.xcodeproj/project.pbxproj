@@ -483,7 +483,7 @@
 				"$(SRCROOT)/Doxyfile",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/doc/",
+				"$(TARGET_BUILD_DIR)/doc/",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -498,11 +498,11 @@
 				"$(SRCROOT)/clascal.1.txt",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/clascal.html",
+				"$(TARGET_BUILD_DIR)/clascal.html",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/opt/local/bin/asciidoc -o ${DERIVED_FILE_DIR}/clascal.html ${SRCROOT}/clascal.1.txt";
+			shellScript = "/opt/local/bin/asciidoc -o ${TARGET_BUILD_DIR}/clascal.html ${SRCROOT}/clascal.1.txt";
 		};
 		8CC9B1171232F629004836C6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -513,11 +513,11 @@
 				"$(SRCROOT)/clascalmc.1.txt",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/clascalmc.html",
+				"$(TARGET_BUILD_DIR)/clascalmc.html",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/opt/local/bin/asciidoc -o ${DERIVED_FILE_DIR}/clascalmc.html ${SRCROOT}/clascalmc.1.txt";
+			shellScript = "/opt/local/bin/asciidoc -o ${TARGET_BUILD_DIR}/clascalmc.html ${SRCROOT}/clascalmc.1.txt";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -695,20 +695,16 @@
 		775A8F4E10DB475400F660FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				PATH = "/opt/local/bin:$(PATH)";
-				PRODUCT_NAME = Doxygen;
+				INSTALL_PATH = /usr/share/doc/clascal;
+				PRODUCT_NAME = "CLASCAL Documentation";
 			};
 			name = Debug;
 		};
 		775A8F4F10DB475400F660FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PATH = "/opt/local/bin:$(PATH)";
-				PRODUCT_NAME = Doxygen;
+				INSTALL_PATH = /usr/share/doc/clascal;
+				PRODUCT_NAME = "CLASCAL Documentation";
 			};
 			name = Release;
 		};
@@ -759,14 +755,14 @@
 		8C93E4EF1202223D0066F0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = Tools;
+				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Debug;
 		};
 		8C93E4F01202223D0066F0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = Tools;
+				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Release;
 		};
@@ -813,17 +809,15 @@
 		8C93E55712022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = Tools;
+				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Deployment;
 		};
 		8C93E55812022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PATH = "/opt/local/bin:$(PATH)";
-				PRODUCT_NAME = Doxygen;
+				INSTALL_PATH = /usr/share/doc/clascal;
+				PRODUCT_NAME = "CLASCAL Documentation";
 			};
 			name = Deployment;
 		};

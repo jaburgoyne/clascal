@@ -50,7 +50,7 @@
 #include "ModelSpace.h"
 #include "Solution.h"
 
-static const size_t DEFAULT_SAMPLE_SIZE = 20;
+static const size_t DEFAULT_SAMPLE_SIZE = 100;
 
 int main(int argc, char * argv[])
 {

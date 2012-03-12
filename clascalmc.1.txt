@@ -56,7 +56,7 @@ the Monte-Carlo samples.
 estimate. This value must be at least as large as the reciprocal of
 the desired alpha (e.g., 10 for alpha = 0.1, 20 for alpha = 0.05, 100
 for alpha = 0.01, and 1000 for alpha = 0.001); extra iterations
-increase the precision of the estimate.  The default value is 20.
+increase the precision of the estimate.  The default value is 100.
 
 
 SEE ALSO
