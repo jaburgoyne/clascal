@@ -602,6 +602,14 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
 #else
         const double SSR = SumOfSquaredModelError(self->solution);
 #endif
+        if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
+                fprintf(stdout, 
+                        "                        \n"
+                        "                        Line search\n"
+                        "                        \n"
+                        "                        Squared model error after"
+                        " iteration 0: %e\n",
+                        SSR);
         double stepSizes[5] = {0.0, 0.0, 0.0, NAN, NAN};
         double errors[5] = {SSR, SSR, SSR, NAN, NAN};
         double slopes[5] = {slope, slope, slope, NAN, NAN};
@@ -641,6 +649,12 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
                         DeleteSolutionPreservingClassAssignment(solution);
                 solution = newSolution;
                 errors[4] = SumOfSquaredModelError(solution);
+                if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
+                        fprintf(stdout, 
+                                "                        Squared model error"
+                                " after iteration %zu: %e\n",
+                                SizeSum(i, 1),
+                                errors[4]);
                 DeleteWeightSolver(solver);
                 solver = NewWeightSolver(solution);
                 slopes[4] = cblas_ddot((int)solver->gradientSize, 
@@ -707,6 +721,8 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
                         break;
                 stepSizes[4] = fmin(stepSizes[4], maxStepSize);
         }
+        if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
+                fprintf(stdout, "\n");
         DeleteWeightSolver(solver);
         free(searchDirection0);
         return solution;
@@ -723,6 +739,14 @@ Solution * NewWeightSolution(Solution * restrict solution0)
         WeightSolver * restrict solver = NewWeightSolver(solution0);
         Solution * restrict soln = solution0;
         double SSR = SumOfSquaredModelError(soln);
+        if (params->verbosity >= VERY_VERY_VERBOSE)
+                fprintf(stdout,
+                        "                \n"
+                        "                Optimisation of weights\n"
+                        "                \n"
+                        "                Squared model error after iteration"
+                        " 0: %e\n",
+                        SSR);
 #ifdef WINSBERG_LEGACY
         WeightSolver * restrict solver0 = solver;
         size_t iccount = 0;
@@ -746,6 +770,12 @@ Solution * NewWeightSolution(Solution * restrict solution0)
 #endif
                 if (newSolution == soln) break; // convergence
                 double newSSR = SumOfSquaredModelError(newSolution);
+                if (params->verbosity >= VERY_VERY_VERBOSE)
+                        fprintf(stdout,
+                                "                Squared model error after"
+                                " iteration %zu: %e\n",
+                                SizeSum(i, 1),
+                                newSSR);
                 double relativeImprovement = (SSR - newSSR) / SSR;
                 if (isgreater(relativeImprovement, 0.0)) {
                         if (soln != solution0)
@@ -777,6 +807,7 @@ Solution * NewWeightSolution(Solution * restrict solution0)
                 SSR = newSSR;
 #endif
         }
+        if (params->verbosity >= VERY_VERY_VERBOSE) fprintf(stdout, "\n");
 #ifdef WINSBERG_LEGACY
         if (solver0 != solver) DeleteWeightSolver(solver0);
 #endif

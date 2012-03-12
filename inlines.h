@@ -66,13 +66,20 @@ static inline void _ExitWithError(const char * error,
                                   int lineNumber,
                                   const char * functionName)
 {
+#ifdef VERBOSE_EXIT
         fprintf(stderr,
                 "ERROR: %s in line %d of %s (%s).\n",
                 error,
                 lineNumber,
                 fileName,
                 functionName);
+#else
+        fprintf(stderr,
+                "ERROR: %s.\n",
+                error);
+#endif
         exit(EXIT_FAILURE);
+
 }
 
 /* 

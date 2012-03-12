@@ -227,12 +227,12 @@
 		08FB7794FE84155DC02AAC07 /* CLASCAL */ = {
 			isa = PBXGroup;
 			children = (
-				0E7A275C150D81450075908D /* Accelerate.framework */,
 				775A8F0E10DB2FFC00F660FB /* Headers */,
 				77F335601101220800A5F0C0 /* Private headers */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				8C4B4E40118A07DC005F2A2D /* Jansson */,
+				0E7A275C150D81450075908D /* Accelerate.framework */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			comments = "Define the WINSBERG_LEGACY preprocessor macro to get all of Winsberg's bugs. Use the WINSBERG_LIKELIHOOD preprocessor macro to get Winsberg's calculation of the log likelihood only.";

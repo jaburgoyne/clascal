@@ -54,12 +54,13 @@
 int main(int argc, char * argv[])
 {
         const char * restrict args;
-        args = "o:r:R:sSt:T:cg:GkC:e:E:j:l:L:m:M:n:N:p:P:w:W:x:X:z:";
+        args = "o:r:R:sSt:T:cg:GkC:e:E:j:l:L:m:M:n:N:p:P:v:w:W:x:X:z:";
         int option;
         char workingDirectory[PATH_MAX];
         getcwd(workingDirectory, PATH_MAX);
         char outputDirectory[PATH_MAX];
         getcwd(outputDirectory, PATH_MAX);
+        size_t verbosity = 0;
         size_t minR = 0;
         size_t maxR = 0;
         SpecificityType specificityType = NoSpecificities;
@@ -77,6 +78,19 @@ int main(int argc, char * argv[])
                                 strncpy(outputDirectory, 
                                         optarg, 
                                         PATH_MAX - 1);
+                                break;
+                        case 'v':
+                                if (!optarg) goto Usage;
+                                verbosity = SizeRead(optarg);
+                                if (verbosity == 0) 
+                                        params->verbosity = SILENT;
+                                else if (verbosity == 1) 
+                                        params->verbosity = VERBOSE;
+                                else if (verbosity == 2)
+                                        params->verbosity = VERY_VERBOSE;
+                                else if (verbosity == 3)
+                                        params->verbosity = VERY_VERY_VERBOSE;
+                                else params->verbosity = VERY_VERY_VERY_VERBOSE;
                                 break;
                         case 'r':
                                 if (!optarg) goto Usage;
@@ -302,7 +316,7 @@ int main(int argc, char * argv[])
                         continue;
                 }
                 Experiment * experiment = NULL;
-                experiment = NewExperimentFromFilename(argv[optind]);
+                experiment = NewExperimentFromFilename(filename);
                 if (maxR < minR) maxR = minR;
                 const SubjectSet * subjectSet = NULL;
                 subjectSet = ExperimentSubjectSet(experiment); 
@@ -310,6 +324,14 @@ int main(int argc, char * argv[])
                 if (maxT < minT) maxT = minT;
                 for (size_t R = minR; R <= maxR; R++) {
                         for (size_t T = minT; T <= maxT; T++) {
+                                if (params->verbosity >= VERBOSE)
+                                        fprintf(stdout,
+                                                "Fitting to %s"
+                                                " with %zu dimensions"
+                                                " and %zu classes.\n\n",
+                                                filename,
+                                                R,
+                                                T);
                                 Model * model = NewModel(R, T, specificityType);
                                 Solution * s = NULL;
                                 s = NewSolutionForExperimentAndModel(experiment, 

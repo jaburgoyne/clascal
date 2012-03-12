@@ -1329,6 +1329,13 @@ static Solution * NewMaximisedSolution(Solution * restrict self)
                                                    parameters);
         // N.B.: Winsberg uses -1e10 rather than the current error.
         double SSR = SumOfSquaredModelError(solution);
+        if (parameters->verbosity >= VERY_VERBOSE)
+                fprintf(stdout, 
+                        "        \n"
+                        "        M-step\n"
+                        "        \n"
+                        "        Squared model error after iteration 0: %e\n",
+                        SSR);
         for (size_t i = 0; i < parameters->maxMIterationCount; i++) {
                 // It is inelegant to break here, but it seems worse to 
                 // re-organise the whole function with a big if statement.
@@ -1340,6 +1347,12 @@ static Solution * NewMaximisedSolution(Solution * restrict self)
                 if (newSolution != spaceSolution && spaceSolution != solution)
                         DeleteSolutionPreservingClassAssignment(spaceSolution);
                 double newSSR = SumOfSquaredModelError(newSolution);
+                if (parameters->verbosity >= VERY_VERBOSE)
+                        fprintf(stdout, 
+                                "        Squared model error after iteration"
+                                " %zu: %e\n",
+                                SizeSum(i, 1),
+                                newSSR);
                 double relativeImprovement = (SSR - newSSR) / SSR;
                 if (newSolution != solution)
                         DeleteSolutionPreservingClassAssignment(solution);
@@ -1358,6 +1371,7 @@ static Solution * NewMaximisedSolution(Solution * restrict self)
 #endif
                         break; // convergence
         }
+        if (parameters->verbosity >= VERY_VERBOSE) fprintf(stdout, "\n");
         const double newVariance = NewVariance(solution);
         const double * restrict newPrior;
         // solution->assignment should be the same as solution0->assignment
@@ -1385,6 +1399,10 @@ static Solution * NewOptimalSolution(Solution * restrict self)
         logLikelihoods = SafeMalloc(SizeSum(parameters->maxEMIterationCount, 1),
                                     sizeof(double));
         logLikelihoods[0] = self->logLikelihood;
+        if (parameters->verbosity >= VERBOSE)
+                fprintf(stdout,
+                        "Log likelihood after iteration 0: %e\n",
+                        logLikelihoods[0]);
         Solution * restrict solution = self;
         for (size_t i = 1; i <= parameters->maxEMIterationCount; i++) {
                 Solution * restrict maxSolution;
@@ -1397,6 +1415,11 @@ static Solution * NewOptimalSolution(Solution * restrict self)
                         newSolution = maxSolution;
                 }
                 logLikelihoods[i] = newSolution->logLikelihood;
+                if (parameters->verbosity >= VERBOSE)
+                        fprintf(stdout,
+                                "Log likelihood after iteration %zu: %e\n",
+                                SizeSum(i, 1),
+                                logLikelihoods[i]);
                 if (solution != self) {
                         if (classCount > 1) DeleteSolution(solution);
                         else DeleteSolutionPreservingClassAssignment(solution);

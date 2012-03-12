@@ -38,6 +38,28 @@
  * Expectation maximiser and related definitions.
  */
 
+/**
+ * Degree of verbosity for computing a solution.
+ */
+enum _Verbosity {
+        /** Silent. */
+        SILENT = 0,
+        /** Verbose. */ 
+        VERBOSE = 1,
+        /** Very verbose. */
+        VERY_VERBOSE = 2,
+        /** Very, very verbose. */
+        VERY_VERY_VERBOSE = 3,
+        /** Very, very, very verbose. */
+        VERY_VERY_VERY_VERBOSE = 4
+};
+
+
+/**
+ * Degree of verbosity for computing a solution.
+ */
+typedef enum _Verbosity Verbosity;
+
 struct _Solution;
 /**
  * A potential solution (from an iteration of the EM algorithm). 
@@ -127,6 +149,8 @@ struct _Parameters {
         double stepIncreaseFactor;
         /** Factor of decrease in slope between line-search iterations. */
         double stepDecreaseFactor;
+        /** Degree of verbosity while computing solutions. */
+        Verbosity verbosity;
 };
 /**
  * Parameters used for generating a solution.

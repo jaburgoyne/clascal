@@ -56,6 +56,7 @@ enum _SpecificityType {
         /** Each class has its own specificity per stimulus. */
         ClassSpecificities = 2
 };
+
 /**
  * The type of specificities encoded in the model.
  */

@@ -242,8 +242,10 @@ static Solution * NewSolutionFromJSON(const json_t * restrict solutionJSON,
         const double sigmaSquared = json_number_value(estimatedVarianceJSON);
         const json_t * restrict parametersJSON = NULL;
         parametersJSON = json_object_get(solutionJSON, "Parameters");
-        // N.B. This Parameters will never be freed.
+        // N.B. This Parameters object will never be freed.
         Parameters * parameters = SafeMalloc(1, sizeof(Parameters));
+        // Verbosity is not saved in the file and defaults to zero.
+        parameters->verbosity = SILENT;
         const json_t * restrict useTorgersonStartJSON = NULL;
         useTorgersonStartJSON = json_object_get(parametersJSON,
                                                 "TorgersonStart");

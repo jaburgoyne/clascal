@@ -39,6 +39,9 @@ Output
 *-o* 'dir':: Save the output files to 'dir'.  Defaults to the current
 working directory.
 
+*-v* 'uint':: Degree of verbosity while computing the solution. Defaults
+to 0 (silent). Larger values include increasingly more information
+during computation.
 
 Model specification
 ~~~~~~~~~~~~~~~~~~~
