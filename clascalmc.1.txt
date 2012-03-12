@@ -50,7 +50,7 @@ of 'sol1' must be a superset of the model of 'sol0 .'  Thus,
 The options are as follows:
 
 *-g* 'uint':: Use 'uint' to seed the random number generator for
-the Monte-Carlo samples. The default value is the system time.
+the Monte-Carlo samples.
 
 *-n* 'uint':: Use 'uint' samples to generate the Monte-Carlo
 estimate. This value must be at least as large as the reciprocal of

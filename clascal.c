@@ -54,7 +54,7 @@
 int main(int argc, char * argv[])
 {
         const char * restrict args;
-        args = "o:r:R:sSt:T:cg:kC:e:E:j:l:L:m:M:n:N:p:P:w:W:x:X:z:";
+        args = "o:r:R:sSt:T:cg:GkC:e:E:j:l:L:m:M:n:N:p:P:w:W:x:X:z:";
         int option;
         char workingDirectory[PATH_MAX];
         getcwd(workingDirectory, PATH_MAX);
@@ -108,6 +108,10 @@ int main(int argc, char * argv[])
                         case 'g':
                                 if (!optarg) goto Usage;
                                 srand((unsigned)strtoul(optarg, NULL, 10));
+                                break;
+                        case 'G':
+                                params->useKMeansStart = false;
+                                params->useTorgersonStart = false;
                                 break;
                         case 'k':
                                 params->useKMeansStart = true;
@@ -343,10 +347,11 @@ int main(int argc, char * argv[])
 Usage:
         fprintf(stderr, 
                 "Usage: clascal [−cIksS] [−C real] [−e real] [−E uint]"
-                " [−g uint] [-j real] [−l real] [−L uint] [−m real] [−M uint]"
-                " [−n real] [−L uint] [−m real] [−M uint] [−N real] [−o dir]"
-                " [−p real] [−P Real] [−r uint] [−R uint] [−t uint] [−T uint]"
-                " [−w real] [−W uint] [−x real] [−X uint] [−z real] file ..."
+                " [−g uint] [-G] [-j real] [−l real] [−L uint] [−m real]"
+                " [−M uint] [−n real] [−L uint] [−m real] [−M uint] [−N real]"
+                " [−o dir] [−p real] [−P Real] [−r uint] [−R uint] [−t uint]"
+                " [−T uint] [−w real] [−W uint] [−x real] [−X uint] [−z real]"
+                " file ..."
                 "\n");
         exit(EXIT_FAILURE);
 }

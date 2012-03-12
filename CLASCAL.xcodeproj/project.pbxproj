@@ -38,6 +38,20 @@
 		0E1A1D12123032B600938B80 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C93E4E0120221C30066F0D0 /* libjansson.a */; };
 		0E4F3649122EAD62002084A9 /* ExperimentFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 0EF2002B11A1F88B0032E86B /* ExperimentFile.c */; };
 		0E4F364A122EAD64002084A9 /* SolutionFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C721E1B11B5F307000B6371 /* SolutionFile.c */; };
+		0E7A2751150D67310075908D /* libclascal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C93E4D0120221250066F0D0 /* libclascal.a */; };
+		0E7A2752150D6D920075908D /* _ClassAssignment.h in Headers */ = {isa = PBXBuildFile; fileRef = 775A5E981156CF43001EBAC0 /* _ClassAssignment.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2753150D6D980075908D /* _CoordinateSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 77F95E711130C9180028DAEA /* _CoordinateSolver.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2754150D6D9C0075908D /* _Experiment.h in Headers */ = {isa = PBXBuildFile; fileRef = 775A5EDB1156D56F001EBAC0 /* _Experiment.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2755150D6DA10075908D /* _Model.h in Headers */ = {isa = PBXBuildFile; fileRef = 775A5E811156950C001EBAC0 /* _Model.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2756150D6DA50075908D /* _ModelSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 77324491112B585D00EE6901 /* _ModelSpace.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2757150D6DAC0075908D /* _Solution.h in Headers */ = {isa = PBXBuildFile; fileRef = 77C1D08511287B0E0040104D /* _Solution.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2758150D6DB30075908D /* _StimulusSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 775A90F110DDBE4A00F660FB /* _StimulusSet.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A2759150D6DB70075908D /* _SubjectSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E9D3FF411DE7BA1009AA190 /* _SubjectSet.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A275A150D6DBB0075908D /* _WeightSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C294E02116DA23500DD90ED /* _WeightSolver.h */; settings = {ATTRIBUTES = (); }; };
+		0E7A275B150D6DC20075908D /* inlines.h in Headers */ = {isa = PBXBuildFile; fileRef = 775A90A310DD724600F660FB /* inlines.h */; };
+		0E7A275D150D81450075908D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7A275C150D81450075908D /* Accelerate.framework */; };
+		0E7A275E150D81640075908D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7A275C150D81450075908D /* Accelerate.framework */; };
+		0E7A275F150D816F0075908D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7A275C150D81450075908D /* Accelerate.framework */; };
 		8C89FCDE1210494F00C59348 /* clascalmc.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C89FCDD1210494F00C59348 /* clascalmc.c */; };
 		8C93E51B120223ED0066F0D0 /* jansson.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C4B4E4B118A07FE005F2A2D /* jansson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C93E520120223F40066F0D0 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C4B4E47118A07FE005F2A2D /* dump.c */; };
@@ -61,12 +75,8 @@
 		8C93E53F120224940066F0D0 /* StimulusSet.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CBF81EF10AE56DE00BDD3B5 /* StimulusSet.c */; };
 		8C93E540120224960066F0D0 /* SubjectSet.c in Sources */ = {isa = PBXBuildFile; fileRef = 774D35A4114ED28300FBF009 /* SubjectSet.c */; };
 		8C93E541120224970066F0D0 /* WeightSolver.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C294E03116DA23500DD90ED /* WeightSolver.c */; };
-		8C93E542120224BE0066F0D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */; };
 		8C93E543120225190066F0D0 /* ClassAssignment.c in Sources */ = {isa = PBXBuildFile; fileRef = 775A8F0910DB298700F660FB /* ClassAssignment.c */; };
-		8C93E545120225670066F0D0 /* libclascal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C93E4D0120221250066F0D0 /* libclascal.a */; };
 		8C93E548120225850066F0D0 /* libclascal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C93E4D0120221250066F0D0 /* libclascal.a */; };
-		8C93E595120281540066F0D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */; };
-		8C93E5961202815E0066F0D0 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */; };
 		8DD76FAC0486AB0100D96B5E /* clascal.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* clascal.c */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
@@ -131,6 +141,7 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* clascal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clascal.c; sourceTree = "<group>"; };
+		0E7A275C150D81450075908D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 		0E97538B150ABB8900144282 /* clascal.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clascal.1.txt; sourceTree = "<group>"; };
 		0E97538C150ABB8900144282 /* clascalmc.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clascalmc.1.txt; sourceTree = "<group>"; };
 		0E9D3FF411DE7BA1009AA190 /* _SubjectSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SubjectSet.h; sourceTree = "<group>"; };
@@ -179,7 +190,6 @@
 		8CBF81EB10AE554000BDD3B5 /* Model.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Model.c; sourceTree = "<group>"; };
 		8CBF81EE10AE56DE00BDD3B5 /* StimulusSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StimulusSet.h; sourceTree = "<group>"; };
 		8CBF81EF10AE56DE00BDD3B5 /* StimulusSet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = StimulusSet.c; sourceTree = "<group>"; };
-		8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		8DD76FB20486AB0100D96B5E /* clascal */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = clascal; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -188,8 +198,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E7A275F150D816F0075908D /* Accelerate.framework in Frameworks */,
 				8C93E548120225850066F0D0 /* libclascal.a in Frameworks */,
-				8C93E5961202815E0066F0D0 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C93E542120224BE0066F0D0 /* Accelerate.framework in Frameworks */,
+				0E7A275D150D81450075908D /* Accelerate.framework in Frameworks */,
 				0E1A1D12123032B600938B80 /* libjansson.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,8 +216,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C93E545120225670066F0D0 /* libclascal.a in Frameworks */,
-				8C93E595120281540066F0D0 /* Accelerate.framework in Frameworks */,
+				0E7A275E150D81640075908D /* Accelerate.framework in Frameworks */,
+				0E7A2751150D67310075908D /* libclascal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,12 +227,12 @@
 		08FB7794FE84155DC02AAC07 /* CLASCAL */ = {
 			isa = PBXGroup;
 			children = (
+				0E7A275C150D81450075908D /* Accelerate.framework */,
 				775A8F0E10DB2FFC00F660FB /* Headers */,
 				77F335601101220800A5F0C0 /* Private headers */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				8C4B4E40118A07DC005F2A2D /* Jansson */,
-				8CBF826E10AE641A00BDD3B5 /* Accelerate.framework */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			comments = "Define the WINSBERG_LEGACY preprocessor macro to get all of Winsberg's bugs. Use the WINSBERG_LIKELIHOOD preprocessor macro to get Winsberg's calculation of the log likelihood only.";
@@ -335,6 +345,16 @@
 				8C93E52C1202246B0066F0D0 /* Solution.h in Headers */,
 				8C93E52D1202246C0066F0D0 /* StimulusSet.h in Headers */,
 				8C93E52E1202246E0066F0D0 /* SubjectSet.h in Headers */,
+				0E7A275B150D6DC20075908D /* inlines.h in Headers */,
+				0E7A2752150D6D920075908D /* _ClassAssignment.h in Headers */,
+				0E7A2753150D6D980075908D /* _CoordinateSolver.h in Headers */,
+				0E7A2754150D6D9C0075908D /* _Experiment.h in Headers */,
+				0E7A2755150D6DA10075908D /* _Model.h in Headers */,
+				0E7A2756150D6DA50075908D /* _ModelSpace.h in Headers */,
+				0E7A2757150D6DAC0075908D /* _Solution.h in Headers */,
+				0E7A2758150D6DB30075908D /* _StimulusSet.h in Headers */,
+				0E7A2759150D6DB70075908D /* _SubjectSet.h in Headers */,
+				0E7A275A150D6DBB0075908D /* _WeightSolver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +446,7 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "John Ashley Burgoyne and the Royal Institute for the Advancement of Learning (McGill University)";
 			};
 			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "CLASCAL" */;
@@ -583,6 +603,7 @@
 		1DEB928608733DD80010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascal;
 			};
 			name = Debug;
@@ -590,6 +611,7 @@
 		1DEB928708733DD80010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascal;
 			};
 			name = Release;
@@ -599,14 +621,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_STRICT_ALIASING = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -643,16 +662,9 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_SSE3_EXTENSIONS = YES;
-				GCC_ENABLE_SSE41_EXTENSIONS = YES;
-				GCC_ENABLE_SSE42_EXTENSIONS = YES;
-				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_STRICT_ALIASING = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -703,6 +715,7 @@
 		77F95ECA1131A6000028DAEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
 			name = Debug;
@@ -710,6 +723,7 @@
 		77F95ECB1131A6000028DAEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
 			name = Release;
@@ -761,22 +775,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEPLOYMENT_LOCATION = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_SSE3_EXTENSIONS = YES;
-				GCC_ENABLE_SSE41_EXTENSIONS = YES;
-				GCC_ENABLE_SSE42_EXTENSIONS = YES;
-				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_STRICT_ALIASING = YES;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
@@ -824,6 +830,7 @@
 		8C93E55912022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascal;
 			};
 			name = Deployment;
@@ -831,6 +838,7 @@
 		8C93E55A12022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
 			name = Deployment;
@@ -839,6 +847,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = clascal;
+				SKIP_INSTALL = YES;
 			};
 			name = Deployment;
 		};
@@ -846,6 +855,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = jansson;
+				SKIP_INSTALL = YES;
 			};
 			name = Deployment;
 		};

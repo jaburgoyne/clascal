@@ -23,6 +23,7 @@ SYNOPSIS
 There are futher options available for tuning the optimisation
 routine. Most users can ignore them, but see below for details.
 
+
 DESCRIPTION
 -----------
 Given the results of a dissimilarity experiment in each 'file',
@@ -70,16 +71,18 @@ omitted.
 Initialisation
 ~~~~~~~~~~~~~~
 *-c*:: Use classical multi-dimensional scaling to initialise the
-coordinates (Torgerson's algorithm). In the absence of this option,
-the coordinates are initialised at random.
+coordinates (Torgerson's algorithm). This option is set by default and
+is only useful to override a preceding *-G* option.
 
 *-g* 'uint':: Use 'uint' as to seed the random number generator for
-initialisations. Meaningless if both the *-c* and *-k* options are
-set.
+initialisations. Meaningless unless *-G* is also set.
+
+*-G*:: Initialise the coordinates and classes at random. Overrides any
+  previous *-c* or *-k* options.
 
 *-k*:: Use k-means clustering to assign subjects to classes
-initially. In the absence of this option, subjects are initally
-assigned to classes at random.
+initially. This option is set by default and is only useful to
+override a preceding *-G* option.
 
 Optimisation parameters
 ~~~~~~~~~~~~~~~~~~~~~~~

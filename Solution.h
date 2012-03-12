@@ -157,8 +157,8 @@ static const Parameters DEFAULT_PARAMETERS = {
 };
 #else
 static const Parameters DEFAULT_PARAMETERS = {
-        false,
-        false,
+        true,
+        true,
         150,
         1e-3,
         20,
