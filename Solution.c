@@ -346,8 +346,8 @@ static double * NewUnnormalisedMixtures(const Solution * restrict self)
 }
 
 /**
- * Returns the unnormalised mixtures summed over classes. N.B.: The squared
- * prediction errors must be initialised first.
+ * Returns the unnormalised mixtures summed over classes. N.B.: The plain
+ * unnormalised mixtures must obviously be initialised first.
  */
 static double * NewClassMixtures(const Solution * restrict self)
 {
@@ -1414,11 +1414,13 @@ static Solution * NewOptimalSolution(Solution * restrict self)
                 } else {
                         newSolution = maxSolution;
                 }
+                if (isnan(newSolution->logLikelihood))
+                        ExitWithError("Unstable log likelihood");
                 logLikelihoods[i] = newSolution->logLikelihood;
                 if (parameters->verbosity >= VERBOSE)
                         fprintf(stdout,
                                 "Log likelihood after iteration %zu: %e\n",
-                                SizeSum(i, 1),
+                                i,
                                 logLikelihoods[i]);
                 if (solution != self) {
                         if (classCount > 1) DeleteSolution(solution);
@@ -1443,6 +1445,8 @@ NewSolutionForExperimentAndModel(const Experiment * restrict experiment,
                                  const Parameters * restrict parameters)
 {
         if (!experiment || !model) return NULL;
+        if (ClassCount(model) > SubjectCount(ExperimentSubjectSet(experiment)))
+                ExitWithError("Model has more classes than there are subjects");
         const Parameters * guaranteedParameters;
         guaranteedParameters = parameters ? parameters : &DEFAULT_PARAMETERS;
         Solution * restrict initialSolution;

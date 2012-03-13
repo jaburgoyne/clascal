@@ -177,7 +177,8 @@ static const Parameters DEFAULT_PARAMETERS = {
         1e-9, // -log of this should be equal to desired digits of precision
         0.1,
         2.0,
-        0.5
+        0.5,
+        SILENT
 };
 #else
 static const Parameters DEFAULT_PARAMETERS = {
@@ -199,7 +200,8 @@ static const Parameters DEFAULT_PARAMETERS = {
         1e-9, // -log of this should be equal to desired digits of precision
         0.1,
         2.0,
-        0.5
+        0.5,
+        SILENT
 };
 #endif
 

@@ -40,8 +40,8 @@
       </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       displayScaleIsEnabled = "NO"
       displayScale = "1.00"
       launchStyle = "0"
@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-o ${HOME}/tmp -t 3 -r 2 -v 1 ${HOME}/tmp/car.dat"
+            argument = "-o ${HOME}/tmp -t 2 -r 6 -s -v 3 ${HOME}/tmp/matDiss/matDiss4.dat"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
