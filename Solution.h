@@ -192,7 +192,9 @@ static const Parameters DEFAULT_PARAMETERS = {
         0.0,
         5e-3,
         5,
-        0.0,
+        // Using zero as the minimum weight can cause difficult-to-track NaNs 
+        // and non-terminating LAPACK calls.
+        1e-15, 
         5e-3,
         5, 
         1.0,

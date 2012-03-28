@@ -165,6 +165,17 @@ relevant command-line flag is added as yet another prefix, e.g.,
 `T3-R2-s-foo.dat' or `T3-R2-SS-foo.dat'.
 
 
+TROUBLESHOOTING
+---------------
+By default, the weights are not allowed to fall below a very small value
+(currently 1e-15). Purists may wish to use *-n* to set the minimum value to 0.0
+instead, which is truer to the spirit of the CLASCAL model but occasionally 
+causes difficult-to-trace problems like solution files full of NaNs or 
+computations that never terminate. Conversely, users experiencing cryptic 
+problems like these may wish to use *-n* to restrict the minimum value of
+weights to a small-but-not-too-small value like 1e-5.
+
+
 SEE ALSO 
 --------
 clascalmc(1)

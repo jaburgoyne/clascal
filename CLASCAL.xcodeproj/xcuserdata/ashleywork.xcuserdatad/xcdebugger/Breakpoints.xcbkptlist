@@ -7,28 +7,52 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "clascalmc.c"
-         timestampString = "350947963.822893"
+         filePath = "WeightSolver.c"
+         timestampString = "354646244.586022"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "107"
-         endingLineNumber = "107"
-         landmarkName = "main()"
+         startingLineNumber = "779"
+         endingLineNumber = "779"
+         landmarkName = "NewWeightSolution()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "WeightSolver.c"
+         timestampString = "354646252.843455"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "537"
+         endingLineNumber = "537"
+         landmarkName = "NewSearchDirection()"
          landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "clascalmc.c"
-         timestampString = "350948040.308733"
+         filePath = "WeightSolver.c"
+         timestampString = "354653291.459186"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "89"
-         endingLineNumber = "89"
-         landmarkName = "main()"
+         startingLineNumber = "646"
+         endingLineNumber = "646"
+         landmarkName = "NewLineSearchSolution()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Solution.c"
+         timestampString = "354657458.889316"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "629"
+         endingLineNumber = "629"
+         landmarkName = "RelativeErrors()"
          landmarkType = "7">
       </FileBreakpoint>
    </FileBreakpoints>

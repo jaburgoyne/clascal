@@ -36,20 +36,6 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "CoordinateSolver.c"
-         timestampString = "319473532.084528"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "776"
-         endingLineNumber = "776"
-         landmarkName = "NewLineSearchSolution()"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "WeightSolver.c"
          timestampString = "319473532.084578"
          startingColumnNumber = "9223372036854775807"
@@ -129,21 +115,6 @@
          startingLineNumber = "804"
          endingLineNumber = "804"
          landmarkName = "NewLineSearchSolution()"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         condition = "isAtBound"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "CoordinateSolver.c"
-         timestampString = "319473532.084991"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "966"
-         endingLineNumber = "966"
-         landmarkName = "NewSpatialSolution()"
          landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
@@ -302,6 +273,32 @@
          startingLineNumber = "773"
          endingLineNumber = "773"
          landmarkName = "NewWeightSolution()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Solution.c"
+         timestampString = "353353491.727452"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1344"
+         endingLineNumber = "1344"
+         landmarkName = "NewMaximisedSolution()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "CoordinateSolver.c"
+         timestampString = "353353567.755275"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "968"
+         endingLineNumber = "968"
+         landmarkName = "NewSpatialSolution()"
          landmarkType = "7">
       </FileBreakpoint>
    </FileBreakpoints>
