@@ -224,45 +224,6 @@
          landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Solution.c"
-         timestampString = "353304094.483237"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1446"
-         endingLineNumber = "1446"
-         landmarkName = "NewSolutionForExperimentAndModel()"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Solution.c"
-         timestampString = "353306052.815094"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1375"
-         endingLineNumber = "1375"
-         landmarkName = "NewMaximisedSolution()"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Solution.c"
-         timestampString = "353306246.30466"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1346"
-         endingLineNumber = "1346"
-         landmarkName = "NewMaximisedSolution()"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
@@ -280,25 +241,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Solution.c"
-         timestampString = "353353491.727452"
+         timestampString = "370961818.147743"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1344"
-         endingLineNumber = "1344"
-         landmarkName = "NewMaximisedSolution()"
+         startingLineNumber = "1419"
+         endingLineNumber = "1419"
+         landmarkName = "NewOptimalSolution()"
          landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "CoordinateSolver.c"
-         timestampString = "353353567.755275"
+         filePath = "Solution.c"
+         timestampString = "370961818.147743"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "968"
-         endingLineNumber = "968"
-         landmarkName = "NewSpatialSolution()"
+         startingLineNumber = "1457"
+         endingLineNumber = "1457"
+         landmarkName = "NewSolutionForExperimentAndModel()"
          landmarkType = "7">
       </FileBreakpoint>
    </FileBreakpoints>

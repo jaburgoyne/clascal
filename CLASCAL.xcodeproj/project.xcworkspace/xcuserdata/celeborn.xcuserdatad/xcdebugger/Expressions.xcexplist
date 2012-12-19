@@ -3,12 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "NewInitialSolution:Solution.c">
+      </ContextState>
+      <ContextState
+         contextName = "NewSolutionForExperimentAndModel:Solution.c">
+         <PersistentStrings>
+            <PersistentString
+               value = "*(initialSolution-&gt;squaredPredictionErrors + 6) ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "NewOptimalSolution:Solution.c">
          <PersistentStrings>
             <PersistentString
                value = "(double)*(logLikelihoods)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InitialiseBasicDerivedValues:Solution.c">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

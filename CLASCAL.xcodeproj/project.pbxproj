@@ -49,9 +49,9 @@
 		0E7A2759150D6DB70075908D /* _SubjectSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E9D3FF411DE7BA1009AA190 /* _SubjectSet.h */; settings = {ATTRIBUTES = (); }; };
 		0E7A275A150D6DBB0075908D /* _WeightSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C294E02116DA23500DD90ED /* _WeightSolver.h */; settings = {ATTRIBUTES = (); }; };
 		0E7A275B150D6DC20075908D /* inlines.h in Headers */ = {isa = PBXBuildFile; fileRef = 775A90A310DD724600F660FB /* inlines.h */; };
-		0E7A275D150D81450075908D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7A275C150D81450075908D /* Accelerate.framework */; };
-		0E7A275E150D81640075908D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7A275C150D81450075908D /* Accelerate.framework */; };
-		0E7A275F150D816F0075908D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E7A275C150D81450075908D /* Accelerate.framework */; };
+		8C869DF815DBD66200C5BE54 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C869DF715DBD66200C5BE54 /* Accelerate.framework */; };
+		8C869DF915DBD66200C5BE54 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C869DF715DBD66200C5BE54 /* Accelerate.framework */; };
+		8C869DFA15DBD66200C5BE54 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C869DF715DBD66200C5BE54 /* Accelerate.framework */; };
 		8C89FCDE1210494F00C59348 /* clascalmc.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C89FCDD1210494F00C59348 /* clascalmc.c */; };
 		8C93E51B120223ED0066F0D0 /* jansson.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C4B4E4B118A07FE005F2A2D /* jansson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C93E520120223F40066F0D0 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C4B4E47118A07FE005F2A2D /* dump.c */; };
@@ -141,7 +141,6 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* clascal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clascal.c; sourceTree = "<group>"; };
-		0E7A275C150D81450075908D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
 		0E97538B150ABB8900144282 /* clascal.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clascal.1.txt; sourceTree = "<group>"; };
 		0E97538C150ABB8900144282 /* clascalmc.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clascalmc.1.txt; sourceTree = "<group>"; };
 		0E9D3FF411DE7BA1009AA190 /* _SubjectSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SubjectSet.h; sourceTree = "<group>"; };
@@ -179,6 +178,7 @@
 		8C4B4E51118A07FE005F2A2D /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		8C4B4E52118A07FE005F2A2D /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
 		8C721E1B11B5F307000B6371 /* SolutionFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SolutionFile.c; sourceTree = "<group>"; };
+		8C869DF715DBD66200C5BE54 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		8C89FCDD1210494F00C59348 /* clascalmc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = clascalmc.c; sourceTree = "<group>"; };
 		8C93E4D0120221250066F0D0 /* libclascal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libclascal.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C93E4E0120221C30066F0D0 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,8 +198,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E7A275F150D816F0075908D /* Accelerate.framework in Frameworks */,
 				8C93E548120225850066F0D0 /* libclascal.a in Frameworks */,
+				8C869DF915DBD66200C5BE54 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,8 +207,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E7A275D150D81450075908D /* Accelerate.framework in Frameworks */,
 				0E1A1D12123032B600938B80 /* libjansson.a in Frameworks */,
+				8C869DFA15DBD66200C5BE54 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,8 +216,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E7A275E150D81640075908D /* Accelerate.framework in Frameworks */,
 				0E7A2751150D67310075908D /* libclascal.a in Frameworks */,
+				8C869DF815DBD66200C5BE54 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +232,7 @@
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
 				8C4B4E40118A07DC005F2A2D /* Jansson */,
-				0E7A275C150D81450075908D /* Accelerate.framework */,
+				8C869DF715DBD66200C5BE54 /* Accelerate.framework */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			comments = "Define the WINSBERG_LEGACY preprocessor macro to get all of Winsberg's bugs. Use the WINSBERG_LIKELIHOOD preprocessor macro to get Winsberg's calculation of the log likelihood only.";
@@ -446,7 +446,7 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "John Ashley Burgoyne and the Royal Institute for the Advancement of Learning (McGill University)";
 			};
 			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "CLASCAL" */;
@@ -603,7 +603,11 @@
 		1DEB928608733DD80010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-all_load";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = clascal;
 			};
 			name = Debug;
@@ -611,7 +615,11 @@
 		1DEB928708733DD80010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-all_load";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = clascal;
 			};
 			name = Release;
@@ -705,6 +713,7 @@
 		775A8F4E10DB475400F660FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INSTALL_PATH = /usr/share/doc/clascal;
 				PRODUCT_NAME = "CLASCAL Documentation";
 			};
@@ -713,6 +722,7 @@
 		775A8F4F10DB475400F660FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INSTALL_PATH = /usr/share/doc/clascal;
 				PRODUCT_NAME = "CLASCAL Documentation";
 			};
@@ -721,6 +731,10 @@
 		77F95ECA1131A6000028DAEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
@@ -729,6 +743,10 @@
 		77F95ECB1131A6000028DAEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
@@ -737,6 +755,11 @@
 		8C93E4D1120221250066F0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
 				PRODUCT_NAME = clascal;
 			};
 			name = Debug;
@@ -744,6 +767,11 @@
 		8C93E4D2120221250066F0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
 				PRODUCT_NAME = clascal;
 			};
 			name = Release;
@@ -751,6 +779,7 @@
 		8C93E4E1120221C30066F0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = jansson;
 			};
 			name = Debug;
@@ -758,6 +787,7 @@
 		8C93E4E2120221C30066F0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = jansson;
 			};
 			name = Release;
@@ -765,6 +795,7 @@
 		8C93E4EF1202223D0066F0D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Debug;
@@ -772,6 +803,7 @@
 		8C93E4F01202223D0066F0D0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Release;
@@ -824,6 +856,7 @@
 		8C93E55712022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Deployment;
@@ -831,6 +864,7 @@
 		8C93E55812022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				INSTALL_PATH = /usr/share/doc/clascal;
 				PRODUCT_NAME = "CLASCAL Documentation";
 			};
@@ -839,7 +873,11 @@
 		8C93E55912022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-all_load";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = clascal;
 			};
 			name = Deployment;
@@ -847,6 +885,10 @@
 		8C93E55A12022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
@@ -855,6 +897,11 @@
 		8C93E55B12022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
+				);
 				PRODUCT_NAME = clascal;
 				SKIP_INSTALL = YES;
 			};
@@ -863,6 +910,7 @@
 		8C93E55C12022A4E0066F0D0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = jansson;
 				SKIP_INSTALL = YES;
 			};

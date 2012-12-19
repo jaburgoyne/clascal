@@ -34,8 +34,6 @@
 
 // TODO: Find any dangling pointers not initialised to NULL with ".*\*[^=]*;".
 
-// TODO: Use a regexp to clean out all trailing spaces at the end of lines.
-
 // TODO: Find '+ 1's floating around and convert to SizeSum.
 
 // NOTE: Any arguments passed as non-const in constructors become the 
