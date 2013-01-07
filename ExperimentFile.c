@@ -117,7 +117,9 @@ NewExperimentFromJSON(const json_t * restrict experimentJSON)
                                 if (!json_is_number(datum))
                                         ExitWithError("Some dissimilarities"
                                                       " are missing");
-                                double d = json_real_value(datum);
+                                double d = json_is_real(datum)
+                                           ? json_real_value(datum)
+                                           : (double)json_integer_value(datum);
                                 dissimilarities[pairCount * i + m++] = d;
                         }
                 }
@@ -135,7 +137,13 @@ Experiment * NewExperimentFromFile(FILE * restrict f)
 {
         json_error_t jsonError;
         json_t * restrict experimentJSON = json_loadf(f, &jsonError);
-        if (!experimentJSON) return NULL;
+        if (!experimentJSON) {
+                fprintf(stderr,
+                        "WARNING: JSON parsing failed in line %i (%s).\n",
+                        jsonError.line,
+                        jsonError.text);
+                return NULL;
+        }
         Experiment * experiment = NewExperimentFromJSON(experimentJSON);
         json_decref(experimentJSON);
         return experiment;
@@ -145,7 +153,14 @@ Experiment * NewExperimentFromFilename(const char * restrict filename)
 {
         json_error_t jsonError;
         json_t * restrict experimentJSON = json_load_file(filename, &jsonError);
-        if (!experimentJSON) return NULL;
+        if (!experimentJSON) {
+                fprintf(stderr,
+                        "WARNING: JSON parsing failed in line %i of %s (%s).\n",
+                        jsonError.line,
+                        filename,
+                        jsonError.text);
+                return NULL;
+        }
         Experiment * experiment = NewExperimentFromJSON(experimentJSON);
         json_decref(experimentJSON);
         return experiment;

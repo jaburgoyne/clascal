@@ -155,7 +155,7 @@ ClassAssignment * NewClassAssignment(const SubjectSet * restrict subjectSet,
                         double * restrict normDists;
                         normDists = NewNormalisedDistributions(self, evenDists);
                         self->conditionalDistributions = normDists;
-                        free(evenDists);
+                        FreeAndClear(evenDists);
                 }
                 self->classSizes = NewClassSizes(self);
                 self->unconditionalDistribution = NewUnconditionalDist(self);
@@ -169,7 +169,7 @@ void DeleteClassAssignment(ClassAssignment * restrict self)
                 FreeAndClear(self->unconditionalDistribution);
                 FreeAndClear(self->classSizes);
                 FreeAndClear(self->conditionalDistributions);
-                free(self);
+                FreeAndClear(self);
         }
 }
 

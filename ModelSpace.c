@@ -337,7 +337,7 @@ static double * NewWeightMeans(const ModelSpace * restrict self,
         const size_t classCount = ClassCount(self->model);
         const size_t weightCount = ((ModelSpecificityType(self->model) 
                                      == GlobalSpecificities)
-                                    ? DimensionCount(self->model) + 1
+                                    ? SizeSum(DimensionCount(self->model), 1)
                                     : DimensionCount(self->model));        
         double * weightSums = SafeCalloc(weightCount, sizeof(double));
         for (size_t t = 0; t < classCount; t++)
@@ -368,7 +368,9 @@ static double * NewNormalisedWeights(const ModelSpace * restrict self,
                 const size_t classCount = ClassCount(self->model);
                 const size_t weightCount = ((ModelSpecificityType(self->model)
                                              == GlobalSpecificities)
-                                            ? DimensionCount(self->model) + 1
+                                            ? SizeSum(DimensionCount(self
+                                                                     ->model),
+                                                      1)
                                             : DimensionCount(self->model));
                 for (size_t r = 0; r < weightCount; r++) 
                         cblas_dscal((int)classCount, 

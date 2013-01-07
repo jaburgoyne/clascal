@@ -723,6 +723,7 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
         }
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
                 fprintf(stdout, "\n");
+        free(nextWeights);
         DeleteWeightSolver(solver);
         free(searchDirection0);
         return solution;

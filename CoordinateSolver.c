@@ -926,6 +926,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
         }
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE) 
                 fprintf(stdout, "\n");
+        free(nextCoordinates);
         DeleteCoordinateSolver(solver);
         free(searchDirection0);
         return solution;

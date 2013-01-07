@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-o /tmp -t 1 -r 3 /tmp/data.json"
+            argument = "-o /tmp -t 1 -r 2 -v 3 /tmp/CLASCAL/faure3"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

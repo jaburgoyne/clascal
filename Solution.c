@@ -267,9 +267,9 @@ static double * NewSquaredPredictionErrors(const Solution * restrict self)
         if (!classCount) return NULL;
         const double * classDistances = ClassDistances(self->space);
         if (!classDistances) return NULL;
-        double * restrict residual = SafeMalloc(pairCount, sizeof(double));
         const size_t distributionsSize = DistributionsSize(self->assignment);
         if (!distributionsSize) return NULL;
+        double * restrict residual = SafeMalloc(pairCount, sizeof(double));
         double * restrict squaredPredictionErrors;
         squaredPredictionErrors = SafeMalloc(distributionsSize, sizeof(double));
         for (size_t i = 0; i < subjectCount; i++) {

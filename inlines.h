@@ -32,10 +32,6 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-// TODO: Find any dangling pointers not initialised to NULL with ".*\*[^=]*;".
-
-// TODO: Find '+ 1's floating around and convert to SizeSum.
-
 // NOTE: Any arguments passed as non-const in constructors become the 
 //       responsibility of the constructed object with respect to memory
 //       management. The flip side of this agreement is that any function
@@ -165,7 +161,7 @@ static inline void * _SafeCalloc(size_t nmemb,
                                  int lineNumber,
                                  const char * functionName)
 {
-        if (SIZE_MAX / nmemb < size) 
+        if (nmemb > 0 && SIZE_MAX / nmemb < size)
                 _ExitWithError("Requested allocation exceeds SIZE_MAX",
                                fileName, 
                                lineNumber, 
