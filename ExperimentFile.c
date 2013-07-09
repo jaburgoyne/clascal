@@ -104,7 +104,8 @@ NewExperimentFromJSON(const json_t * restrict experimentJSON)
                 const json_t * restrict subjectJSON = NULL;
                 subjectJSON = json_object_iter_value(iterator);
                 const size_t lineCount = json_array_size(subjectJSON);
-                // Skip the first line if given the whole array.
+                // Skip the first line if given the whole array and ignore
+                // diagonal elements.
                 const size_t offset = (lineCount >= stimulusCount) ? 1 : 0;
                 size_t m = 0;
                 for (size_t j = 0; j < stimulusCount - 1; j++) {
