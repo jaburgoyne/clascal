@@ -119,7 +119,7 @@ const StimulusPair * StimulusPairs(const StimulusSet * restrict self)
 size_t PairNumberForStimulusPair(const StimulusSet * restrict self,
                                  const StimulusPair * restrict pair)
 {
-        if (!self || !pair) return 0;
+        if (!self || !pair) return self->pairCount;
         const size_t j = pair->j < pair->k ? pair->j : pair->k;
         const size_t k = pair->j < pair->k ? pair->k : pair->j;
         if (j >= self->stimulusCount || k >= self->stimulusCount || j == k)
