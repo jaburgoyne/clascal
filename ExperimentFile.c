@@ -24,7 +24,7 @@
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
 // IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
 // ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
 // CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
 // SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
 // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
@@ -115,12 +115,17 @@ NewExperimentFromJSON(const json_t * restrict experimentJSON)
                         for (size_t k = 0; k < j + 1; k++) {
                                 const json_t * restrict datum = NULL;
                                 datum = json_array_get(line, (unsigned int)k);
-                                if (!json_is_number(datum))
+                                double d = NAN;
+                                if (json_is_real(datum)) {
+                                        d = json_real_value(datum);
+                                } else if (json_is_integer(datum)) {
+                                        d = (double)json_integer_value(datum);
+                                } else if (json_is_null(datum)) {
+                                        d = NAN;
+                                } else {
                                         ExitWithError("Some dissimilarities"
                                                       " are missing");
-                                double d = json_is_real(datum)
-                                           ? json_real_value(datum)
-                                           : (double)json_integer_value(datum);
+                                }
                                 dissimilarities[pairCount * i + m++] = d;
                         }
                 }

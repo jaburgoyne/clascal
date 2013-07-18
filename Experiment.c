@@ -99,7 +99,7 @@ Experiment * NewExperiment(char * description,
                            double * restrict dissimilarities)
 {
         if (!stimulusSet || !subjectSet || !dissimilarities) return NULL;
-        const size_t dataSize = SizeProduct(StimulusPairCount(stimulusSet),
+        const size_t dissSize = SizeProduct(StimulusPairCount(stimulusSet),
                                             SubjectCount(subjectSet));
         Experiment * restrict self;
         if ((self = malloc(sizeof(Experiment)))) {
@@ -107,7 +107,9 @@ Experiment * NewExperiment(char * description,
                 self->stimulusSet = stimulusSet;
                 self->subjectSet = subjectSet;
                 self->dissimilarities = dissimilarities;
-                self->dataSize = dataSize;
+                self->dataSize = dissSize;
+                for (size_t i = 0; i < dissSize; i++)
+                        if (isnan(dissimilarities[i])) self->dataSize--;
                 self->squaredDistances = NewSquaredDistances(self);
         }
         return self;
