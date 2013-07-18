@@ -20,7 +20,7 @@ SYNOPSIS
  [*-T* 'uint']
 'file'...
 
-There are futher options available for tuning the optimisation
+There are further options available for tuning the optimisation
 routine. Most users can ignore them, but see below for details.
 
 
@@ -153,8 +153,8 @@ one of the stimuli used for the experiment.
 each subject in the experiment and the values of which are arrays
 corresponding to the dissimilarity data for each subject. The arrays
 may either be complete (square) dissimilarity matrices or just the
-lower triangle. In either case, the rows must be ordered in the same
-way as the array of stimulus names.
+lower triangle. In either case, the rows and columnsmust be ordered in
+the same way as the array of stimulus names.
 
 Output filenames are prefixed with `T' followed by the number of
 classes and with `R' followed by the number of dimensions, each prefix
