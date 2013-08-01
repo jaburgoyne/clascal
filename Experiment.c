@@ -52,6 +52,7 @@ struct _Experiment {
         StimulusSet * restrict stimulusSet;
         SubjectSet * restrict subjectSet;
         double * restrict dissimilarities;
+        size_t dissimilaritiesSize;
         size_t dataSize;
         double * squaredDistances;
 };
@@ -70,6 +71,7 @@ static double * NewSquaredDistances(const Experiment * restrict self)
         squaredDistances = SafeMalloc(subjectPairCount, sizeof(double));
         double * accumulator = SafeMalloc(stimulusPairCount, sizeof(double));
         for (size_t l = 0; l < subjectPairCount; l++) {
+                size_t ratingCount = 0;
                 cblas_dcopy((int)stimulusPairCount, 
                             (self->dissimilarities 
                              + stimulusPairCount * subjectPairs[l].i2), 
@@ -83,11 +85,18 @@ static double * NewSquaredDistances(const Experiment * restrict self)
                             1, 
                             accumulator, 
                             1);
-                squaredDistances[l] = cblas_ddot((int)stimulusPairCount, 
-                                                 accumulator, 
-                                                 1, 
-                                                 accumulator, 
-                                                 1);
+                for (size_t m = 0; m < stimulusPairCount; m++) {
+                        if (isnan(accumulator[m])) accumulator[m] = 0.0;
+                        else ratingCount++;
+                }
+                squaredDistances[l] = (ratingCount > 0
+                                       ? (cblas_ddot((int)stimulusPairCount,
+                                                     accumulator,
+                                                     1,
+                                                     accumulator,
+                                                     1)
+                                          / (double)ratingCount)
+                                       : NAN);
         }
         free(accumulator);
         return squaredDistances;
@@ -107,6 +116,7 @@ Experiment * NewExperiment(char * description,
                 self->stimulusSet = stimulusSet;
                 self->subjectSet = subjectSet;
                 self->dissimilarities = dissimilarities;
+                self->dissimilaritiesSize = dissSize;
                 self->dataSize = dissSize;
                 for (size_t i = 0; i < dissSize; i++)
                         if (isnan(dissimilarities[i])) self->dataSize--;
@@ -145,6 +155,11 @@ const SubjectSet * ExperimentSubjectSet(const Experiment * restrict self)
 const double * SubjectDissimilarities(const Experiment * restrict self)
 {
         return self ? self->dissimilarities : NULL; 
+}
+
+size_t DissimilaritiesSize(const Experiment * self)
+{
+        return self ? self->dissimilaritiesSize : 0;
 }
 
 size_t DataSize(const Experiment * self)

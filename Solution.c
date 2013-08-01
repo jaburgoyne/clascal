@@ -844,7 +844,8 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                 size_t * sizes = SafeMalloc(classCount, sizeof(size_t));
                 double maxSquaredDistance = 0.0;
                 for (size_t l = 0; l < subjectPairCount; l++) {
-                        if (isgreater(squaredDistances[l], 
+                        // N.B. isgreater() will (correctly) ignore NaNs.
+                        if (isgreater(squaredDistances[l],
                                       maxSquaredDistance)) {
                                 maxSquaredDistance = squaredDistances[l];
                                 sizes[0] = subjectPairs[l].i1;
@@ -852,7 +853,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         }
                 }
                 if (maxSquaredDistance == 0.0)
-                        ExitWithError("Too many subjects are identical");
+                        ExitWithError("Too many subjects are indistinguisable");
                 for (size_t t = 2; t < classCount; t++) {
                         double maxSumOfSquares = 0.0;
                         for (size_t i = 0; i < subjectCount; i++) {
@@ -865,13 +866,21 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                 }
                                 if (isSeed) continue;
                                 double sumOfSquares = 0.0;
+                                size_t compareCount = 0;
                                 for (size_t seed = 0; seed < t; seed++) {                                                
                                         SubjectPair pair = { i, sizes[seed] };
                                         size_t l;
                                         l = PairNumberForSubjectPair(subjectSet, 
                                                                      &pair);
-                                        sumOfSquares += squaredDistances[l];
+                                        if (!isnan(squaredDistances[l])) {
+                                                sumOfSquares
+                                                        += squaredDistances[l];
+                                                compareCount++;
+                                        }
                                 }
+                                if (compareCount > 0)
+                                        sumOfSquares /= (double)compareCount++;
+                                else sumOfSquares = NAN;
                                 if (isgreater(sumOfSquares, maxSumOfSquares)) {
                                         maxSumOfSquares = sumOfSquares;
                                         sizes[t] = i;
@@ -879,7 +888,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         }
                         if (maxSumOfSquares == 0.0)
                                 ExitWithError("Too many subjects"
-                                              " are identical");
+                                              " are indistinguishable");
                 }
                 for (size_t t = 0; t < classCount; t++)
                         cblas_dcopy((int)stimulusPairCount, 
@@ -888,8 +897,9 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                     initialDistances + stimulusPairCount * t, 
                                     1);
                 // Cluster
-                size_t * clustering = SafeCalloc(subjectCount, sizeof(size_t));
-                double * accumulator;
+                size_t * restrict clustering;
+                clustering = SafeCalloc(subjectCount, sizeof(size_t));
+                double * restrict accumulator;
                 accumulator = SafeMalloc(stimulusPairCount, sizeof(double));
                 bool hasChanged = true;
                 while (hasChanged) {
@@ -900,7 +910,8 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                 double minSquaredDistance = INFINITY;
                                 size_t cluster = clustering[i];
                                 for (size_t t = 0; t < classCount; t++) {
-                                        cblas_dcopy((int)stimulusPairCount, 
+                                        size_t ratingCount = 0;
+                                        cblas_dcopy((int)stimulusPairCount,
                                                     (data + 
                                                      stimulusPairCount * i), 
                                                     1, 
@@ -913,12 +924,21 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                                     1, 
                                                     accumulator, 
                                                     1);
-                                        double d;
-                                        d = cblas_ddot((int)stimulusPairCount, 
-                                                       accumulator, 
-                                                       1, 
-                                                       accumulator, 
-                                                       1);
+                                        for (size_t m = 0;
+                                             m < stimulusPairCount;
+                                             m++) {
+                                                if (isnan(accumulator[m]))
+                                                        accumulator[m] = 0.0;
+                                                else ratingCount++;
+                                        }
+                                        const double d
+                                         = (ratingCount > 0
+                                            ? cblas_ddot((int)stimulusPairCount,
+                                                         accumulator,
+                                                         1,
+                                                         accumulator,
+                                                         1)
+                                            : NAN);
                                         if (isless(d, minSquaredDistance)) {
                                                 minSquaredDistance = d;
                                                 cluster = t;
@@ -932,20 +952,35 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         }
                         // Recompute means if necessary
                         if (hasChanged) {
-                                for (size_t m = 0; m < distancesSize; m++) 
+                                size_t * restrict ratingCounts;
+                                ratingCounts = SafeCalloc(distancesSize,
+                                                          sizeof(size_t));
+                                for (size_t m = 0; m < distancesSize; m++)
                                         initialDistances[m] = 0.0;
-                                for (size_t i = 0; i < subjectCount; i++)
-                                        cblas_daxpy((int)stimulusPairCount, 
-                                                    (1.0 
-                                                     / ((double)
-                                                        sizes[clustering[i]])), 
-                                                    (data 
-                                                     + stimulusPairCount * i), 
-                                                    1, 
-                                                    (initialDistances 
-                                                     + (stimulusPairCount 
-                                                        * clustering[i])), 
-                                                    1);
+                                for (size_t i = 0; i < subjectCount; i++) {
+                                        for (size_t m = 0;
+                                             m < stimulusPairCount;
+                                             m++) {
+                                                const double d
+                                                    = data[stimulusPairCount * i
+                                                           + m];
+                                                const size_t k
+                                                    = ((stimulusPairCount
+                                                        * clustering[i])
+                                                       + m);
+                                                if (!isnan(d)) {
+                                                    initialDistances[k] += d;
+                                                    ratingCounts[k]++;
+                                                }
+                                        }
+                                }
+                                for (size_t m = 0; m < distancesSize; m++)
+                                        initialDistances[m]
+                                                = (ratingCounts[m] > 0
+                                                   ? (initialDistances[m]
+                                                      /= (double)ratingCounts[m])
+                                                   : NAN);
+                                free(ratingCounts);
                         }
                 }
                 free(accumulator);
@@ -963,9 +998,10 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                 for (size_t t = 0; t < classCount; t++)
                         // Normalisation will happen later.
                         prior[t] = (double)rand();
-                double minD = data[0];
-                double maxD = data[0];
-                for (size_t d = 0; d < DataSize(experiment); d++) {
+                double minD = INFINITY;
+                double maxD = -INFINITY;
+                for (size_t d = 0; d < DissimilaritiesSize(experiment); d++) {
+                        // N.B. fmin() and fmax() handle NaNs properly.
                         minD = fmin(minD, data[d]);
                         maxD = fmax(maxD, data[d]);
                 }
@@ -1486,8 +1522,10 @@ Experiment * NewMonteCarloExperiment(const Solution * restrict self)
         for (size_t t = 1; t < classCount; t++)
                 cumulativePrior[t] = self->prior[t-1] + cumulativePrior[t-1];
         cumulativePrior[classCount] = 1.0;
-        const size_t dataSize = DataSize(self->experiment);
-        double * restrict generatedData = SafeMalloc(dataSize, sizeof(double));
+        const size_t dissimilaritiesSize = DissimilaritiesSize(self
+                                                               ->experiment);
+        double * restrict generatedData;
+        generatedData = SafeMalloc(dissimilaritiesSize, sizeof(double));
         for (size_t i = 0; i < subjectCount; i++){
                 double randomValue = (double)rand() / (double)RAND_MAX;
                 size_t class = classCount;

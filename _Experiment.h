@@ -33,7 +33,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 /**
- * The number of elements in the data: pair count times subject count.
+ * The number of possible elements in the data: pair count times subject count.
+ */
+size_t DissimilaritiesSize(const Experiment *);
+
+/**
+ * The number of actual elements in the data: DissimilaritiesSize less NaNs.
  */
 size_t DataSize(const Experiment *);
 
