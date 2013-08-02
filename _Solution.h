@@ -54,8 +54,9 @@ Solution * NewSolution(const Experiment *,
 /**
  * Returns the estimated number of subjects in each class who have rated each
  * stimulus pair, given the current class assignment and experimental data.
- * Rows are subjects and columns are stimulus pairs. Necessary as an alternative
- * to overall class sizes in case of missing ratings in the data.
+ * Row indices correspond to subjects and column indices to stimulus pairs. 
+ * Necessary as an alternative to overall class sizes in case of missing ratings
+ * in the data.
  */
 const double * PairwiseClassSizes(const Solution *);
 

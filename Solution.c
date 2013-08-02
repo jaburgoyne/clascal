@@ -32,6 +32,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <float.h>
 #include <limits.h>
 #include <math.h>
 #include <stdbool.h>
@@ -159,8 +160,7 @@ static double * NewPairwiseClassSizes(const Solution * restrict self) {
 
 static double * NewClassDissimilarities(const Solution * restrict self)
 {
-        const double * restrict classSizes = ClassSizes(self->assignment);
-        if (!classSizes) return NULL;
+        if (!self->pairwiseClassSizes) return NULL;
         const double * restrict conditionalDistributions;
         conditionalDistributions = SubjectClassDistributions(self->assignment);
         if (!conditionalDistributions) return NULL;
@@ -179,29 +179,38 @@ static double * NewClassDissimilarities(const Solution * restrict self)
         const double * restrict subjectDissimilarities;
         subjectDissimilarities = SubjectDissimilarities(self->experiment);
         if (!subjectDissimilarities) return NULL;
-        
-        const size_t dissimilaritiesSize = DistancesSize(self->space);
-        double * restrict classDissimilarities = SafeCalloc(dissimilaritiesSize,
+        const size_t dissimilaritiesSize = DissimilaritiesSize(self->
+                                                               experiment);
+        double * restrict cleanDissimilarities = SafeMalloc(dissimilaritiesSize,
+                                                            sizeof(double));
+        for (size_t i = 0; i < dissimilaritiesSize; i++)
+                cleanDissimilarities[i] = (!isnan(subjectDissimilarities[i])
+                                           ? subjectDissimilarities[i]
+                                           : 0.0);
+        const size_t distancesSize = DistancesSize(self->space);
+        double * restrict classDissimilarities = SafeCalloc(distancesSize,
                                                             sizeof(double));
         cblas_dgemm(CblasRowMajor, 
-                    CblasTrans, 
+                    CblasTrans,
                     CblasNoTrans, 
                     (int)classCount, 
-                    (int)pairCount, 
+                    (int)pairCount,
                     (int)subjectCount, 
                     1.0, 
                     conditionalDistributions, 
                     (int)classCount, 
-                    subjectDissimilarities, 
+                    cleanDissimilarities,
                     (int)pairCount, 
                     0.0, 
                     classDissimilarities, 
                     (int)pairCount);
-        for (size_t i = 0; i < classCount; i++)
-                cblas_dscal((int)pairCount, 
-                            1.0 / classSizes[i], 
-                            classDissimilarities + pairCount * i, 
-                            1);
+        for (size_t t = 0; t < distancesSize; t++)
+                classDissimilarities[t] = ((self->pairwiseClassSizes[t]
+                                            >= DBL_EPSILON)
+                                           ? (classDissimilarities[t]
+                                              / self->pairwiseClassSizes[t])
+                                           : NAN);
+        free(cleanDissimilarities);
         return classDissimilarities;
 }
 
@@ -235,9 +244,7 @@ static double * NewClassResiduals(const Solution * restrict self)
 /* N.B.: Class residuals must be initialised before calling this function. */
 static double TotalModelError(const Solution * restrict self)
 {
-        if (!self->classResiduals) return NAN;
-        const double * classSizes = ClassSizes(self->assignment);
-        if (!classSizes) return NAN;
+        if (!self->classResiduals || !self->pairwiseClassSizes) return NAN;
         const StimulusSet * restrict stimulusSet;
         stimulusSet = ModelSpaceStimulusSet(self->space);
         const size_t pairCount = StimulusPairCount(stimulusSet);
@@ -245,41 +252,40 @@ static double TotalModelError(const Solution * restrict self)
         const size_t classCount = ClassCount(ModelSpaceModel(self->space));
         if (!classCount) return NAN;       
         const size_t residualsSize = DistancesSize(self->space);
-        double * restrict squaredResiduals = SafeMalloc(residualsSize, 
+        double * restrict accumulator = SafeMalloc(residualsSize,
                                                         sizeof(double));
         cblas_dcopy((int)residualsSize,
                     self->classResiduals,
                     1,
-                    squaredResiduals,
+                    accumulator,
                     1);
-        cblas_dtbmv(CblasRowMajor, 
-                    CblasUpper, 
-                    CblasNoTrans, 
-                    CblasNonUnit, 
-                    (int)residualsSize, 
+        cblas_dtbmv(CblasRowMajor,
+                    CblasUpper,
+                    CblasNoTrans,
+                    CblasNonUnit,
+                    (int)residualsSize,
                     0,
-                    self->classResiduals, 
-                    1, 
-                    squaredResiduals,
-                    1); // trick for elementwise multiplication         
-        double * restrict accumulator = SafeCalloc(pairCount, sizeof(double));
-        cblas_dgemv(CblasRowMajor, 
-                    CblasTrans, 
-                    (int)classCount, 
-                    (int)pairCount, 
-                    1.0, 
-                    squaredResiduals,
-                    (int)pairCount, 
-                    classSizes, 
-                    1, 
-                    0.0, 
-                    accumulator, 
-                    1);
-        free(squaredResiduals);
-        // Absolute value should be safe because all values should be positive.
-        double sum = cblas_dasum((int)pairCount,
-                                 accumulator, 
-                                 1);
+                    self->classResiduals,
+                    1,
+                    accumulator,
+                    1); // trick for elementwise multiplication
+        cblas_dtbmv(CblasRowMajor,
+                    CblasUpper,
+                    CblasNoTrans,
+                    CblasNonUnit,
+                    (int)residualsSize,
+                    0,
+                    self->pairwiseClassSizes,
+                    1,
+                    accumulator,
+                    1); // trick for elementwise multiplication
+        double sum = 0.0;
+        for (size_t t = 0; t < residualsSize; t++) {
+                if (!isnan(accumulator[t]))
+                        sum += accumulator[t];
+                else if (self->pairwiseClassSizes[t] >= DBL_EPSILON)
+                        sum = NAN;
+        }
         free(accumulator);
         return sum;
 }
@@ -544,6 +550,7 @@ static void DeleteSolutionPreservingSpaceAndAssignment(Solution * restrict self)
                 FreeAndClear(self->squaredPredictionErrors);
                 FreeAndClear(self->classResiduals);
                 FreeAndClear(self->classDissimilarities);
+                FreeAndClear(self->pairwiseClassSizes);
                 FreeAndClear(self->prior);
                 free(self);
         }
@@ -686,13 +693,11 @@ const double * RelativeErrors(Solution * restrict self)
 /* N.B.: For protected calls only due to lazy initialisation. */
 const double * WeightedRelativeErrors(Solution * restrict self)
 {
-        if (!self) return NULL;
+        if (!self || !self->pairwiseClassSizes) return NULL;
         if (self->weightedRelativeErrors) return self->weightedRelativeErrors;
         const double * restrict relativeErrors;
         relativeErrors = RelativeErrors(self);
         if (!relativeErrors) return NULL;
-        const double * classSizes = ClassSizes(self->assignment);
-        if (!classSizes) return NULL;
         const StimulusSet * restrict stimulusSet;
         stimulusSet = ModelSpaceStimulusSet(self->space);
         const size_t pairCount = StimulusPairCount(stimulusSet);
@@ -707,46 +712,36 @@ const double * WeightedRelativeErrors(Solution * restrict self)
                     1,
                     self->weightedRelativeErrors,
                     1);
-        for (size_t t = 0; t < classCount; t++)
-                cblas_dscal((int)pairCount, 
-                            classSizes[t], 
-                            self->weightedRelativeErrors + pairCount * t, 
-                            1);
+        cblas_dtbmv(CblasRowMajor,
+                    CblasUpper,
+                    CblasNoTrans,
+                    CblasNonUnit,
+                    (int)relativeErrorsSize,
+                    0,
+                    self->pairwiseClassSizes,
+                    1,
+                    self->weightedRelativeErrors,
+                    1); // trick for elementwise multiplication
+        for (size_t t = 0; t < relativeErrorsSize; t++)
+                if (isnan(self->weightedRelativeErrors[t])
+                    && self->pairwiseClassSizes[t] < DBL_EPSILON)
+                        self->weightedRelativeErrors[t] = 0.0;
         return self->weightedRelativeErrors;
 }
 
 /* N.B.: For protected calls only due to lazy initialisation. */
 const double * HessianFactors(Solution * restrict self)
 {
-        if (!self) return NULL;
+        if (!self || !self->weightedRelativeErrors) return NULL;
         if (self->hessianFactors) return self->hessianFactors;
-        const double * classSizes = ClassSizes(self->assignment);
-        if (!classSizes) return NULL;
         const double * restrict distances = ClassDistances(self->space);
         if (!distances) return NULL;
-        const StimulusSet * restrict stimulusSet;
-        stimulusSet = ModelSpaceStimulusSet(self->space);
-        const size_t pairCount = StimulusPairCount(stimulusSet);
-        if (!pairCount) return NULL;
-        const size_t classCount = ClassCount(ModelSpaceModel(self->space));
-        if (!classCount) return NULL;               
-        const size_t distancesSize = DistancesSize(self->space); 
+        const size_t distancesSize = DistancesSize(self->space);
         self->hessianFactors = SafeMalloc(distancesSize, sizeof(double));
-        for (size_t m = 0; m < pairCount; m++)
-                cblas_dcopy((int)classCount, 
-                            classSizes, 
-                            1, 
-                            self->hessianFactors + m, 
-                            (int)pairCount);
-        cblas_dtbsv(CblasRowMajor, 
-                    CblasUpper, 
-                    CblasNoTrans, 
-                    CblasNonUnit, 
-                    (int)distancesSize, 
-                    0, 
-                    distances, 
-                    1, 
-                    self->hessianFactors, 
+        cblas_dcopy((int)distancesSize,
+                    self->pairwiseClassSizes,
+                    1,
+                    self->hessianFactors,
                     1);
         cblas_dtbsv(CblasRowMajor, 
                     CblasUpper, 
@@ -758,6 +753,20 @@ const double * HessianFactors(Solution * restrict self)
                     1, 
                     self->hessianFactors, 
                     1);
+        cblas_dtbsv(CblasRowMajor, 
+                    CblasUpper, 
+                    CblasNoTrans, 
+                    CblasNonUnit, 
+                    (int)distancesSize, 
+                    0, 
+                    distances, 
+                    1, 
+                    self->hessianFactors, 
+                    1);
+        for (size_t t = 0; t < distancesSize; t++)
+                if (isnan(self->hessianFactors[t])
+                    && self->pairwiseClassSizes[t] < DBL_EPSILON)
+                        self->hessianFactors[t] = 0.0;
         return self->hessianFactors;
 }
 
