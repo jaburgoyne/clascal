@@ -446,7 +446,7 @@ NewNormalisedSpecificities(const ModelSpace * restrict self,
         return normalisedSpecificities;
 }
 
-static void InitialiseBasicValues(ModelSpace * self)
+static void InitialiseBasicValues(ModelSpace * restrict self)
 {
         if (self) {
                 const size_t classCount = ClassCount(self->model);
@@ -489,7 +489,7 @@ static void InitialiseBasicValues(ModelSpace * self)
         }
 }
 
-static void InitialiseDerivedValues(ModelSpace * self)
+static void InitialiseDerivedValues(ModelSpace * restrict self)
 {
         if (self) {
                 self->pairSpecificities = NewUnfoldedSpecificities(self);
@@ -748,42 +748,42 @@ double DistanceForPairAndClass(const ModelSpace * restrict self,
         else return NAN;
 }
 
-const double * RawDifferences(const ModelSpace * self)
+const double * RawDifferences(const ModelSpace * restrict self)
 {
         return self ? self->differences : NULL;
 }
 
-const double * SquaredDifferences(const ModelSpace * self)
+const double * SquaredDifferences(const ModelSpace * restrict self)
 {
         return self ? self->squaredDifferences : NULL;
 }
 
-const double * PairwiseSpecificities(const ModelSpace * self)
+const double * PairwiseSpecificities(const ModelSpace * restrict self)
 {
         return self ? self->pairSpecificities : NULL;
 }
 
-const double * ClassDistances(const ModelSpace * self)
+const double * ClassDistances(const ModelSpace * restrict self)
 {
         return self ? self->distances : NULL;
 }
 
-size_t CoordinatesSize(const ModelSpace * self)
+size_t CoordinatesSize(const ModelSpace * restrict self)
 {
         return self ? self->coordinatesSize : 0;
 }
 
-size_t SpecificitiesSize(const ModelSpace * self)
+size_t SpecificitiesSize(const ModelSpace * restrict self)
 {
         return self ? self->specificitiesSize : 0;
 }
 
-size_t DifferencesSize(const ModelSpace * self)
+size_t DifferencesSize(const ModelSpace * restrict self)
 {
         return self ? self->differencesSize : 0;
 }
 
-size_t DistancesSize(const ModelSpace * self)
+size_t DistancesSize(const ModelSpace * restrict self)
 {
         return self ? self->distancesSize : 0;
 }

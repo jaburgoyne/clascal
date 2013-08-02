@@ -341,7 +341,7 @@ Solution * NewSolutionFromFilename(const char * restrict filename,
         return solution;
 }
 
-static json_t * SolutionJSON(const Solution * self)
+static json_t * SolutionJSON(const Solution * restrict self)
 {
         json_t * restrict root = json_object();
         const ClassAssignment * restrict assignment = NULL;
@@ -540,7 +540,7 @@ static json_t * SolutionJSON(const Solution * self)
         return root;
 }
         
-void SaveSolutionToFile(const Solution * self, FILE * f)
+void SaveSolutionToFile(const Solution * restrict self, FILE * restrict f)
 {
         json_t * restrict solutionJSON = SolutionJSON(self);
         if (json_dumpf(solutionJSON, f, JSON_INDENT(8)|JSON_SORT_KEYS) != 0)
@@ -548,7 +548,8 @@ void SaveSolutionToFile(const Solution * self, FILE * f)
         json_decref(solutionJSON);
 }
             
-void SaveSolutionToFilename(const Solution * self, const char * filename)
+void SaveSolutionToFilename(const Solution * restrict self,
+                            const char * restrict filename)
 {
         json_t * restrict solutionJSON = SolutionJSON(self);
         if (0 

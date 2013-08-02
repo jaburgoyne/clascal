@@ -146,7 +146,7 @@ static double * NewCoordinateGradient(const CoordinateSolver * restrict self)
 /*
  * Returns the gradient of q1 for the specificities.
  */
-static double * NewSpecificityGradient(const CoordinateSolver * self)
+static double * NewSpecificityGradient(const CoordinateSolver * restrict self)
 {
         const ModelSpace * restrict space = SolutionModelSpace(self->solution);
         const size_t specificitiesSize = SpecificitiesSize(space);

@@ -200,7 +200,7 @@ UnconditionalClassDistribution(const ClassAssignment * restrict self)
         return self ? self->unconditionalDistribution : NULL;
 }
 
-size_t DistributionsSize(const ClassAssignment * self)
+size_t DistributionsSize(const ClassAssignment * restrict self)
 {
         return self ? self->distributionsSize : 0;
 }

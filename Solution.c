@@ -442,7 +442,7 @@ Solution * NewSolution(const Experiment * restrict experiment,
             || ClassAssignmentModel(assignment) != ModelSpaceModel(space)
             || !prior) 
                 return NULL;
-        Solution * self; 
+        Solution * restrict self;
         if ((self = malloc(sizeof(Solution)))) {
                 self->experiment = experiment;
                 self->assignment = assignment;
