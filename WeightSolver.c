@@ -330,7 +330,7 @@ static WeightSolver * NewWeightSolver(Solution * restrict solution)
         const size_t gradientSize = ExtendedWeightsSize(model);
         size_t hessianSize = SizeProduct(gradientSize, gradientSize);
         if (!IsConvertibleToInt(hessianSize))
-                ExitWithError("Model too large to solve for coordinates");
+                ExitWithError("Model too large to solve for weights");
         WeightSolver * restrict self;
         if ((self = malloc(sizeof(WeightSolver)))) {
                 self->solution = solution;

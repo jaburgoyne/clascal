@@ -52,6 +52,14 @@ Solution * NewSolution(const Experiment *,
                        const Parameters *);
 
 /**
+ * Returns the estimated number of subjects in each class who have rated each
+ * stimulus pair, given the current class assignment and experimental data.
+ * Rows are subjects and columns are stimulus pairs. Necessary as an alternative
+ * to overall class sizes in case of missing ratings in the data.
+ */
+const double * PairwiseClassSizes(const Solution *);
+
+/**
  * Returns the weighted mean dissimilarity ratings for each class given 
  * this solution. In Winsberg and De Soete 1993, this matrix is represented by
  * \f$\mathbf{\bar{Y}}\f$. Row indices correspond to latent classes and column

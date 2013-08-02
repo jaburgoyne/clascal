@@ -71,6 +71,7 @@ struct _Solution {
         double * prior;
         double estimatedVariance;
         const Parameters * restrict parameters;
+        double * restrict pairwiseClassSizes;
         double * restrict classDissimilarities;
         double * restrict classResiduals;
         double sumOfSquaredModelError;
@@ -117,6 +118,43 @@ static double RandomNormal()
                 shouldRegenerate = true;
                 return y;
         }
+}
+
+static double * NewPairwiseClassSizes(const Solution * restrict self) {
+        const SubjectSet * restrict subjectSet;
+        subjectSet = ClassAssignmentSubjectSet(self->assignment);
+        const size_t subjectCount = SubjectCount(subjectSet);
+        if (!subjectCount) return NULL;
+        const StimulusSet * restrict stimulusSet;
+        stimulusSet = ModelSpaceStimulusSet(self->space);
+        const size_t pairCount = StimulusPairCount(stimulusSet);
+        if (!pairCount) return NULL;
+        const Model * restrict model;
+        model = ModelSpaceModel(self->space);
+        const size_t classCount = ClassCount(model);
+        if (!classCount) return NULL;
+        const double * restrict conditionalDistributions;
+        conditionalDistributions = SubjectClassDistributions(self->assignment);
+        if (!conditionalDistributions) return NULL;
+        const double * restrict subjectDissimilarities;
+        subjectDissimilarities = SubjectDissimilarities(self->experiment);
+        if (!subjectDissimilarities) return NULL;
+        const size_t dissimilaritiesSize = DistancesSize(self->space);
+        double * restrict pairwiseClassSizes = SafeMalloc(dissimilaritiesSize,
+                                                          sizeof(double));
+        for (size_t m = 0; m < pairCount; m++) {
+                for (size_t i = 0; i < subjectCount; i++) {
+                        if (!isnan(subjectDissimilarities[pairCount * i + m]))
+                                cblas_daxpy((int)classCount,
+                                            1.0,
+                                            conditionalDistributions +
+                                            classCount * i,
+                                            1,
+                                            pairwiseClassSizes + pairCount * i,
+                                            (int)pairCount);
+                }
+        }
+        return pairwiseClassSizes;
 }
 
 static double * NewClassDissimilarities(const Solution * restrict self)
@@ -413,6 +451,7 @@ static void InitialiseBasicDerivedValues(Solution * restrict self) {
                 if (dataSize < parameterCount)
                         ExitWithError("Model has more parameters than data");
                 self->degreesOfFreedom = dataSize - parameterCount;
+                self->pairwiseClassSizes = NewPairwiseClassSizes(self);
                 self->classDissimilarities = NewClassDissimilarities(self);
                 self->classResiduals = NewClassResiduals(self);
                 self->sumOfSquaredModelError = TotalModelError(self);
@@ -568,6 +607,11 @@ const double * PriorDistribution(const Solution * restrict self)
 const Parameters * SolutionParameters(const Solution * restrict self)
 {
         return self ? self->parameters : &DEFAULT_PARAMETERS;
+}
+
+const double * PairwiseClassSizes(const Solution * restrict self)
+{
+        return self ? self->pairwiseClassSizes : NULL;
 }
 
 const double * ClassDissimilarities(const Solution * restrict self)

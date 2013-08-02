@@ -71,7 +71,7 @@ SubjectSet * NewSubjectSet(size_t subjectCount,
 {
         if (!subjectCount || !subjectNames) return NULL;
         if (!IsConvertibleToInt(subjectCount))
-                ExitWithError("Subject count is greater than INT_MAX");
+                ExitWithError("Too many subjects to process");
         SubjectSet * restrict self;
         if ((self = malloc(sizeof(SubjectSet)))) {
                 self->subjectCount = subjectCount;

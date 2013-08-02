@@ -76,6 +76,9 @@ StimulusSet * NewStimulusSet(size_t stimulusCount,
                 self->stimulusNames = stimulusNames;
                 self->pairCount = (SizeProduct(stimulusCount, stimulusCount - 1) 
                                    / 2);
+                if (!IsConvertibleToInt(self->pairCount))
+                        ExitWithError("Too many stimuli to process");
+
                 self->stimulusPairs = NewStimulusPairs(self);
         }
         return self;

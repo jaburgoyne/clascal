@@ -33,17 +33,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 /**
- * The number of possible elements in the data: pair count times subject count.
+ * Returns the number of possible elements in the data: pair count times subject 
+ * count.
  */
 size_t DissimilaritiesSize(const Experiment *);
 
 /**
- * The number of actual elements in the data: DissimilaritiesSize less NaNs.
+ * Returns the number of actual elements in the data: DissimilaritiesSize less
+ * NaNs.
  */
 size_t DataSize(const Experiment *);
 
 /**
- * Returns a vector of squared distances between each subject pair's
+ * Returns the vector of squared distances between each subject pair's
  * experimental data.
  */
 double * ExperimentSquaredDistances(const Experiment *);

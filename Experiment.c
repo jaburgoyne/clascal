@@ -137,7 +137,7 @@ void DeleteExperiment(Experiment * restrict self)
         }
 }
 
-const char * ExperimentDescription(const Experiment * self)
+const char * ExperimentDescription(const Experiment * restrict self)
 {
         return self ? self->description : NULL;
 }
@@ -157,17 +157,17 @@ const double * SubjectDissimilarities(const Experiment * restrict self)
         return self ? self->dissimilarities : NULL; 
 }
 
-size_t DissimilaritiesSize(const Experiment * self)
+size_t DissimilaritiesSize(const Experiment * restrict self)
 {
         return self ? self->dissimilaritiesSize : 0;
 }
 
-size_t DataSize(const Experiment * self)
+size_t DataSize(const Experiment * restrict self)
 {
         return self ? self->dataSize : 0;
 }
 
-double * ExperimentSquaredDistances(const Experiment * self)
+double * ExperimentSquaredDistances(const Experiment * restrict self)
 {
         return self ? self->squaredDistances : NULL;
 }
