@@ -116,8 +116,8 @@ int main(int argc, char * argv[])
                 Experiment * restrict sampleExperiment;
                 sampleExperiment = NewMonteCarloExperiment(nullSolution);
                 Solution * restrict nullFit;
-                // NB: Winsberg forces k-means or INDSCAL starts and random
-                //     initial coordinates in most cases.
+                // Winsberg forces k-means or INDSCAL starts and random initial
+                // initial coordinates in most cases.
                 nullFit = NewSolutionForExperimentAndModel(sampleExperiment, 
                                                            nullModel, 
                                                            nullParameters);

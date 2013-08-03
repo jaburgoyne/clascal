@@ -141,7 +141,7 @@ static double * NewPairwiseClassSizes(const Solution * restrict self) {
         subjectDissimilarities = SubjectDissimilarities(self->experiment);
         if (!subjectDissimilarities) return NULL;
         const size_t dissimilaritiesSize = DistancesSize(self->space);
-        double * restrict pairwiseClassSizes = SafeMalloc(dissimilaritiesSize,
+        double * restrict pairwiseClassSizes = SafeCalloc(dissimilaritiesSize,
                                                           sizeof(double));
         for (size_t m = 0; m < pairCount; m++) {
                 for (size_t i = 0; i < subjectCount; i++) {
@@ -283,6 +283,7 @@ static double TotalModelError(const Solution * restrict self)
         for (size_t t = 0; t < residualsSize; t++) {
                 if (!isnan(accumulator[t]))
                         sum += accumulator[t];
+                // NaNs are allowable only if there were no ratings.
                 else if (self->pairwiseClassSizes[t] >= DBL_EPSILON)
                         sum = NAN;
         }
@@ -313,31 +314,35 @@ static double * NewSquaredPredictionErrors(const Solution * restrict self)
         if (!classDistances) return NULL;
         const size_t distributionsSize = DistributionsSize(self->assignment);
         if (!distributionsSize) return NULL;
-        double * restrict residual = SafeMalloc(pairCount, sizeof(double));
         double * restrict squaredPredictionErrors;
-        squaredPredictionErrors = SafeMalloc(distributionsSize, sizeof(double));
+        squaredPredictionErrors = SafeCalloc(distributionsSize, sizeof(double));
         for (size_t i = 0; i < subjectCount; i++) {
-                for (size_t t = 0; t < classCount; t++) {
-                        cblas_dcopy((int)pairCount, 
-                                    subjectDissimilarities + pairCount * i, 
-                                    1, 
-                                    residual, 
-                                    1); 
-                        cblas_daxpy((int)pairCount, 
-                                    -1.0, 
-                                    classDistances + pairCount * t, 
-                                    1, 
-                                    residual, 
-                                    1);
-                        double dot = cblas_ddot((int)pairCount, 
-                                                residual, 
-                                                1, 
-                                                residual,
-                                                1);
-                        squaredPredictionErrors[classCount * i + t] = dot;
+                for (size_t m = 0; m < pairCount; m++) {
+                        const double y
+                                = subjectDissimilarities[pairCount * i + m];
+                        // If the subject has not evaluated the pair, the
+                        // squared error can remain zero. The potential error
+                        // in normalising the probability is handled by using
+                        // DataSize in the log likelihood computation.
+                        if (isnan(y)) continue;
+                        for (size_t t = 0; t < classCount; t++) {
+                                const double d
+                                    = y - classDistances[pairCount * t + m];
+                                // If the class has no estimation of the
+                                // distance, havoc will occur if we propagate
+                                // NaNs. To preserve the same number of degrees
+                                // of freedom throughout, we thus assume
+                                // that the squared error for these missing
+                                // values is the current estimate of variance.
+                                // This situation should only arise for non-
+                                // spatial models.
+                                squaredPredictionErrors[classCount * i + t]
+                                    += (!isnan(d)
+                                        ? d * d
+                                        : self->estimatedVariance);
+                        }
                 }
         }
-        free(residual);
         return squaredPredictionErrors;;
 }
 
@@ -897,7 +902,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                 size_t * sizes = SafeMalloc(classCount, sizeof(size_t));
                 double maxSquaredDistance = 0.0;
                 for (size_t l = 0; l < subjectPairCount; l++) {
-                        // N.B. isgreater() will (correctly) ignore NaNs.
+                        // isgreater() will (correctly) ignore NaNs.
                         if (isgreater(squaredDistances[l],
                                       maxSquaredDistance)) {
                                 maxSquaredDistance = squaredDistances[l];
@@ -1054,7 +1059,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                 double minD = INFINITY;
                 double maxD = -INFINITY;
                 for (size_t d = 0; d < DissimilaritiesSize(experiment); d++) {
-                        // N.B. fmin() and fmax() handle NaNs properly.
+                        // fmin() and fmax() handle NaNs properly.
                         minD = fmin(minD, data[d]);
                         maxD = fmax(maxD, data[d]);
                 }
@@ -1588,7 +1593,7 @@ Experiment * NewMonteCarloExperiment(const Solution * restrict self)
                                 break;
                         }
                 }
-                if (class == classCount)
+                if (class >= classCount)
                         ExitWithError("Unable to generate a random solution");
                 for (size_t m = 0; m < stimulusPairCount; m++) {
                         generatedData[stimulusPairCount * i + m]
