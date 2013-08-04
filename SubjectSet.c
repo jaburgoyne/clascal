@@ -121,7 +121,8 @@ const SubjectPair * SubjectPairs(const SubjectSet * restrict self)
 size_t PairNumberForSubjectPair(const SubjectSet * restrict self,
                                 const SubjectPair * restrict pair)
 {
-        if (!self || !pair) return self->pairCount;
+        if (!self) return 0;
+        if (!pair) return self->pairCount;
         const size_t i1 = pair->i1 < pair->i2 ? pair->i1 : pair->i2;
         const size_t i2 = pair->i1 < pair->i2 ? pair->i2 : pair->i1;
         if (i1 >= self->subjectCount || i2 >= self->subjectCount || i1 == i2)

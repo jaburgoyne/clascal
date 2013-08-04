@@ -335,6 +335,7 @@ NewExpectedCoordinateHessian(const CoordinateSolver * restrict self)
                         }
                 }
         }
+        free(accumulator);
         return hessian;
 }
 
@@ -579,6 +580,7 @@ static double * ExpectedHessian(CoordinateSolver * restrict self)
 static bool FrozenGradientIsNegative(const CoordinateSolver * restrict self,
                                      Solution * restrict solution0)
 {
+        if (!self || !self->gradient) return false;
         const Parameters * restrict parameters;
         parameters = SolutionParameters(self->solution);
         const ModelSpace * restrict space = SolutionModelSpace(solution0);
@@ -927,6 +929,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE) 
                 fprintf(stdout, "\n");
         free(nextCoordinates);
+        free(nextSpecs);
         DeleteCoordinateSolver(solver);
         free(searchDirection0);
         return solution;

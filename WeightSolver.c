@@ -418,6 +418,7 @@ static double * ExpectedHessian(WeightSolver * restrict self)
 static bool FrozenGradientIsNegative(const WeightSolver * restrict self,
                                      Solution * restrict solution0)
 {
+        if (!self) return false;
         const Parameters * restrict parameters;
         parameters = SolutionParameters(self->solution);
         const ModelSpace * restrict space = SolutionModelSpace(solution0);

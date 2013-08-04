@@ -545,6 +545,7 @@ ModelSpace * NewModelSpace(const StimulusSet * restrict stimulusSet,
                         self->coordinates = NewNormalisedCoordinates(self, 
                                                                      wMeans, 
                                                                      coords);
+                        free(coords);
                 }
                 if (ModelSpecificityType(model)) {
                         if (specificities) {

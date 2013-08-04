@@ -64,6 +64,7 @@ static double * NewSquaredDistances(const Experiment * restrict self)
 {
         if (!self->dissimilarities) return NULL;
         const size_t stimulusPairCount = StimulusPairCount(self->stimulusSet);
+        if (!stimulusPairCount) return NULL;
         const size_t subjectPairCount = SubjectPairCount(self->subjectSet);
         if (!subjectPairCount) return NULL;
         const SubjectPair * subjectPairs = SubjectPairs(self->subjectSet);
