@@ -275,6 +275,12 @@ const double * PriorDistribution(const Solution *);
 const Parameters * SolutionParameters(const Solution *);
 
 /**
+ * Returns the parameter count of the model for this solution adjusted as 
+ * necessary for any missing data in the underlying experiment.
+ */
+size_t AdjustedParameterCount(const Solution *);
+
+/**
  * Returns the degrees of freedom (data size minus number of parameters) of this 
  * solution.
  */

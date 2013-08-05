@@ -433,7 +433,7 @@ static json_t * SolutionJSON(const Solution * restrict self)
         }
         json_object_set_new(root, 
                             "ParameterCount",
-                            json_integer((int)ParameterCount(space)));
+                            json_integer((int)AdjustedParameterCount(self)));
         json_object_set_new(root,
                             "DegreesOfFreedom",
                             json_integer((int)DegreesOfFreedom(self)));
