@@ -151,7 +151,7 @@ static double * NewPairwiseClassSizes(const Solution * restrict self) {
                                             conditionalDistributions +
                                             classCount * i,
                                             1,
-                                            pairwiseClassSizes + pairCount * i,
+                                            pairwiseClassSizes + m,
                                             (int)pairCount);
                 }
         }
@@ -1200,32 +1200,29 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                         free(counts);
                 }
 #else
-                double * restrict accumulator;
-                accumulator = SafeMalloc(stimulusPairCount, sizeof(double));
-                for (size_t i = 0; i < subjectCount; i++) {
-                        cblas_dcopy((int)stimulusPairCount, 
-                                    data + stimulusPairCount * i, 
-                                         1, 
-                                         accumulator, 
-                                         1);
-                        cblas_dtbmv(CblasRowMajor, 
-                                    CblasUpper, 
-                                    CblasNoTrans, 
-                                    CblasNonUnit, 
-                                    (int)stimulusPairCount, 
-                                    0, 
-                                    data + stimulusPairCount * i, 
-                                    1, 
-                                    accumulator, 
-                                    1); // trick for elementwise multiplication
-                        cblas_daxpy((int)stimulusPairCount, 
-                                    1.0 / (double)subjectCount, 
-                                    accumulator, 
-                                    1, 
-                                    means, 
-                                    1);
+                double grandMean = 0.0;
+                size_t grandCount = 0;
+                size_t * counts;
+                counts = SafeCalloc(stimulusPairCount, sizeof(size_t));
+                for (size_t m = 0; m < stimulusPairCount; m++) {
+                        for (size_t i = 0; i < subjectCount; i++) {
+                                const double d = data[(stimulusPairCount
+                                                       * i)
+                                                      + m];
+                                if (!isnan(d)) {
+                                        means[m] += d * d;
+                                        counts[m]++;
+                                }
+                        }
+                        grandMean += means[m];
+                        grandCount += counts[m];
                 }
-                free(accumulator);
+                grandMean /= (double)grandCount;
+                for (size_t m = 0; m < stimulusPairCount; m++)
+                        means[m] = (counts[m]
+                                    ? means[m] / (double)counts[m]
+                                    : grandMean);
+                free(counts);
 #endif
                 // Derive the Gram matrix.
                 const size_t gramSize = SizeProduct(stimulusCount,
@@ -1259,9 +1256,8 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                                     1, 
                                     gram + j, 
                                     (int)stimulusCount);
-                const double grandMean = cblas_dasum((int)stimulusCount, 
-                                                     means, 
-                                                     1) / (double)stimulusCount;
+                grandMean = (cblas_dasum((int)stimulusCount, means, 1)
+                             / (double)stimulusCount);
                 for (size_t m = 0; m < gramSize; m++) gram[m] += grandMean;
                 cblas_dscal((int)gramSize, -0.5, gram, 1);
                 free(means);

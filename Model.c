@@ -57,7 +57,7 @@ Model * NewModel(size_t dimensionCount,
         if (!classCount) return NULL;
         // TODO: This check can be removed when star trees are supported.
         if (!dimensionCount && specificityType) 
-                ExitWithError("Star-tree models are not yet supported.");
+                ExitWithError("Star-tree models are not yet supported");
         const size_t weightsSize = SizeProduct(dimensionCount, classCount);
         const size_t extendedWeightsSize = ((specificityType 
                                              == GlobalSpecificities)
