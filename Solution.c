@@ -159,21 +159,6 @@ static double * NewPairwiseClassSizes(const Solution * restrict self) {
         return pairwiseClassSizes;
 }
 
-static size_t AdjustedParameterCountValue(const Solution * restrict self) {
-        if (!self->space) return 0;
-        size_t parameterCount = ParameterCount(self->space);
-        const Model * restrict model;
-        model = ModelSpaceModel(self->space);
-        if (IsSpatial(model)) return parameterCount;
-        if (!self->pairwiseClassSizes) return 0;
-        size_t distancesSize = DistancesSize(self->space);
-        for (size_t m = 0; m < distancesSize; m++)
-                if (self->pairwiseClassSizes[m] < DBL_EPSILON
-                    && parameterCount > 0)
-                        parameterCount--;
-        return parameterCount;
-}
-
 static double * NewClassDissimilarities(const Solution * restrict self)
 {
         if (!self->pairwiseClassSizes) return NULL;
@@ -228,6 +213,20 @@ static double * NewClassDissimilarities(const Solution * restrict self)
                                            : NAN);
         free(cleanDissimilarities);
         return classDissimilarities;
+}
+
+static size_t AdjustedParameterCountValue(const Solution * restrict self) {
+        if (!self->space) return 0;
+        size_t parameterCount = ParameterCount(self->space);
+        const Model * restrict model;
+        model = ModelSpaceModel(self->space);
+        if (IsSpatial(model)) return parameterCount;
+        if (!self->classDissimilarities) return 0;
+        size_t distancesSize = DistancesSize(self->space);
+        for (size_t m = 0; m < distancesSize; m++)
+                if (isnan(self->classDissimilarities[m]) && parameterCount > 0)
+                        parameterCount--;
+        return parameterCount;
 }
 
 static double * NewClassResiduals(const Solution * restrict self)
@@ -474,13 +473,13 @@ static double * NewNormalisedPrior(const Solution * restrict self,
 static void InitialiseBasicDerivedValues(Solution * restrict self) {
         if (self) {
                 self->pairwiseClassSizes = NewPairwiseClassSizes(self);
-                const size_t dataSize = DataSize(self->experiment);
+                self->classDissimilarities = NewClassDissimilarities(self);
                 self->adjustedParameterCount = AdjustedParameterCountValue(self);
+                const size_t dataSize = DataSize(self->experiment);
                 if (dataSize < self->adjustedParameterCount)
                         ExitWithError("Model has more parameters than data");
                 self->degreesOfFreedom = (dataSize
                                           - self->adjustedParameterCount);
-                self->classDissimilarities = NewClassDissimilarities(self);
                 self->classResiduals = NewClassResiduals(self);
                 self->sumOfSquaredModelError = TotalModelError(self);
                 (self
