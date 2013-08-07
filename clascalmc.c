@@ -87,7 +87,11 @@ int main(int argc, char * argv[])
         if (access(altFilename, R_OK) != 0) goto Usage;
         Solution * nullSolution;
         nullSolution = NewSolutionFromFilename(nullFilename, experiment);
+        if (!nullSolution)
+                ExitWithError("Could not read null hypothesis file");
         Solution * altSolution;
+        if (!altSolution)
+                ExitWithError("Could not read alternative hypothesis file");
         altSolution = NewSolutionFromFilename(altFilename, experiment);
         const ModelSpace * restrict nullSpace;
         nullSpace = SolutionModelSpace(nullSolution);

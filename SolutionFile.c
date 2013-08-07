@@ -51,13 +51,19 @@
 #include "Solution.h"
 #include "_Solution.h"
 
+static json_t * json_null_or_real(double d)
+{
+        if (!isnan(d) && !isinf(d)) return json_real(d);
+        else return json_null();
+}
+
 static json_t * json_array_with_vector(const double * restrict vector, 
                                        size_t length, 
                                        size_t stride)
 {
         json_t * restrict array = json_array();
         for (size_t i = 0; i < SizeProduct(length, stride); i += stride)
-                json_array_append_new(array, json_real(vector[i]));
+                json_array_append_new(array, json_null_or_real(vector[i]));
         return array;
 }
 
@@ -419,7 +425,7 @@ static json_t * SolutionJSON(const Solution * restrict self)
                                                                 classCount, 
                                                                 stimulusCount);
                         } else {
-                                spJSON = json_real(specificities[j]);
+                                spJSON = json_null_or_real(specificities[j]);
                         }
                         const char * name = NULL;
                         name = StimulusNameForIndex(stimulusSet, j);
@@ -447,7 +453,8 @@ static json_t * SolutionJSON(const Solution * restrict self)
                                 const double d = DistanceForPairAndClass(space, 
                                                                          &pair,
                                                                          t);
-                                json_array_append_new(rowJSON, json_real(d));
+                                json_array_append_new(rowJSON,
+                                                      json_null_or_real(d));
                         }
                         json_array_append_new(classMeansJSON, rowJSON);
                 }
@@ -457,13 +464,13 @@ static json_t * SolutionJSON(const Solution * restrict self)
         const double * prior = PriorDistribution(self);
         json_t * restrict priorJSON = json_array();
         for (size_t t = 0; t < classCount; t++)
-                json_array_append_new(priorJSON, json_real(prior[t]));
+                json_array_append_new(priorJSON, json_null_or_real(prior[t]));
         json_object_set_new(root, 
                             "PriorDistribution", 
                             priorJSON);
         json_object_set_new(root, 
                             "EstimatedVariance", 
-                            json_real(EstimatedVariance(self)));
+                            json_null_or_real(EstimatedVariance(self)));
         const Parameters * restrict parameters = SolutionParameters(self);
         json_t * restrict parametersJSON = json_object();
         json_object_set_new(parametersJSON, 
@@ -481,62 +488,62 @@ static json_t * SolutionJSON(const Solution * restrict self)
                             json_integer((int)parameters->maxEMIterationCount));
         json_object_set_new(parametersJSON, 
                             "EMImprovementAmount",
-                            json_real(parameters->EMImprovementAmount));
+                            json_null_or_real(parameters->EMImprovementAmount));
         json_object_set_new(parametersJSON, 
                             "MaxMIterationCount",
                             json_integer((int)parameters->maxMIterationCount));
         json_object_set_new(parametersJSON, 
                             "MImprovementFactor",
-                            json_real(parameters->MImprovementFactor));
+                            json_null_or_real(parameters->MImprovementFactor));
         json_object_set_new(parametersJSON, 
                             "MaxSpatialIterationCount",
                             json_integer((int)parameters->maxSpatialIterationCount));
         json_object_set_new(parametersJSON, 
                             "MinSpecificityValue",
-                            json_real(parameters->minSpecificityValue));
+                            json_null_or_real(parameters->minSpecificityValue));
         json_object_set_new(parametersJSON, 
                             "SpatialImprovementFactor",
-                            json_real(parameters->spatialImprovementFactor));
+                            json_null_or_real(parameters->spatialImprovementFactor));
         json_object_set_new(parametersJSON, 
                             "MaxWeightIterationCount",
                             json_integer((int)parameters->maxWeightIterationCount));
         json_object_set_new(parametersJSON, 
                             "MinWeightValue",
-                            json_real(parameters->minWeightValue));
+                            json_null_or_real(parameters->minWeightValue));
         json_object_set_new(parametersJSON, 
                             "WeightImprovementFactor",
-                            json_real(parameters->weightImprovementFactor));
+                            json_null_or_real(parameters->weightImprovementFactor));
         json_object_set_new(parametersJSON, 
                             "MaxSearchIterationCount",
                             json_integer((int)parameters->maxSearchIterationCount));
         json_object_set_new(parametersJSON, 
                             "FirstStepSize",
-                            json_real(parameters->firstStepSize));
+                            json_null_or_real(parameters->firstStepSize));
         json_object_set_new(parametersJSON, 
                             "Margin", 
-                            json_real(parameters->margin));
+                            json_null_or_real(parameters->margin));
         json_object_set_new(parametersJSON,
                             "InverseConditionNumber",
-                            json_real(parameters->invConditionNumber));
+                            json_null_or_real(parameters->invConditionNumber));
         json_object_set_new(parametersJSON, 
                             "SlopeImprovementFactor",
-                            json_real(parameters->slopeImprovementFactor));
+                            json_null_or_real(parameters->slopeImprovementFactor));
         json_object_set_new(parametersJSON, 
                             "StepIncreaseFactor",
-                            json_real(parameters->stepIncreaseFactor));
+                            json_null_or_real(parameters->stepIncreaseFactor));
         json_object_set_new(parametersJSON, 
                             "StepDecreaseFactor",
-                            json_real(parameters->stepDecreaseFactor));
+                            json_null_or_real(parameters->stepDecreaseFactor));
         json_object_set_new(root, "Parameters", parametersJSON);
         json_object_set_new(root, 
                             "LogLikelihood", 
-                            json_real(LogLikelihood(self)));
+                            json_null_or_real(LogLikelihood(self)));
         json_object_set_new(root, 
                             "AkaikeCriterion", 
-                            json_real(AkaikeCriterion(self)));
+                            json_null_or_real(AkaikeCriterion(self)));
         json_object_set_new(root, 
                             "BayesianCriterion",
-                            json_real(BayesianCriterion(self)));
+                            json_null_or_real(BayesianCriterion(self)));
         return root;
 }
         
