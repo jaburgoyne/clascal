@@ -211,7 +211,7 @@ static double * NewClassDissimilarities(const Solution * restrict self)
                                            ? (classDissimilarities[t]
                                               / self->pairwiseClassSizes[t])
                                            : NAN);
-        free(cleanDissimilarities);
+        FreeAndClear(cleanDissimilarities);
         return classDissimilarities;
 }
 
@@ -302,7 +302,7 @@ static double TotalModelError(const Solution * restrict self)
                 else if (self->pairwiseClassSizes[t] >= DBL_EPSILON)
                         sum = NAN;
         }
-        free(accumulator);
+        FreeAndClear(accumulator);
         return sum;
 }
 
@@ -867,12 +867,12 @@ NewExpectedAssignment(const Solution * restrict self)
                                     1, 
                                     newDistributions + classCount * i, 
                                     1);
-        free(accumulator);
+        FreeAndClear(accumulator);
 #endif
         // Normalisation is taken care of within NewClassAssignment.
         ClassAssignment * restrict newAssignment;
         newAssignment = NewClassAssignment(subjectSet, model, newDistributions);
-        free(newDistributions);
+        FreeAndClear(newDistributions);
         return newAssignment;
 }
 
@@ -1059,20 +1059,20 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                                    ? (initialDistances[m]
                                                       /= (double)ratingCounts[m])
                                                    : NAN);
-                                free(ratingCounts);
+                                FreeAndClear(ratingCounts);
                         }
                 }
-                free(accumulator);
+                FreeAndClear(accumulator);
                 initialDistributions = SafeCalloc(distributionsSize,
                                                   sizeof(double));
                 for (size_t i = 0; i < subjectCount; i++)
                         initialDistributions[classCount * i 
                                              + clustering[i]] = 1.0;
-                free(clustering);
+                FreeAndClear(clustering);
                 for (size_t t = 0; t < classCount; t++)
                         // Normalisation will happen later.
                         prior[t] = (double)sizes[t];
-                free(sizes);
+                FreeAndClear(sizes);
         } else {
                 for (size_t t = 0; t < classCount; t++)
                         // Normalisation will happen later.
@@ -1097,7 +1097,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
         dummyAssignment = NewClassAssignment(subjectSet, 
                                              model, 
                                              initialDistributions);
-        free(initialDistributions);
+        FreeAndClear(initialDistributions);
         ModelSpace * restrict dummySpace;
         dummySpace = NewDummySpace(stimulusSet, model, initialDistances);
         // initialDistances is now seized by dummySpace
@@ -1108,7 +1108,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                    prior, 
                                    0.0, // dummy variance to be replace later, 
                                    parameters);
-        free(prior);
+        FreeAndClear(prior);
         const double initialVariance = NewVariance(tempSolution);
         Solution * restrict dummySolution = NULL;
         if ((dummySolution = malloc(sizeof(Solution)))) {
@@ -1218,7 +1218,7 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                                 means[m] = (counts[m]
                                             ? means[m] / (double)counts[m]
                                             : grandMean);
-                        free(counts);
+                        FreeAndClear(counts);
                 }
 #else
                 double grandMean = 0.0;
@@ -1243,7 +1243,7 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                         means[m] = (counts[m]
                                     ? means[m] / (double)counts[m]
                                     : grandMean);
-                free(counts);
+                FreeAndClear(counts);
 #endif
                 // Derive the Gram matrix.
                 const size_t gramSize = SizeProduct(stimulusCount,
@@ -1281,7 +1281,7 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                              / (double)stimulusCount);
                 for (size_t m = 0; m < gramSize; m++) gram[m] += grandMean;
                 cblas_dscal((int)gramSize, -0.5, gram, 1);
-                free(means);
+                FreeAndClear(means);
                 // Run MDS.
                 // LAPACK is all call-by-reference.
                 const size_t coordinatesSize = SizeProduct(stimulusCount,
@@ -1331,10 +1331,10 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                         &liwork, 
                         &info);
                 lwork = (LPInteger)lround(work[0]);
-                free(work);
+                FreeAndClear(work);
                 work = SafeMalloc((size_t)lwork, sizeof(double));
                 liwork = iwork[0];
-                free(iwork);
+                FreeAndClear(iwork);
                 iwork = SafeMalloc((size_t)liwork, sizeof(LPInteger));
                 // This call is the real thing.
                 dsyevr_(&jobz, 
@@ -1358,10 +1358,10 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                         iwork, 
                         &liwork, 
                         &info);
-                free(iwork);
-                free(work);
-                free(isuppz);
-                free(gram);
+                FreeAndClear(iwork);
+                FreeAndClear(work);
+                FreeAndClear(isuppz);
+                FreeAndClear(gram);
                 double * restrict initialCoords;
                 initialCoords = SafeMalloc(coordinatesSize, sizeof(double));
                 for (size_t r = 0; r < dimensionCount; r++) {
@@ -1375,14 +1375,14 @@ static Solution * NewInitialSolution(const Experiment * restrict experiment,
                                     initialCoords + (dimensionCount - r - 1),
                                     (int)dimensionCount);
                 }
-                free(z);
-                free(w);
+                FreeAndClear(z);
+                FreeAndClear(w);
                 initialSpace = NewModelSpace(stimulusSet, 
                                              model, 
                                              NULL, 
                                              initialCoords, 
                                              NULL);
-                free(initialCoords);
+                FreeAndClear(initialCoords);
         } else {
                 initialSpace = NewModelSpace(stimulusSet, 
                                              model, 
@@ -1546,7 +1546,7 @@ static Solution * NewOptimalSolution(Solution * restrict self)
                                   parameters->EMImprovementAmount)))
                         break; // convergence
         }
-        free(logLikelihoods);
+        FreeAndClear(logLikelihoods);
         return solution;
 }
 
@@ -1618,7 +1618,7 @@ Experiment * NewMonteCarloExperiment(const Solution * restrict self)
                            + estimatedDeviation * RandomNormal());
                 }
         }        
-        free(cumulativePrior);
+        FreeAndClear(cumulativePrior);
         return NewExperiment(NULL, 
                              blankStimulusSet, 
                              blankSubjectSet,

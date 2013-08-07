@@ -113,7 +113,7 @@ static Solution * NewSolutionFromJSON(const json_t * restrict solutionJSON,
         }
         ClassAssignment * restrict assignment = NULL;
         assignment = NewClassAssignment(subjectSet, model, distributions);
-        free(distributions);
+        FreeAndClear(distributions);
         const size_t weightsLength = ((specType == GlobalSpecificities)
                                       ? SizeSum(dimensionCount, 1)
                                       : dimensionCount);
@@ -228,9 +228,9 @@ static Solution * NewSolutionFromJSON(const json_t * restrict solutionJSON,
                 }
                 space = NewDummySpace(stimulusSet, model, distances);
         }
-        free(specificities);
-        free(coordinates);
-        free(weights);
+        FreeAndClear(specificities);
+        FreeAndClear(coordinates);
+        FreeAndClear(weights);
         const json_t * restrict priorJSON = NULL;
         priorJSON = json_object_get(solutionJSON, "PriorDistribution");
         double * restrict prior = SafeMalloc(classCount, sizeof(double));
@@ -315,7 +315,7 @@ static Solution * NewSolutionFromJSON(const json_t * restrict solutionJSON,
                                           prior,
                                           sigmaSquared,
                                           parameters);
-        free(prior);
+        FreeAndClear(prior);
         return solution;
 }
 

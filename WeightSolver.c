@@ -191,7 +191,7 @@ NewExpectedCoordinateHessian(const WeightSolver * restrict self)
                         }
                 }
         }
-        free(accumulator);
+        FreeAndClear(accumulator);
         return hessian;
 }
 
@@ -254,7 +254,7 @@ NewExpectedCoordinateSpecificityHessian(const WeightSolver * restrict self)
                         hessian[classCount * tr + t] = h;
                 }
         }
-        free(accumulator);
+        FreeAndClear(accumulator);
         return hessian;
 }
 
@@ -315,8 +315,8 @@ NewExpectedSpecificityHessian(const WeightSolver * restrict self)
                     1);
         for (size_t t = 0; t < classCount; t++) 
                 hessian[classCount * t + t] = accumulator[t];
-        free(accumulator);
-        free(squaredPairwiseSpecificities);
+        FreeAndClear(accumulator);
+        FreeAndClear(squaredPairwiseSpecificities);
         return hessian;
 }
 
@@ -347,7 +347,7 @@ static void DeleteWeightSolver(WeightSolver * restrict self)
         if (self) {
                 FreeAndClear(self->hessian);
                 FreeAndClear(self->gradient);
-                free(self);
+                FreeAndClear(self);
         }
 }
 
@@ -373,7 +373,7 @@ static double * ExpectedHessian(WeightSolver * restrict self)
         double * restrict specificityHessian;
         specificityHessian = NewExpectedSpecificityHessian(self);
         if (!specificityHessian) {
-                free(jointHessian);
+                FreeAndClear(jointHessian);
                 return coordinateHessian;
         }
         self->hessian = SafeMalloc(self->hessianSize, sizeof(double));
@@ -406,9 +406,9 @@ static double * ExpectedHessian(WeightSolver * restrict self)
                              + weightsSize),
                             1);
         }
-        free(specificityHessian);
-        free(jointHessian);
-        free(coordinateHessian);
+        FreeAndClear(specificityHessian);
+        FreeAndClear(jointHessian);
+        FreeAndClear(coordinateHessian);
         return self->hessian;
 }
 
@@ -532,7 +532,7 @@ static double * NewSearchDirection(WeightSolver * restrict self,
                 &lwork, 
                 &info);
         lwork = (LPInteger)lround(work[0]);
-        free(work);
+        FreeAndClear(work);
         work = SafeMalloc((size_t)lwork, sizeof(double));
         // This call is the real thing.
         dgelss_(&m, 
@@ -548,16 +548,16 @@ static double * NewSearchDirection(WeightSolver * restrict self,
                 work, 
                 &lwork, 
                 &info);
-        free(work); 
-        free(s);        
+        FreeAndClear(work); 
+        FreeAndClear(s);        
         double * restrict searchDirection;
         searchDirection = SafeCalloc(self->gradientSize, sizeof(double));
         for (size_t a = 0; a < reducedGradientSize; a++)
                 // LAPACK has overwritten invReducedGradient with the solution.
                 searchDirection[permutation[a]] = invReducedGradient[a];
-        free(reducedHessian);
-        free(invReducedGradient);
-        free(permutation);
+        FreeAndClear(reducedHessian);
+        FreeAndClear(invReducedGradient);
+        FreeAndClear(permutation);
         return searchDirection;
 }
 
@@ -724,9 +724,9 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
         }
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
                 fprintf(stdout, "\n");
-        free(nextWeights);
+        FreeAndClear(nextWeights);
         DeleteWeightSolver(solver);
-        free(searchDirection0);
+        FreeAndClear(searchDirection0);
         return solution;
 }
 

@@ -99,7 +99,7 @@ static double * NewSquaredDistances(const Experiment * restrict self)
                                           / (double)ratingCount)
                                        : NAN);
         }
-        free(accumulator);
+        FreeAndClear(accumulator);
         return squaredDistances;
 }
 

@@ -412,7 +412,7 @@ static double * NewNormalisedCoordinates(const ModelSpace * restrict self,
                             1, 
                             normalisedCoordinates + dimensionCount * j,
                             1);
-        free(accumulator);
+        FreeAndClear(accumulator);
         if (weightMeans)
                 for (size_t r = 0; r < dimensionCount; r++)
                         cblas_dscal((int)stimulusCount,
@@ -545,7 +545,7 @@ ModelSpace * NewModelSpace(const StimulusSet * restrict stimulusSet,
                         self->coordinates = NewNormalisedCoordinates(self, 
                                                                      wMeans, 
                                                                      coords);
-                        free(coords);
+                        FreeAndClear(coords);
                 }
                 if (ModelSpecificityType(model)) {
                         if (specificities) {
@@ -565,7 +565,7 @@ ModelSpace * NewModelSpace(const StimulusSet * restrict stimulusSet,
                 } else {
                         self->specificities = NULL;                        
                 }
-                free(wMeans);
+                FreeAndClear(wMeans);
                 InitialiseDerivedValues(self);
         }
         return self;
@@ -646,7 +646,7 @@ ModelSpace * NewModelSpaceByNormalisingWeights(const ModelSpace * restrict self)
                                                                 self
                                                                 ->specificities
                                                                 );
-                free(wMeans);
+                FreeAndClear(wMeans);
                 InitialiseDerivedValues(new);
         }
         return new;

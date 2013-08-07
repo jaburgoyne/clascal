@@ -138,8 +138,8 @@ static double * NewCoordinateGradient(const CoordinateSolver * restrict self)
                             gradient + dimensionCount * stimulusPairs[m].k, 
                             1);
         }
-        free(pairTerm);
-        free(weightedDifferences);
+        FreeAndClear(pairTerm);
+        FreeAndClear(weightedDifferences);
         return gradient;
 }
 
@@ -242,8 +242,8 @@ static double * NewGradient(const CoordinateSolver * restrict self)
                     1, 
                     gradient + coordinatesSize, 
                     1);
-        free(specificityGradient);
-        free(coordinateGradient);
+        FreeAndClear(specificityGradient);
+        FreeAndClear(coordinateGradient);
         return gradient;
 }
 
@@ -335,7 +335,7 @@ NewExpectedCoordinateHessian(const CoordinateSolver * restrict self)
                         }
                 }
         }
-        free(accumulator);
+        FreeAndClear(accumulator);
         return hessian;
 }
 
@@ -532,7 +532,7 @@ static double * ExpectedHessian(CoordinateSolver * restrict self)
         double * restrict specificityHessian;
         specificityHessian = NewExpectedSpecificityHessian(self);
         if (!specificityHessian) {
-                free(jointHessian);
+                FreeAndClear(jointHessian);
                 return coordinateHessian;
         }
         const ModelSpace * restrict space = SolutionModelSpace(self->solution);
@@ -568,9 +568,9 @@ static double * ExpectedHessian(CoordinateSolver * restrict self)
                              + coordinatesSize),
                             1);
         }
-        free(specificityHessian);
-        free(jointHessian);
-        free(coordinateHessian);
+        FreeAndClear(specificityHessian);
+        FreeAndClear(jointHessian);
+        FreeAndClear(coordinateHessian);
         return self->hessian;
 }
 
@@ -713,7 +713,7 @@ static double * NewSearchDirection(CoordinateSolver * restrict self,
                 &lwork, 
                 &info);
         lwork = (LPInteger)lround(work[0]);
-        free(work);
+        FreeAndClear(work);
         work = SafeMalloc((size_t)lwork, sizeof(double));
         // This call is the real thing.
         dgelss_(&m, 
@@ -729,16 +729,16 @@ static double * NewSearchDirection(CoordinateSolver * restrict self,
                 work, 
                 &lwork, 
                 &info);
-        free(work); 
-        free(s);
+        FreeAndClear(work); 
+        FreeAndClear(s);
         double * restrict searchDirection;
         searchDirection = SafeCalloc(self->gradientSize, sizeof(double));
         for (size_t a = 0; a < reducedGradientSize; a++)
                 // LAPACK has overwritten invReducedGradient with the solution.
                 searchDirection[permutation[a]] = invReducedGradient[a];
-        free(reducedHessian);
-        free(invReducedGradient);
-        free(permutation);
+        FreeAndClear(reducedHessian);
+        FreeAndClear(invReducedGradient);
+        FreeAndClear(permutation);
         return searchDirection;
 }
 
@@ -928,10 +928,10 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
         }
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE) 
                 fprintf(stdout, "\n");
-        free(nextCoordinates);
-        free(nextSpecs);
+        FreeAndClear(nextCoordinates);
+        FreeAndClear(nextSpecs);
         DeleteCoordinateSolver(solver);
-        free(searchDirection0);
+        FreeAndClear(searchDirection0);
         return solution;
 }
 
