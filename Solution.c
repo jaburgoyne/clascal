@@ -215,7 +215,7 @@ static double * NewClassDissimilarities(const Solution * restrict self)
         return classDissimilarities;
 }
 
-static size_t AdjustedParameterCountValue(const Solution * restrict self) {
+static size_t AdjustedParameterCountVal(const Solution * restrict self) {
         if (!self->space) return 0;
         size_t parameterCount = ParameterCount(self->space);
         const Model * restrict model;
@@ -268,7 +268,7 @@ static double TotalModelError(const Solution * restrict self)
         if (!classCount) return NAN;       
         const size_t residualsSize = DistancesSize(self->space);
         double * restrict accumulator = SafeMalloc(residualsSize,
-                                                        sizeof(double));
+                                                   sizeof(double));
         cblas_dcopy((int)residualsSize,
                     self->classResiduals,
                     1,
@@ -471,15 +471,23 @@ static double * NewNormalisedPrior(const Solution * restrict self,
 }
 
 static void InitialiseBasicDerivedValues(Solution * restrict self) {
-        if (self) {
+        if (self && self->experiment && self->space) {
+                const size_t dataSize = DataSize(self->experiment);
                 self->pairwiseClassSizes = NewPairwiseClassSizes(self);
                 self->classDissimilarities = NewClassDissimilarities(self);
-                self->adjustedParameterCount = AdjustedParameterCountValue(self);
-                const size_t dataSize = DataSize(self->experiment);
-                if (dataSize < self->adjustedParameterCount)
-                        ExitWithError("Model has more parameters than data");
-                self->degreesOfFreedom = (dataSize
-                                          - self->adjustedParameterCount);
+                self->adjustedParameterCount = AdjustedParameterCountVal(self);
+                if (dataSize >= self->adjustedParameterCount) {
+                        self->degreesOfFreedom
+                                = dataSize - self->adjustedParameterCount;
+                } else {
+                        if (!IsSpatial(ModelSpaceModel(self->space)))
+                                // Non-spatial models may oversaturate if there
+                                // are too many missing values.
+                                self->degreesOfFreedom = 0;
+                        else
+                                ExitWithError("Model has more parameters"
+                                              " than data");
+                }
                 self->classResiduals = NewClassResiduals(self);
                 self->sumOfSquaredModelError = TotalModelError(self);
                 (self
