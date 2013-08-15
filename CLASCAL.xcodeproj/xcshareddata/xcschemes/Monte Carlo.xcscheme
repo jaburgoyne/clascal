@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;${HOME}/Dropbox/MIREX Scratch/mirex2011-3D-fine.dat&quot; &quot;${HOME}/Dropbox/MIREX Scratch/T2-R0-mirex2011-3D-fine.dat&quot; &quot;${HOME}/Dropbox/MIREX Scratch/T1-R0-mirex2011-3D-fine.dat&quot;"
+            argument = "&quot;${HOME}/Dropbox/MIREX Scratch/mirex2011-3D-fine.dat&quot; &quot;${HOME}/Dropbox/MIREX Scratch/T2-R0-mirex2011-3D-fine.dat&quot; &quot;${HOME}/Dropbox/MIREX Scratch/T3-R0-mirex2011-3D-fine.dat&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

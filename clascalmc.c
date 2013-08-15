@@ -90,9 +90,9 @@ int main(int argc, char * argv[])
         if (!nullSolution)
                 ExitWithError("Could not read null hypothesis file");
         Solution * altSolution;
+        altSolution = NewSolutionFromFilename(altFilename, experiment);
         if (!altSolution)
                 ExitWithError("Could not read alternative hypothesis file");
-        altSolution = NewSolutionFromFilename(altFilename, experiment);
         const ModelSpace * restrict nullSpace;
         nullSpace = SolutionModelSpace(nullSolution);
         const Model * restrict nullModel = ModelSpaceModel(nullSpace);

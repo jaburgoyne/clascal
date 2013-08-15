@@ -32,6 +32,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <float.h>
 #include <limits.h>
 #include <math.h>
 #include <stdbool.h>
@@ -53,8 +54,21 @@
 
 static json_t * json_null_or_real(double d)
 {
-        if (!isnan(d) && !isinf(d)) return json_real(d);
-        else return json_null();
+        switch (fpclassify(d)) {
+                case FP_NORMAL:
+                        return json_real(d);
+                case FP_SUBNORMAL:
+                        if (!signbit(d)) return json_real(DBL_MIN);
+                        else return json_real(-DBL_MIN);
+                case FP_ZERO:
+                        if (!signbit(d)) return json_real(0.0);
+                        else return json_real(-0.0);
+                case FP_INFINITE:
+                        if (!signbit(d)) return json_real(DBL_MAX);
+                        else return json_real(-DBL_MAX);
+                default:
+                        return json_null();
+        }
 }
 
 static json_t * json_array_with_vector(const double * restrict vector, 
@@ -223,11 +237,18 @@ static Solution * NewSolutionFromJSON(const json_t * restrict solutionJSON,
                                         const json_t * restrict datum = NULL;
                                         datum = json_array_get(line, 
                                                                (unsigned int)k);
-                                        if (!json_is_number(datum))
+                                        double d = NAN;
+                                        if (json_is_real(datum)) {
+                                                d = json_real_value(datum);
+                                        } else if (json_is_integer(datum)) {
+                                                d = (double)json_integer_value(datum);
+                                        } else if (json_is_null(datum)) {
+                                                d = NAN;
+                                        } else {
                                                 ExitWithError("Some"
                                                               " dissimilarities"
                                                               " are missing");
-                                        double d = json_real_value(datum);
+                                        }
                                         distances[pairCount * t + m++] = d;
                                 }
                         }
