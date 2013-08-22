@@ -52,7 +52,7 @@ struct _StimulusSet {
 /* N.B.: The stimulus pair must be otherwise initialised before calling. */
 static StimulusPair * NewStimulusPairs(const StimulusSet * restrict self)
 {
-        if (!self) return NULL;
+        if (!self || !self->pairCount) return NULL;
         StimulusPair * restrict stimulusPairs;
         stimulusPairs = SafeMalloc(self->pairCount, sizeof(StimulusPair));
         size_t m = 0;

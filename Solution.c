@@ -1581,6 +1581,9 @@ NewSolutionForExperimentAndModel(const Experiment * restrict experiment,
 Experiment * NewMonteCarloExperiment(const Solution * restrict self)
 {
         if (!self) return NULL;
+        const size_t dissimilaritiesSize = DissimilaritiesSize(self
+                                                               ->experiment);
+        if (!dissimilaritiesSize) return NULL;
         const StimulusSet * restrict stimulusSet;
         stimulusSet = ExperimentStimulusSet(self->experiment);
         const size_t stimulusCount = StimulusCount(stimulusSet);
@@ -1605,8 +1608,6 @@ Experiment * NewMonteCarloExperiment(const Solution * restrict self)
         for (size_t t = 1; t < classCount; t++)
                 cumulativePrior[t] = self->prior[t-1] + cumulativePrior[t-1];
         cumulativePrior[classCount] = 1.0;
-        const size_t dissimilaritiesSize = DissimilaritiesSize(self
-                                                               ->experiment);
         double * restrict generatedData;
         generatedData = SafeMalloc(dissimilaritiesSize, sizeof(double));
         for (size_t i = 0; i < subjectCount; i++){

@@ -369,12 +369,12 @@ static double * ExpectedHessian(WeightSolver * restrict self)
         if (!coordinateHessian) return NULL;
         double * restrict jointHessian;
         jointHessian = NewExpectedCoordinateSpecificityHessian(self);
-        if (!jointHessian) return coordinateHessian;
+        if (!jointHessian) return self->hessian = coordinateHessian;
         double * restrict specificityHessian;
         specificityHessian = NewExpectedSpecificityHessian(self);
         if (!specificityHessian) {
                 FreeAndClear(jointHessian);
-                return coordinateHessian;
+                return self->hessian = coordinateHessian;
         }
         self->hessian = SafeMalloc(self->hessianSize, sizeof(double));
         for (size_t x = 0; x < weightsSize; x++) {
@@ -577,6 +577,8 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
 {
         if (!solution0) return NULL;
         const Parameters * restrict parameters = SolutionParameters(solution0);
+        // We alias solution = solution0 early to faciliate the goto escape.
+        Solution * restrict solution = solution0;
         double * restrict searchDirection0;
         searchDirection0 = NewSearchDirection(self, solution0);
         if (!searchDirection0) return NULL;
@@ -594,7 +596,7 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
                                         1);
         if (isgreaterequal(slope, 0.0)) 
                 // ExitWithError("Optimisation slope is non-negative");
-                return solution0;
+                goto escape;
 #ifdef WINSBERG_LEGACY
         // Winsberg curiously only normalises the direction for coordinates
         // but still uses the normalised slope for computing search directions.
@@ -625,9 +627,9 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
                                         / searchDirection0[w]);
                 maxStepSize = fmin(maxStepSize, thisMax);
         }
-        if (islessequal(maxStepSize, 0.0)) return solution0;
+        if (islessequal(maxStepSize, 0.0)) goto escape;
         stepSizes[4] = fmin(stepSizes[4], maxStepSize);
-        Solution * restrict solution = solution0;
+        // Solution * restrict solution = solution0;
         WeightSolver * restrict solver = NULL;
         double * restrict nextWeights = SafeMalloc(self->gradientSize,
                                                    sizeof(double));
@@ -658,7 +660,9 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
                                 errors[4]);
                 DeleteWeightSolver(solver);
                 solver = NewWeightSolver(solution);
-                slopes[4] = cblas_ddot((int)solver->gradientSize, 
+                if (!solver)
+                        ExitWithError("Unexpected NULL during optimisation");
+                slopes[4] = cblas_ddot((int)solver->gradientSize,
                                        solver->gradient,
                                        1,
                                        searchDirection0,
@@ -726,6 +730,7 @@ static Solution * NewLineSearchSolution(WeightSolver * restrict self,
                 fprintf(stdout, "\n");
         FreeAndClear(nextWeights);
         DeleteWeightSolver(solver);
+escape:
         FreeAndClear(searchDirection0);
         return solution;
 }

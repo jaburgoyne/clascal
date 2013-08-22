@@ -134,6 +134,7 @@ ClassAssignment * NewClassAssignment(const SubjectSet * restrict subjectSet,
         if (!subjectSet || !model) return NULL;
         const size_t distributionsSize = SizeProduct(SubjectCount(subjectSet),
                                                      ClassCount(model));
+        if (!distributionsSize) return NULL;
         if (!IsConvertibleToInt(distributionsSize))
                 ExitWithError("Too many classes to assign subjects");
         ClassAssignment * restrict self;

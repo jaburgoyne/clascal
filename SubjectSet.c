@@ -52,7 +52,7 @@ struct _SubjectSet {
 /* N.B. The subject pair must be otherwise initialised before calling. */
 static SubjectPair * NewSubjectPairs(const SubjectSet * restrict self)
 {
-        if (!self) return NULL;
+        if (!self || !self->pairCount) return NULL;
         SubjectPair * restrict subjectPairs;
         subjectPairs = SafeMalloc(self->pairCount, sizeof(SubjectPair));
         size_t l = 0;

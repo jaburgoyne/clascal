@@ -528,12 +528,12 @@ static double * ExpectedHessian(CoordinateSolver * restrict self)
         if (!coordinateHessian) return NULL;
         double * restrict jointHessian;
         jointHessian = NewExpectedCoordinateSpecificityHessian(self);
-        if (!jointHessian) return coordinateHessian;
+        if (!jointHessian) return self->hessian = coordinateHessian;
         double * restrict specificityHessian;
         specificityHessian = NewExpectedSpecificityHessian(self);
         if (!specificityHessian) {
                 FreeAndClear(jointHessian);
-                return coordinateHessian;
+                return self->hessian = coordinateHessian;
         }
         const ModelSpace * restrict space = SolutionModelSpace(self->solution);
         const size_t coordinatesSize = CoordinatesSize(space);
@@ -758,6 +758,8 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
 {
         if (!solution0) return NULL;
         const Parameters * restrict parameters = SolutionParameters(solution0);
+        // We alias solution = solution0 early to faciliate the goto escape.
+        Solution * restrict solution = solution0;
         double * restrict searchDirection0;
         searchDirection0 = NewSearchDirection(self, solution0);
         if (!searchDirection0) return NULL;
@@ -775,7 +777,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
                                         1);
         if (isgreaterequal(slope, 0.0)) 
                 // ExitWithError("Optimisation slope is non-negative");
-                return solution0;
+                goto escape;
 #ifndef WINSBERG_LEGACY
         const double SSR = SumOfSquaredModelError(self->solution);
 #endif
@@ -809,9 +811,9 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
                         maxStepSize = fmin(maxStepSize, thisMax);
                 }
         }
-        if (islessequal(maxStepSize, 0.0)) return solution0;
+        if (islessequal(maxStepSize, 0.0)) goto escape;
         stepSizes[4] = fmin(stepSizes[4], maxStepSize);
-        Solution * restrict solution = solution0;
+        // Solution * restrict solution = solution0;
         CoordinateSolver * restrict solver = NULL;
         double * restrict nextCoordinates = SafeMalloc(coordinatesSize,
                                                        sizeof(double));
@@ -860,6 +862,8 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
                                 errors[4]);
                 DeleteCoordinateSolver(solver);
                 solver = NewCoordinateSolver(solution);
+                if (!solver)
+                        ExitWithError("Unexpected NULL during optimisation");
                 slopes[4] = cblas_ddot((int)solver->gradientSize, 
                                        solver->gradient,
                                        1,
@@ -931,6 +935,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
         FreeAndClear(nextCoordinates);
         FreeAndClear(nextSpecs);
         DeleteCoordinateSolver(solver);
+escape:
         FreeAndClear(searchDirection0);
         return solution;
 }
