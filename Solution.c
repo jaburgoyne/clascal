@@ -934,7 +934,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                 // Find maximally-dissimilar seeds for each class. We use prior
                 // to store the initial seeds to save a malloc call.
                 size_t * sizes = SafeMalloc(classCount, sizeof(size_t));
-                double maxSquaredDistance = 0.0;
+                double maxSquaredDistance = -INFINITY;
                 for (size_t l = 0; l < subjectPairCount; l++) {
                         // isgreater() will (correctly) ignore NaNs.
                         if (isgreater(squaredDistances[l],
