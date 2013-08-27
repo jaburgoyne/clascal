@@ -562,6 +562,9 @@ static json_t * SolutionJSON(const Solution * restrict self)
         json_object_set_new(root, 
                             "AkaikeCriterion", 
                             json_null_or_real(AkaikeCriterion(self)));
+        json_object_set_new(root,
+                            "AkaikeCriterionCorrected",
+                            json_null_or_real(AkaikeCriterionCorrected(self)));
         json_object_set_new(root, 
                             "BayesianCriterion",
                             json_null_or_real(BayesianCriterion(self)));

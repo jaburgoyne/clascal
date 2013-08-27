@@ -308,6 +308,12 @@ double LogLikelihood(const Solution *);
 double AkaikeCriterion(const Solution *);
 
 /**
+ * Returns Akaike's information criterion for a solution with the correction
+ * for small sample sizes. 
+ */
+double AkaikeCriterionCorrected(const Solution *);
+
+/**
  * Returns the Bayesian information criterion for a solution.
  */
 double BayesianCriterion(const Solution *);

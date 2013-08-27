@@ -82,6 +82,7 @@ struct _Solution {
         double * restrict unnormalisedClassMixtures;
         double logLikelihood;
         double akaikeCriterion;
+        double akaikeCriterionCorrected;
         double bayesianCriterion;
         // For lazy initialisations.
         double * restrict relativeErrors;
@@ -497,9 +498,16 @@ static void InitialiseBasicDerivedValues(Solution * restrict self) {
                 self->logLikelihood = LogLikelihoodValue(self);
                 self->akaikeCriterion = (-2.0 * self->logLikelihood
                                          + 2.0 * self->adjustedParameterCount);
+                self->akaikeCriterionCorrected
+                        = (self->akaikeCriterion
+                           + ((2 *
+                               self->adjustedParameterCount *
+                               SizeSum(self->adjustedParameterCount, 1))
+                              / (dataSize -
+                                 self->adjustedParameterCount
+                                 - 1)));
                 self->bayesianCriterion = (-2.0 * self->logLikelihood
-                                           + (log((double)DataSize(self->
-                                                                   experiment))
+                                           + (log((double)dataSize)
                                               * self->adjustedParameterCount));
         }
 }
@@ -683,6 +691,11 @@ double LogLikelihood(const Solution * restrict self)
 double AkaikeCriterion(const Solution * restrict self)
 {
         return self ? self->akaikeCriterion : NAN;
+}
+
+double AkaikeCriterionCorrected(const Solution * restrict self)
+{
+        return self ? self->akaikeCriterionCorrected : NAN;
 }
 
 double BayesianCriterion(const Solution * restrict self)
@@ -940,7 +953,8 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         }
                 }
                 if (maxSquaredDistance == 0.0)
-                        ExitWithError("Too many subjects are indistinguisable");
+                        ExitWithError("Too many subjects"
+                                      " are indistinguishable");
                 for (size_t t = 2; t < classCount; t++) {
                         double maxSumOfSquares = 0.0;
                         for (size_t i = 0; i < subjectCount; i++) {
