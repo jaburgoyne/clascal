@@ -480,8 +480,7 @@ static void InitialiseBasicDerivedValues(Solution * restrict self) {
                 if (dataSize >= self->adjustedParameterCount)
                         self->degreesOfFreedom
                                 = dataSize - self->adjustedParameterCount;
-                else
-                        ExitWithError("Model has more parameters than data");
+                else ExitWithError("Model has more parameters than data");
                 self->classResiduals = NewClassResiduals(self);
                 self->sumOfSquaredModelError = TotalModelError(self);
                 (self
@@ -949,7 +948,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         ExitWithError("Too many subjects"
                                       " are indistinguishable");
                 for (size_t t = 2; t < classCount; t++) {
-                        double maxSumOfSquares = 0.0;
+                        double maxSumOfSquares = -INFINITY;
                         for (size_t i = 0; i < subjectCount; i++) {
                                 bool isSeed = false;
                                 for (size_t seed = 0; seed < t; seed++) {
@@ -980,7 +979,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                                         sizes[t] = i;
                                 }
                         }
-                        if (maxSumOfSquares == 0.0)
+                        if (maxSumOfSquares == -INFINITY)
                                 ExitWithError("Too many subjects"
                                               " are indistinguishable");
                 }
