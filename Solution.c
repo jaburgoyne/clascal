@@ -477,18 +477,11 @@ static void InitialiseBasicDerivedValues(Solution * restrict self) {
                 self->pairwiseClassSizes = NewPairwiseClassSizes(self);
                 self->classDissimilarities = NewClassDissimilarities(self);
                 self->adjustedParameterCount = AdjustedParameterCountVal(self);
-                if (dataSize >= self->adjustedParameterCount) {
+                if (dataSize >= self->adjustedParameterCount)
                         self->degreesOfFreedom
                                 = dataSize - self->adjustedParameterCount;
-                } else {
-                        if (!IsSpatial(ModelSpaceModel(self->space)))
-                                // Non-spatial models may oversaturate if there
-                                // are too many missing values.
-                                self->degreesOfFreedom = 0;
-                        else
-                                ExitWithError("Model has more parameters"
-                                              " than data");
-                }
+                else
+                        ExitWithError("Model has more parameters than data");
                 self->classResiduals = NewClassResiduals(self);
                 self->sumOfSquaredModelError = TotalModelError(self);
                 (self
