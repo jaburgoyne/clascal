@@ -32,6 +32,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <dispatch/dispatch.h>
 #include <libgen.h>
 #include <limits.h>
 #include <math.h>
@@ -324,8 +325,18 @@ int main(int argc, char * argv[])
                 if (maxT < minT) maxT = minT;
                 char * restrict baseName = basename(filename);
                 chdir(outputDirectory);
-                for (size_t R = minR; R <= maxR; R++) {
-                        for (size_t T = minT; T <= maxT; T++) {
+                dispatch_apply(SizeProduct(maxR - minR + 1, maxT - minT + 1),
+                               dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                               ^(size_t it)
+                        {
+                                size_t R = minR + it / (maxT - minT + 1);
+                                size_t T = minT + it % (maxT - minT + 1);
+//                for (size_t R = minR; R <= maxR; R++) {
+//                        for (size_t T = minT; T <= maxT; T++) {
+                                // Copy parameters to make the loop re-entrant.
+                                Parameters locDerefParams = dereferencedParams;
+                                Parameters * restrict locParams = NULL;
+                                locParams = &locDerefParams;
                                 const char * restrict format;
                                 switch(specificityType) {
                                         case ClassSpecificities:
@@ -349,16 +360,16 @@ int main(int argc, char * argv[])
                                          NAME_MAX,
                                          "%s.log",
                                          outputName);
-                                if (params->verbosity >= VERBOSE) {
-                                        if (!(params->logFile
+                                if (locParams->verbosity >= VERBOSE) {
+                                        if (!(locParams->logFile
                                               = fopen(logName, "w")))
                                                 ExitWithError("Could not open "
                                                               "log file");
-                                        setvbuf(params->logFile,
+                                        setvbuf(locParams->logFile,
                                                 NULL,
                                                 _IOLBF,
                                                 BUFSIZ);
-                                        fprintf(params->logFile,
+                                        fprintf(locParams->logFile,
                                                 "Fitting to %s"
                                                 " with %zu dimensions"
                                                 " and %zu classes.\n\n",
@@ -371,22 +382,23 @@ int main(int argc, char * argv[])
                                 Solution * restrict s = NULL;
                                 s = NewSolutionForExperimentAndModel(experiment,
                                                                      model, 
-                                                                     params);
-                                if (params->verbosity >= VERBOSE) {
-                                        fclose(params->logFile);
-                                        params->logFile = NULL;
+                                                                     locParams);
+                                if (locParams->verbosity >= VERBOSE) {
+                                        fclose(locParams->logFile);
+                                        locParams->logFile = NULL;
                                 }
                                 SaveSolutionToFilename(s, outputName);
                                 DeleteSolution(s);
                                 DeleteModel(model);
                         }
-                }
+//                }
+                               ); // end dispatch_apply;
                 chdir(workingDirectory);
                 DeleteExperiment(experiment);
         }
         exit(EXIT_SUCCESS);
 Usage:
-        fprintf(stderr, 
+        fprintf(stderr,
                 "Usage: clascal [−cIksS] [−C real] [−e real] [−E uint]"
                 " [−g uint] [-G] [-j real] [−l real] [−L uint] [−m real]"
                 " [−M uint] [−n real] [−L uint] [−m real] [−M uint] [−N real]"

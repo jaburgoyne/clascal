@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-v 4 -o /tmp -t 2 -r 2  &quot;${HOME}/Dropbox/MIREX Scratch/mirex2011-3D-broad.dat&quot;"
+            argument = "-v 4 -o /tmp -t 1 -T 2 -r 1 -R 3  &quot;${HOME}/Dropbox/MIREX Scratch/mirex2011-3D-broad.dat&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
