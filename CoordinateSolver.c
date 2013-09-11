@@ -758,6 +758,9 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
 {
         if (!solution0) return NULL;
         const Parameters * restrict parameters = SolutionParameters(solution0);
+        fprintf(parameters->logFile,
+                "                        \n"
+                "                        Line search\n");
         // We alias solution = solution0 early to faciliate the goto escape.
         Solution * restrict solution = solution0;
         double * restrict searchDirection0;
@@ -782,9 +785,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
         const double SSR = SumOfSquaredModelError(self->solution);
 #endif
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
-                fprintf(stdout, 
-                        "                        \n"
-                        "                        Line search\n"
+                fprintf(parameters->logFile,
                         "                        \n"
                         "                        Squared model error after"
                         " iteration 0: %e\n",
@@ -855,7 +856,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
                 solution = newSolution;
                 errors[4] = SumOfSquaredModelError(solution);
                 if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE)
-                        fprintf(stdout, 
+                        fprintf(parameters->logFile,
                                 "                        Squared model error"
                                 " after iteration %zu: %e\n",
                                 SizeSum(i, 1),
@@ -931,7 +932,7 @@ static Solution * NewLineSearchSolution(CoordinateSolver * restrict self,
                 }
         }
         if (parameters->verbosity >= VERY_VERY_VERY_VERBOSE) 
-                fprintf(stdout, "\n");
+                fprintf(parameters->logFile, "\n");
         FreeAndClear(nextCoordinates);
         FreeAndClear(nextSpecs);
         DeleteCoordinateSolver(solver);
@@ -948,7 +949,7 @@ Solution * NewSpatialSolution(Solution * restrict solution0)
         Solution * restrict soln = solution0;
         double SSR = SumOfSquaredModelError(soln);
         if (params->verbosity >= VERY_VERY_VERBOSE)
-                fprintf(stdout,
+                fprintf(params->logFile,
                         "                \n"
                         "                Optimisation of coordinates\n"
                         "                \n"
@@ -979,7 +980,7 @@ Solution * NewSpatialSolution(Solution * restrict solution0)
                 if (newSolution == soln) break; // convergence
                 double newSSR = SumOfSquaredModelError(newSolution);
                 if (params->verbosity >= VERY_VERY_VERBOSE)
-                        fprintf(stdout,
+                        fprintf(params->logFile,
                                 "                Squared model error after"
                                 " iteration %zu: %e\n",
                                 SizeSum(i, 1),
@@ -1016,7 +1017,8 @@ Solution * NewSpatialSolution(Solution * restrict solution0)
                 SSR = newSSR;
 #endif
         }
-        if (params->verbosity >= VERY_VERY_VERBOSE) fprintf(stdout, "\n");
+        if (params->verbosity >= VERY_VERY_VERBOSE)
+                fprintf(params->logFile, "\n");
 #ifdef WINSBERG_LEGACY
         if (solver0 != solver) DeleteCoordinateSolver(solver0);
 #endif

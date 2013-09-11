@@ -149,8 +149,10 @@ struct _Parameters {
         double stepIncreaseFactor;
         /** Factor of decrease in slope between line-search iterations. */
         double stepDecreaseFactor;
-        /** Degree of verbosity while computing solutions. */
+        /** Degree of verbosity for logging solutions. */
         Verbosity verbosity;
+        /** File for logging solution. */
+        FILE * restrict logFile;
 };
 /**
  * Parameters used for generating a solution.
@@ -178,7 +180,8 @@ static const Parameters DEFAULT_PARAMETERS = {
         0.1,
         2.0,
         0.5,
-        SILENT
+        SILENT,
+        NULL
 };
 #else
 static const Parameters DEFAULT_PARAMETERS = {
@@ -203,7 +206,8 @@ static const Parameters DEFAULT_PARAMETERS = {
         0.1,
         2.0,
         0.5,
-        SILENT
+        SILENT,
+        NULL
 };
 #endif
 

@@ -217,7 +217,6 @@ static double * NewClassDissimilarities(const Solution * restrict self)
 }
 
 static size_t AdjustedParameterCountVal(const Solution * restrict self) {
-        if (!self->space) return 0;
         size_t parameterCount = ParameterCount(self->space);
         const Model * restrict model;
         model = ModelSpaceModel(self->space);
@@ -471,7 +470,7 @@ static double * NewNormalisedPrior(const Solution * restrict self,
         return newLambda;
 }
 
-static void InitialiseBasicDerivedValues(Solution * restrict self) {
+static void InitialiseAssignmentDerivedValues(Solution * restrict self) {
         if (self && self->experiment && self->space) {
                 const size_t dataSize = DataSize(self->experiment);
                 self->pairwiseClassSizes = NewPairwiseClassSizes(self);
@@ -481,10 +480,16 @@ static void InitialiseBasicDerivedValues(Solution * restrict self) {
                         self->degreesOfFreedom
                                 = dataSize - self->adjustedParameterCount;
                 else ExitWithError("Model has more parameters than data");
+        }
+}
+
+static void InitialiseOtherDerivedValues(Solution * restrict self) {
+        if (self && self->experiment && self->space) {
+                const size_t dataSize = DataSize(self->experiment);
                 self->classResiduals = NewClassResiduals(self);
                 self->sumOfSquaredModelError = TotalModelError(self);
-                (self
-                 ->squaredPredictionErrors) = NewSquaredPredictionErrors(self);
+                self->squaredPredictionErrors
+                        = NewSquaredPredictionErrors(self);
                 self->unnormalisedMixtures = NewUnnormalisedMixtures(self);
                 self->unnormalisedClassMixtures = NewClassMixtures(self);
                 self->logLikelihood = LogLikelihoodValue(self);
@@ -504,6 +509,81 @@ static void InitialiseBasicDerivedValues(Solution * restrict self) {
         }
 }
 
+static Solution * NewSolutionFromOld(const Solution * restrict oldSolution,
+                                     const Experiment * restrict experiment,
+                                     ClassAssignment * restrict assignment,
+                                     ModelSpace * restrict space,
+                                     const double * restrict prior,
+                                     double * sigmaSquared,
+                                     const Parameters * restrict parameters)
+{
+        if ((!oldSolution
+             && (!assignment
+                || !space
+                || !prior))
+            || (ClassAssignmentModel(assignment
+                                     ? assignment
+                                     : oldSolution->assignment)
+                != ModelSpaceModel(space ? space : oldSolution->space)))
+                return NULL;
+        Solution * restrict self;
+        if ((self = malloc(sizeof(Solution)))) {
+                self->experiment = (experiment
+                                    ? experiment
+                                    : oldSolution->experiment);
+                self->assignment = (assignment
+                                    ? assignment
+                                    : oldSolution->assignment);
+                self->space = (space
+                               ? space
+                               : oldSolution->space);
+                self->prior = NewNormalisedPrior(self, (prior
+                                                        ? prior
+                                                        : oldSolution->prior));
+                self->estimatedVariance = (sigmaSquared
+                                           ? *sigmaSquared
+                                           : oldSolution->estimatedVariance);
+                self->parameters = (parameters
+                                    ? parameters
+                                    : oldSolution->parameters);
+                if (assignment) {
+                        InitialiseAssignmentDerivedValues(self);
+                } else {
+                        const size_t distancesSize = DistancesSize(self->space);
+                        self->pairwiseClassSizes = SafeMalloc(distancesSize,
+                                                              sizeof(double));
+                        memcpy(self->pairwiseClassSizes,
+                               oldSolution->pairwiseClassSizes,
+                               SizeProduct(distancesSize, sizeof(double)));
+                        self->classDissimilarities = SafeMalloc(distancesSize,
+                                                                sizeof(double));
+                        memcpy(self->classDissimilarities,
+                               oldSolution->classDissimilarities,
+                               SizeProduct(distancesSize, sizeof(double)));
+                        self->adjustedParameterCount
+                                = oldSolution->adjustedParameterCount;
+                        self->degreesOfFreedom = oldSolution->degreesOfFreedom;
+                }
+                InitialiseOtherDerivedValues(self);
+                self->relativeErrors = NULL;
+                self->weightedRelativeErrors = NULL;
+                self->hessianFactors = NULL;
+        }
+        return self;       
+}
+
+static Solution * NewSolutionByUpdatingSpace(const Solution * restrict self,
+                                             ModelSpace * restrict space)
+{
+        return NewSolutionFromOld(self,
+                                  NULL,
+                                  NULL,
+                                  space,
+                                  NULL,
+                                  NULL,
+                                  NULL);
+}
+
 Solution * NewSolution(const Experiment * restrict experiment,
                        ClassAssignment * restrict assignment,
                        ModelSpace * restrict space,
@@ -511,46 +591,28 @@ Solution * NewSolution(const Experiment * restrict experiment,
                        double sigmaSquared,
                        const Parameters * restrict parameters)
 {
-        if (!assignment 
-            || !space
-            || ClassAssignmentModel(assignment) != ModelSpaceModel(space)
-            || !prior) 
-                return NULL;
-        Solution * restrict self;
-        if ((self = malloc(sizeof(Solution)))) {
-                self->experiment = experiment;
-                self->assignment = assignment;
-                self->space = space;
-                self->prior = NewNormalisedPrior(self, prior);
-                self->estimatedVariance = sigmaSquared;
-                self->parameters = parameters;
-                InitialiseBasicDerivedValues(self);
-                self->relativeErrors = NULL;
-                self->weightedRelativeErrors = NULL;
-                self->hessianFactors = NULL;                        
-        }
-        return self;
+        return NewSolutionFromOld(NULL,
+                                  experiment,
+                                  assignment,
+                                  space,
+                                  prior,
+                                  &sigmaSquared,
+                                  parameters);
 }
 
 Solution * NewSolutionByUpdatingWeights(const Solution * restrict self, 
                                         const double * restrict weights)
 {
-        return NewSolution(self->experiment, 
-                           self->assignment, 
-                           NewModelSpaceByUpdatingWeights(self->space, weights),
-                           self->prior,
-                           self->estimatedVariance,
-                           self->parameters);
+        ModelSpace * restrict newSpace = NULL;
+        newSpace = NewModelSpaceByUpdatingWeights(self->space, weights);
+        return NewSolutionByUpdatingSpace(self, newSpace);
 }
 
 Solution * NewSolutionByNormalisingWeights(const Solution * restrict self)
 {
-        return NewSolution(self->experiment, 
-                           self->assignment, 
-                           NewModelSpaceByNormalisingWeights(self->space),
-                           self->prior,
-                           self->estimatedVariance,
-                           self->parameters);
+        ModelSpace * restrict newSpace = NULL;
+        newSpace = NewModelSpaceByNormalisingWeights(self->space);
+        return NewSolutionByUpdatingSpace(self, newSpace);
 }
 
 Solution * 
@@ -558,14 +620,11 @@ NewSolutionByUpdatingCoordinates(const Solution * restrict self,
                                  const double * restrict coordinates,
                                  const double * restrict specificities)
 {
-        return NewSolution(self->experiment, 
-                           self->assignment, 
-                           NewModelSpaceByUpdatingCoordinates(self->space, 
-                                                              coordinates, 
-                                                              specificities),
-                           self->prior,
-                           self->estimatedVariance,
-                           self->parameters);
+        ModelSpace * restrict newSpace = NULL;
+        newSpace = NewModelSpaceByUpdatingCoordinates(self->space,
+                                                      coordinates,
+                                                      specificities);
+        return NewSolutionByUpdatingSpace(self, newSpace);
 }
 
 static void DeleteSolutionPreservingSpaceAndAssignment(Solution * restrict self)
@@ -934,7 +993,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                 // Find maximally-dissimilar seeds for each class. We use prior
                 // to store the initial seeds to save a malloc call.
                 size_t * sizes = SafeMalloc(classCount, sizeof(size_t));
-                double maxSquaredDistance = -INFINITY;
+                double maxSquaredDistance = 0.0;
                 for (size_t l = 0; l < subjectPairCount; l++) {
                         // isgreater() will (correctly) ignore NaNs.
                         if (isgreater(squaredDistances[l],
@@ -945,8 +1004,7 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         }
                 }
                 if (maxSquaredDistance == 0.0)
-                        ExitWithError("Too many subjects"
-                                      " are indistinguishable");
+                        ExitWithError("All subjects are identical");
                 for (size_t t = 2; t < classCount; t++) {
                         double maxSumOfSquares = -INFINITY;
                         for (size_t i = 0; i < subjectCount; i++) {
@@ -981,7 +1039,8 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                         }
                         if (maxSumOfSquares == -INFINITY)
                                 ExitWithError("Too many subjects"
-                                              " are indistinguishable");
+                                              " are indistinguishable for"
+                                              " k-means initialisation");
                 }
                 for (size_t t = 0; t < classCount; t++)
                         cblas_dcopy((int)stimulusPairCount, 
@@ -1134,7 +1193,8 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
                             dummySolution->prior, 
                             1);
                 dummySolution->estimatedVariance = initialVariance;
-                InitialiseBasicDerivedValues(dummySolution);
+                InitialiseAssignmentDerivedValues(dummySolution);
+                InitialiseOtherDerivedValues(dummySolution);
         }
         DeleteSolutionPreservingSpaceAndAssignment(tempSolution);
         return dummySolution;
@@ -1455,7 +1515,7 @@ static Solution * NewMaximisedSolution(Solution * restrict self)
         // N.B.: Winsberg uses -1e10 rather than the current error.
         double SSR = SumOfSquaredModelError(solution);
         if (parameters->verbosity >= VERY_VERBOSE)
-                fprintf(stdout, 
+                fprintf(parameters->logFile,
                         "        \n"
                         "        M-step\n"
                         "        \n"
@@ -1473,7 +1533,7 @@ static Solution * NewMaximisedSolution(Solution * restrict self)
                         DeleteSolutionPreservingClassAssignment(spaceSolution);
                 double newSSR = SumOfSquaredModelError(newSolution);
                 if (parameters->verbosity >= VERY_VERBOSE)
-                        fprintf(stdout, 
+                        fprintf(parameters->logFile,
                                 "        Squared model error after iteration"
                                 " %zu: %e\n",
                                 SizeSum(i, 1),
@@ -1496,7 +1556,8 @@ static Solution * NewMaximisedSolution(Solution * restrict self)
 #endif
                         break; // convergence
         }
-        if (parameters->verbosity >= VERY_VERBOSE) fprintf(stdout, "\n");
+        if (parameters->verbosity >= VERY_VERBOSE)
+                fprintf(parameters->logFile, "\n");
         const double newVariance = NewVariance(solution);
         const double * restrict newPrior;
         // solution->assignment should be the same as solution0->assignment
@@ -1525,7 +1586,7 @@ static Solution * NewOptimalSolution(Solution * restrict self)
                                     sizeof(double));
         logLikelihoods[0] = self->logLikelihood;
         if (parameters->verbosity >= VERBOSE)
-                fprintf(stdout,
+                fprintf(parameters->logFile,
                         "Log likelihood after iteration 0: %e\n",
                         logLikelihoods[0]);
         Solution * restrict solution = self;
@@ -1543,7 +1604,7 @@ static Solution * NewOptimalSolution(Solution * restrict self)
                         ExitWithError("Unstable log likelihood");
                 logLikelihoods[i] = newSolution->logLikelihood;
                 if (parameters->verbosity >= VERBOSE)
-                        fprintf(stdout,
+                        fprintf(parameters->logFile,
                                 "Log likelihood after iteration %zu: %e\n",
                                 i,
                                 logLikelihoods[i]);
@@ -1558,8 +1619,10 @@ static Solution * NewOptimalSolution(Solution * restrict self)
                     || (i >= 5 
                         && isless(logLikelihoods[i] - logLikelihoods[i-5],
                                   parameters->EMImprovementAmount)))
-                        break; // convergence
+                        goto convergence; // convergence
         }
+        fprintf(stderr, "WARNING: Solution failed to converge.");
+convergence:
         FreeAndClear(logLikelihoods);
         return solution;
 }

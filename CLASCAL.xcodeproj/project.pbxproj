@@ -607,7 +607,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascal;
 			};
@@ -620,7 +619,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascal;
 			};
@@ -716,7 +714,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/share/doc/clascal;
 				PRODUCT_NAME = "CLASCAL Documentation";
 			};
@@ -726,7 +723,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/share/doc/clascal;
 				PRODUCT_NAME = "CLASCAL Documentation";
 			};
@@ -739,7 +735,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
@@ -752,7 +747,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
@@ -766,7 +760,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = clascal;
 			};
 			name = Debug;
@@ -779,7 +772,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = clascal;
 			};
 			name = Release;
@@ -788,7 +780,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = jansson;
 			};
 			name = Debug;
@@ -797,7 +788,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = jansson;
 			};
 			name = Release;
@@ -806,7 +796,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Debug;
@@ -815,7 +804,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Release;
@@ -869,7 +857,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = "CLASCAL Tools";
 			};
 			name = Deployment;
@@ -878,7 +865,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/share/doc/clascal;
 				PRODUCT_NAME = "CLASCAL Documentation";
 			};
@@ -891,7 +877,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascal;
 			};
@@ -904,7 +889,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = clascalmc;
 			};
@@ -918,7 +902,6 @@
 					"$(inherited)",
 					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks\"",
 				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = clascal;
 				SKIP_INSTALL = YES;
 			};
@@ -928,7 +911,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = jansson;
 				SKIP_INSTALL = YES;
 			};

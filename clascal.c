@@ -322,23 +322,10 @@ int main(int argc, char * argv[])
                 subjectSet = ExperimentSubjectSet(experiment); 
                 if (minT == 0) minT = SubjectCount(subjectSet);
                 if (maxT < minT) maxT = minT;
+                char * restrict baseName = basename(filename);
+                chdir(outputDirectory);
                 for (size_t R = minR; R <= maxR; R++) {
                         for (size_t T = minT; T <= maxT; T++) {
-                                if (params->verbosity >= VERBOSE)
-                                        fprintf(stdout,
-                                                "Fitting to %s"
-                                                " with %zu dimensions"
-                                                " and %zu classes.\n\n",
-                                                filename,
-                                                R,
-                                                T);
-                                Model * model = NewModel(R, T, specificityType);
-                                Solution * s = NULL;
-                                s = NewSolutionForExperimentAndModel(experiment, 
-                                                                     model, 
-                                                                     params);
-                                char * baseName = basename(filename);
-                                char outputName[NAME_MAX];
                                 const char * restrict format;
                                 switch(specificityType) {
                                         case ClassSpecificities:
@@ -350,20 +337,52 @@ int main(int argc, char * argv[])
                                         default:
                                                 format = "T%u-R%u-%s";
                                 }
-                                snprintf(outputName, 
-                                         NAME_MAX, 
+                                char outputName[NAME_MAX];
+                                snprintf(outputName,
+                                         NAME_MAX,
                                          format,
                                          T,
                                          R,
                                          baseName);
-                                chdir(outputDirectory);
+                                char logName[NAME_MAX];
+                                snprintf(logName,
+                                         NAME_MAX,
+                                         "%s.log",
+                                         outputName);
+                                if (params->verbosity >= VERBOSE) {
+                                        if (!(params->logFile
+                                              = fopen(logName, "w")))
+                                                ExitWithError("Could not open "
+                                                              "log file");
+                                        setvbuf(params->logFile,
+                                                NULL,
+                                                _IOLBF,
+                                                BUFSIZ);
+                                        fprintf(params->logFile,
+                                                "Fitting to %s"
+                                                " with %zu dimensions"
+                                                " and %zu classes.\n\n",
+                                                baseName,
+                                                R,
+                                                T);
+                                }
+                                Model * restrict model = NULL;
+                                model = NewModel(R, T, specificityType);
+                                Solution * restrict s = NULL;
+                                s = NewSolutionForExperimentAndModel(experiment,
+                                                                     model, 
+                                                                     params);
+                                if (params->verbosity >= VERBOSE) {
+                                        fclose(params->logFile);
+                                        params->logFile = NULL;
+                                }
                                 SaveSolutionToFilename(s, outputName);
-                                chdir(workingDirectory);                                
                                 DeleteSolution(s);
                                 DeleteModel(model);
                         }
                 }
-                DeleteExperiment(experiment); 
+                chdir(workingDirectory);
+                DeleteExperiment(experiment);
         }
         exit(EXIT_SUCCESS);
 Usage:

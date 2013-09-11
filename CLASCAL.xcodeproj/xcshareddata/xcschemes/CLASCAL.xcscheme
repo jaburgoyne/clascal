@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-v 3 -o /tmp -t 3 -r 1  &quot;${HOME}/Dropbox/MIREX Scratch/mirex2011-3D-broad.dat&quot;"
+            argument = "-v 4 -o /tmp -t 2 -r 2  &quot;${HOME}/Dropbox/MIREX Scratch/mirex2011-3D-broad.dat&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -81,7 +81,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable>
          <BuildableReference
