@@ -514,13 +514,16 @@ static Solution * NewSolutionFromOld(const Solution * restrict oldSolution,
                                      ClassAssignment * restrict assignment,
                                      ModelSpace * restrict space,
                                      const double * restrict prior,
-                                     double * sigmaSquared,
+                                     const double * sigmaSquared,
                                      const Parameters * restrict parameters)
 {
         if ((!oldSolution
-             && (!assignment
+             && (!experiment
+                || !assignment
                 || !space
-                || !prior))
+                || !prior
+                || !sigmaSquared
+                || !parameters))
             || (ClassAssignmentModel(assignment
                                      ? assignment
                                      : oldSolution->assignment)
@@ -1184,18 +1187,13 @@ static Solution * NewDummySolution(const Experiment * restrict experiment,
         FreeAndClear(prior);
         const double initialVariance = NewVariance(tempSolution);
         Solution * restrict dummySolution = NULL;
-        if ((dummySolution = malloc(sizeof(Solution)))) {
-                memcpy(dummySolution, tempSolution, sizeof(Solution));
-                dummySolution->prior = SafeMalloc(classCount, sizeof(double));
-                cblas_dcopy((int)classCount, 
-                            tempSolution->prior, 
-                            1, 
-                            dummySolution->prior, 
-                            1);
-                dummySolution->estimatedVariance = initialVariance;
-                InitialiseAssignmentDerivedValues(dummySolution);
-                InitialiseOtherDerivedValues(dummySolution);
-        }
+        dummySolution = NewSolutionFromOld(tempSolution,
+                                           NULL,
+                                           NULL,
+                                           NULL,
+                                           NULL,
+                                           &initialVariance,
+                                           NULL);
         DeleteSolutionPreservingSpaceAndAssignment(tempSolution);
         return dummySolution;
 }

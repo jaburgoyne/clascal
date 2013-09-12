@@ -42,6 +42,7 @@
 #include "inlines.h"
 #include "jansson.h"
 #include "StimulusSet.h"
+#include "_StimulusSet.h"
 #include "SubjectSet.h"
 #include "Model.h"
 #include "Experiment.h"
@@ -79,8 +80,8 @@ NewExperimentFromJSON(const json_t * restrict experimentJSON)
                 stimulusNames[j] = SafeMalloc(nameLength, sizeof(char));
                 strcpy(stimulusNames[j], stimulusName);
         }
-        StimulusSet * restrict stimulusSet = NULL;
-        stimulusSet = NewStimulusSet(stimulusCount, stimulusNames);
+        StimulusSet * restrict stims = NULL;
+        stims = NewStimulusSet(stimulusCount, stimulusNames);
         json_t * restrict subjectsJSON = NULL;
         subjectsJSON = json_object_get(experimentJSON, "SubjectData");
         const size_t subjectCount = json_object_size(subjectsJSON);
@@ -89,8 +90,8 @@ NewExperimentFromJSON(const json_t * restrict experimentJSON)
         char * * restrict subjectNames = NULL;
         subjectNames = SafeMalloc(subjectCount, sizeof(char *));
         double * restrict dissimilarities = NULL;
-        const size_t pairCount = StimulusPairCount(stimulusSet);
-        const size_t dissimilaritiesSize = SizeProduct(subjectCount, pairCount);
+        const size_t pCount = StimulusPairCount(stims);
+        const size_t dissimilaritiesSize = SizeProduct(subjectCount, pCount);
         dissimilarities = SafeMalloc(dissimilaritiesSize, sizeof(double));
         void * iterator = json_object_iter(subjectsJSON);
         for (size_t i = 0; i < subjectCount; i++) {
@@ -104,38 +105,79 @@ NewExperimentFromJSON(const json_t * restrict experimentJSON)
                 const json_t * restrict subjectJSON = NULL;
                 subjectJSON = json_object_iter_value(iterator);
                 const size_t lineCount = json_array_size(subjectJSON);
-                // Skip the first line if given the whole array and ignore
-                // diagonal elements.
-                const size_t offset = (lineCount >= stimulusCount) ? 1 : 0;
-                size_t m = 0;
-                for (size_t j = 0; j < stimulusCount - 1; j++) {
-                        const json_t * restrict line = NULL;
-                        line = json_array_get(subjectJSON, 
-                                              (unsigned int)(j + offset));
-                        for (size_t k = 0; k < j + 1; k++) {
+                const json_t * restrict firstItem = NULL;
+                firstItem = json_array_get(subjectJSON, 0);
+                if (json_is_array(firstItem)) {
+                        // Skip the first line if given the whole array and
+                        // ignore diagonal elements.
+                        const size_t off = (lineCount >= stimulusCount) ? 1 : 0;
+                        size_t m = 0;
+                        for (size_t j = 0; j < stimulusCount - 1; j++) {
+                                const json_t * restrict line = NULL;
+                                line = json_array_get(subjectJSON,
+                                                      (unsigned int)(j + off));
+                                for (size_t k = 0; k < j + 1; k++) {
+                                        const json_t * restrict datum = NULL;
+                                        datum = json_array_get(line,
+                                                               (unsigned int)k);
+                                        double d = NAN;
+                                        if (json_is_real(datum)) {
+                                                d = json_real_value(datum);
+                                        } else if (json_is_integer(datum)) {
+                                                d = (double)json_integer_value(datum);
+                                        } else if (json_is_null(datum)) {
+                                                d = NAN;
+                                        } else {
+                                                ExitWithError("Some"
+                                                              " dissimilarities"
+                                                              " are invalid");
+                                        }
+                                        dissimilarities[pCount * i + m++] = d;
+                                }
+                        }
+                } else if (json_is_object(firstItem)) {
+                        for (size_t m = 0; m < pCount; m++)
+                                dissimilarities[pCount * i + m] = NAN;
+                        for (size_t l = 0; l < lineCount; l++) {
                                 const json_t * restrict datum = NULL;
-                                datum = json_array_get(line, (unsigned int)k);
+                                datum = json_array_get(subjectJSON,
+                                                       (unsigned int)l);
+                                StimulusPair p = {SIZE_MAX, SIZE_MAX};
+                                const json_t * restrict j = NULL;
+                                j = json_object_get(datum, "j");
+                                const json_t * restrict k = NULL;
+                                k = json_object_get(datum, "k");
+                                if json_is_integer(j)
+                                        p.j = (size_t)json_integer_value(j);
+                                else ExitWithError("Invalid j-coordinate");
+                                if json_is_integer(k)
+                                        p.k = (size_t)json_integer_value(k);
+                                else ExitWithError("Invalid k-coordinate");
+                                size_t m = PairNumberForStimulusPair(stims, &p);
+                                const json_t * restrict v = NULL;
+                                v = json_object_get(datum, "d");
                                 double d = NAN;
-                                if (json_is_real(datum)) {
-                                        d = json_real_value(datum);
-                                } else if (json_is_integer(datum)) {
-                                        d = (double)json_integer_value(datum);
-                                } else if (json_is_null(datum)) {
+                                if (json_is_real(v)) {
+                                        d = json_real_value(v);
+                                } else if (json_is_integer(v)) {
+                                        d = (double)json_integer_value(v);
+                                } else if (json_is_null(v)) {
                                         d = NAN;
                                 } else {
-                                        ExitWithError("Some dissimilarities"
-                                                      " are missing");
+                                        ExitWithError("Some"
+                                                      " dissimilarities"
+                                                      " are invalid");
                                 }
-                                dissimilarities[pairCount * i + m++] = d;
+                                dissimilarities[pCount * i + m] = d;
                         }
                 }
                 iterator = json_object_iter_next(subjectsJSON, iterator);
         }
-        SubjectSet * restrict subjectSet = NULL;
-        subjectSet = NewSubjectSet(subjectCount, subjectNames);
+        SubjectSet * restrict subjects = NULL;
+        subjects = NewSubjectSet(subjectCount, subjectNames);
         return NewExperiment(descriptionCopy, 
-                             stimulusSet, 
-                             subjectSet, 
+                             stims, 
+                             subjects,
                              dissimilarities);
 }
 
